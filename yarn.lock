@@ -511,10 +511,10 @@ anymatch@~3.1.2:
     normalize-path "^3.0.0"
     picomatch "^2.0.4"
 
-app-root-path@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/app-root-path/-/app-root-path-3.0.0.tgz#210b6f43873227e18a4b810a032283311555d5ad"
-  integrity sha512-qMcx+Gy2UZynHjOHOIXPNvpf+9cjvk3cWrBBK7zg4gH9+clobJRb9NGzcT7mQTcV/6Gm/1WelUtqxVXnNlrwcw==
+app-root-path@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/app-root-path/-/app-root-path-3.1.0.tgz#5971a2fc12ba170369a7a1ef018c71e6e47c2e86"
+  integrity sha512-biN3PwB2gUtjaYy/isrU3aNWI5w+fAfvHkSvCKeQGxhmYpwKFUxudR3Yya+KqVRHBmEDYh+/lTozYCFbmzX4nA==
 
 append-transform@^2.0.0:
   version "2.0.0"
@@ -1139,10 +1139,10 @@ decompress-response@^6.0.0:
   dependencies:
     mimic-response "^3.1.0"
 
-deep-clone-merge@^1.5.4:
-  version "1.5.4"
-  resolved "https://registry.yarnpkg.com/deep-clone-merge/-/deep-clone-merge-1.5.4.tgz#d2ecb85bc1bf8bb9313dd118c6674f690ae94677"
-  integrity sha512-Gb/b8aAFUeX/ZkQwfpYlzVXaUOnHj0jPmh8uwF0eBGhAuFMZA1IxeuSzLGG4B1lzrp0SZsd3UhL6zvhDY7l6ZQ==
+deep-clone-merge@^1.5.4, deep-clone-merge@^1.5.5:
+  version "1.5.5"
+  resolved "https://registry.yarnpkg.com/deep-clone-merge/-/deep-clone-merge-1.5.5.tgz#1bb2f4df74c52c90223572a869d60e8525ee0dc4"
+  integrity sha512-ldHDqbpMP5VTZ/QrIQ6ikzYy4fWh8WPIfqEwetN/4Pxq/xPnWlnESGN41oam5DEwI+acHznEm1bp5Rn4bp4c0w==
 
 deep-eql@^3.0.1:
   version "3.0.1"
@@ -2013,16 +2013,16 @@ hmpo-components@5.5.2:
     moment "^2.29.3"
     underscore "^1.13.4"
 
-hmpo-config@2.2.1:
-  version "2.2.1"
-  resolved "https://registry.yarnpkg.com/hmpo-config/-/hmpo-config-2.2.1.tgz#520b27ca7a0003cb0622c70c68b299e1ea6fa50e"
-  integrity sha512-xza3G9NwtVyhljO2IXF+2CbS7BSJgMEmDycyOyYejzP9UzlBooha8LE2jzqGKnU988e6ercp4+d45oFp/96SFQ==
+hmpo-config@3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/hmpo-config/-/hmpo-config-3.0.0.tgz#78aa5bf7511f7c3fc734aec9d13e938763a5a226"
+  integrity sha512-pBVwcGhUmqMdc+R89T3tpkmATGuUDWquOD+JovMyxK5KCZJybdS56Xz95C0e6XWY9+dhw04ov2NPy3zwaLRuRg==
   dependencies:
-    app-root-path "^3.0.0"
+    app-root-path "^3.1.0"
     debug "^4.3.4"
-    deep-clone-merge "^1.5.4"
+    deep-clone-merge "^1.5.5"
     js-yaml "^4.1.0"
-    json5 "^2.2.1"
+    json5 "^2.2.3"
 
 hmpo-form-wizard@12.0.6:
   version "12.0.6"
@@ -2536,10 +2536,10 @@ json-stable-stringify-without-jsonify@^1.0.1:
   resolved "https://registry.yarnpkg.com/json-stable-stringify-without-jsonify/-/json-stable-stringify-without-jsonify-1.0.1.tgz#9db7b59496ad3f3cfef30a75142d2d930ad72651"
   integrity sha1-nbe1lJatPzz+8wp1FC0tkwrXJlE=
 
-json5@^2.1.2, json5@^2.2.1:
-  version "2.2.1"
-  resolved "https://registry.yarnpkg.com/json5/-/json5-2.2.1.tgz#655d50ed1e6f95ad1a3caababd2b0efda10b395c"
-  integrity sha512-1hqLFMSrGHRHxav9q9gNjJ5EXznIxGVO09xQRrwplcS8qs28pZ8s8hupZAmqDwZUmVZ2Qb2jnyPOWcDH8m8dlA==
+json5@^2.1.2, json5@^2.2.1, json5@^2.2.3:
+  version "2.2.3"
+  resolved "https://registry.yarnpkg.com/json5/-/json5-2.2.3.tgz#78cd6f1a19bdc12b73db5ad0c61efd66c1e29283"
+  integrity sha512-XmOWe7eyHYH14cLdVPoyg+GOH3rYX++KpzrylJwSW98t3Nk+U8XOl8FWKOgwtzdb8lXGf6zYwDUzeHMWfxasyg==
 
 jsonwebtoken@9.0.0:
   version "9.0.0"
