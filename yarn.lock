@@ -1626,9 +1626,9 @@ destroy@1.2.0:
   resolved "https://registry.yarnpkg.com/destroy/-/destroy-1.2.0.tgz#4803735509ad8be552934c67df614f94e66fa015"
   integrity sha512-2sJGJTaXIIaR1w4iJSNoN0hnMY7Gpc/n8D4qSCJw8QqFWXf7cuAgnEHxBpweaVcPevC2l3KpjYCx3NypQQgaJg==
 
-di-ipv-cri-common-express@govuk-one-login/ipv-cri-common-express.git#v4.0.0:
-  version "4.0.0-0"
-  resolved "https://codeload.github.com/govuk-one-login/ipv-cri-common-express/tar.gz/cf1e52582111519559e5ab6fc41f8c44309e7db9"
+di-ipv-cri-common-express@govuk-one-login/ipv-cri-common-express.git#v5.0.0.0:
+  version "5.0.0"
+  resolved "https://codeload.github.com/govuk-one-login/ipv-cri-common-express/tar.gz/5260c9defa2e29f42efec4c3dff54be505e7c824"
   dependencies:
     hmpo-logger "7.0.1"
     i18next "23.6.0"
@@ -2490,10 +2490,10 @@ got@<12:
     p-cancelable "^2.0.0"
     responselike "^2.0.0"
 
-govuk-frontend@4.3.1:
-  version "4.3.1"
-  resolved "https://registry.yarnpkg.com/govuk-frontend/-/govuk-frontend-4.3.1.tgz#d9c581aca3d23bbfe9bd27c25fee65322b276393"
-  integrity sha512-uD0KVFds7drOwLEvfp4zRBOXuHCxkWLYDQcYvlbG+2baZ9po2TGZz8WjfzhfueYjo9+Uwk+bM0NQT6g4cg/Q+A==
+govuk-frontend@4.8.0:
+  version "4.8.0"
+  resolved "https://registry.yarnpkg.com/govuk-frontend/-/govuk-frontend-4.8.0.tgz#df4e56c762e93aae74fed214bb6be08e13783772"
+  integrity sha512-NOmPJxL8IYq1HSNHYKx9XY2LLTxuwb+IFASiGQO4sgJ8K7AG66SlSeqARrcetevV8zOf+i1z+MbJJ2O7//OxAw==
 
 graceful-fs@^4.1.15, graceful-fs@^4.1.2:
   version "4.2.11"
