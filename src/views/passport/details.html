@@ -62,13 +62,14 @@ html: translate("passport.passportTryAnotherWay")
 
 
 
-    {% call hmpoForm(ctx) %}
+    {% call hmpoForm(ctx, {autocomplete:'on'}) %}
 
     {{ hmpoText(ctx, {
         id: "passportNumber",
         label: {
-            classes: "govuk-label"
-        }
+            classes: "govuk-label",
+        },
+        autocomplete: "passportNumber"
     }) }}
 
     {{ hmpoText(ctx, {
@@ -76,7 +77,8 @@ html: translate("passport.passportTryAnotherWay")
         label: {
             classes: "govuk-label"
         },
-        classes: "govuk-input"
+        classes: "govuk-input",
+        autocomplete: "family-name"
     }) }}
 
     {%- set firstNameError = hmpoGetError(ctx, {id: 'firstName'}) %}
@@ -100,7 +102,8 @@ html: translate("passport.passportTryAnotherWay")
             label: {
             classes: "govuk-label"
             },
-            classes: "govuk-input"
+            classes: "govuk-input",
+            autocomplete: "given-name"
             }) }}
 
             {{ hmpoText(ctx, {
@@ -108,7 +111,8 @@ html: translate("passport.passportTryAnotherWay")
             label: {
             classes: "govuk-label"
             },
-            classes: "govuk-input"
+            classes: "govuk-input",
+            autocomplete: "additional-name"
             }) }}
         </div>
         {% endcall %}
@@ -119,7 +123,7 @@ html: translate("passport.passportTryAnotherWay")
         id: "dateOfBirth",
         legend: {
             classes: "govuk-label"
-        }
+        },
     }) }}
 
     {{ hmpoDate(ctx, {
