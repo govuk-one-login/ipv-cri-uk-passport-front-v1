@@ -110,6 +110,36 @@ describe("firstName middleNames validation fields test", () => {
   });
 });
 
+it("should be false when surname is only entered and is over 30 characters", () => {
+  const validator = fields.surnameLengthValidator.bind({
+    values: {
+      surname: "jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj"
+    }
+  });
+
+  expect(validator(1, 30, "surname")).to.be.false;
+});
+
+it("should be true when surname is only entered and is under 30 characters", () => {
+  const validator = fields.surnameLengthValidator.bind({
+    values: {
+      surname: "jjjjjjjjjjjjjjjjj"
+    }
+  });
+
+  expect(validator(1, 30, "surname")).to.be.true;
+});
+
+it("should be true when surname is only entered and is 30 characters", () => {
+  const validator = fields.surnameLengthValidator.bind({
+    values: {
+      surname: "jjjjjjjjjjjjjjjjjjjjjjjjjjjjjj"
+    }
+  });
+
+  expect(validator(1, 30, "surname")).to.be.true;
+});
+
 describe("expiryDate validation fields test", () => {
   it("should be true when expiryDate is 1 Year in the future", () => {
     const validator = fields.expiryDateValidator.bind({

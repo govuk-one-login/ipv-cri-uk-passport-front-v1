@@ -10,7 +10,7 @@ surname:
   label: "Cyfenw"
   validation:
     default: "Rhowch eich cyfenw fel mae’n ymddangos ar eich pasbort"
-    maxlength: "Rhowch eich cyfenw fel mae’n ymddangos ar eich pasbort"
+    surnamelength: "Rhowch eich cyfenw fel mae’n ymddangos ar eich pasbort"
     regexpassport: "Rhowch eich cyfenw fel mae’n ymddangos ar eich pasbort"
 firstName:
   label: "Enw cyntaf"

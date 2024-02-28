@@ -1,5 +1,6 @@
 const { firstNameMiddleNameLengthValidator } = require("./fieldsHelper");
 const { expiryDateValidator } = require("./fieldsHelper");
+const { surnameLengthValidator } = require("./fieldsHelper");
 
 const firstNameMiddleNameLengthValidatorObj = {
   fn: firstNameMiddleNameLengthValidator,
@@ -11,8 +12,14 @@ const expiryDateValidatorObj = {
   arguments: [18, "expiryDate"]
 };
 
+const surnameLengthValidatorObj = {
+  fn: surnameLengthValidator,
+  arguments: [30, "surname"]
+};
+
 module.exports = {
   firstNameMiddleNameLengthValidator: firstNameMiddleNameLengthValidator,
+  surnameLengthValidator: surnameLengthValidator,
   passportNumber: {
     type: "text",
     journeyKey: "passportNumber",
@@ -28,7 +35,10 @@ module.exports = {
     type: "text",
     validate: [
       "required",
-      { type: "maxlength", arguments: [30] },
+      {
+        type: "surnameLength",
+        ...surnameLengthValidatorObj
+      },
       { type: "regexpassport", fn: (value) => value.match(/^[a-zA-Z .'-]*$/) }
     ],
     journeyKey: "surname"
@@ -37,7 +47,6 @@ module.exports = {
     type: "text",
     validate: [
       "required",
-      { type: "maxlength", arguments: [30] },
       { type: "regexpassport", fn: (value) => value.match(/^[a-zA-Z .'-]*$/) },
       {
         type: "firstNameMiddleNameLength",
@@ -50,7 +59,6 @@ module.exports = {
     type: "text",
     journeyKey: "middleNames",
     validate: [
-      { type: "maxlength", arguments: [30] },
       { type: "regexpassport", fn: (value) => value.match(/^[a-zA-Z .'-]*$/) },
       {
         type: "firstNameMiddleNameLength",

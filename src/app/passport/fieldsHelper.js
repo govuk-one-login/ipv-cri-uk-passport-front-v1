@@ -29,6 +29,16 @@ module.exports = {
 
     return nameMin && nameMax;
   },
+  surnameLengthValidator(_value, length, surnameField) {
+    const surname = this.values[surnameField];
+
+    const surnameLength = validators.string(surname) ? surname.length : 0;
+
+    const surnameMin = surnameLength > 0;
+    const surnameMax = surnameLength <= length;
+
+    return surnameMin && surnameMax;
+  },
   expiryDateValidator(_value, validMonths, expiryDateField) {
     let earliestValidDate = new Date(
       new Date().getFullYear(),
