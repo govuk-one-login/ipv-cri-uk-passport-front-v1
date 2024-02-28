@@ -330,13 +330,10 @@ Then(/^the beta banner reads (.*)$/, async function (betaBannerText) {
   await passportPage.assertBetaBannerText(betaBannerText);
 });
 
-Then(
-  /^the Support link reads (.*)$/,
-  async function (supportFooterLink) {
-    const passportPage = new PassportPage(this.page);
-    await passportPage.viewSupportLink(supportFooterLink);
-  }
-);
+Then(/^the Support link reads (.*)$/, async function (supportFooterLink) {
+  const passportPage = new PassportPage(this.page);
+  await passportPage.viewSupportLink(supportFooterLink);
+});
 
 Then(
   /^I see Contact the One Login team link reads (.*)$/,
