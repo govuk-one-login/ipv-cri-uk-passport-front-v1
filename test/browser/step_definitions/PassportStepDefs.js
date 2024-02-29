@@ -330,11 +330,6 @@ Then(/^the beta banner reads (.*)$/, async function (betaBannerText) {
   await passportPage.assertBetaBannerText(betaBannerText);
 });
 
-Then(/^the Support link reads (.*)$/, async function (supportFooterLink) {
-  const passportPage = new PassportPage(this.page);
-  await passportPage.viewSupportLink(supportFooterLink);
-});
-
 Then(
   /^I see Contact the One Login team link reads (.*)$/,
   async function (contactOneLoginTeamLink) {
@@ -382,10 +377,10 @@ Then(
 );
 
 Given(
-  /^I see support link (.*) in the footer and assert the url is correct and live$/,
-  async function (supportLink) {
+  /^The Support link in the footer reads (.*) and assert the url is correct and live$/,
+  async function (supportFooterLink) {
     const passportPage = new PassportPage(this.page);
-    await passportPage.assertFooterLink(supportLink);
+    await passportPage.assertFooterLink(supportFooterLink);
   }
 );
 

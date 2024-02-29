@@ -10,8 +10,7 @@ Feature: Passport Test
 
   @mock-api:passport-success-supportLinks @language-regression
   Scenario: Check support links
-    Given the Support link reads Cymorth (agor mewn tab newydd)
-    And I see support link Support in the footer and assert the url is correct and live
+    Given The Support link in the footer reads Cymorth (agor mewn tab newydd) and assert the url is correct and live
     When I view the beta banner
     Then the beta banner reads Mae hwn yn wasanaeth newydd – bydd eich adborth (agor mewn tab newydd) yn ein helpu i’w wella.
     And I assert the link in the banner is correct and live
