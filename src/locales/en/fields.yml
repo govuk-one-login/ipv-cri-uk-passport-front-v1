@@ -11,7 +11,7 @@ surname:
   label: Surname
   validation:
     default: "Enter your surname as it appears on your passport"
-    maxlength: "Enter your surname as it appears on your passport"
+    surnamelength: "Enter your surname as it appears on your passport"
     regexpassport: "Enter your surname as it appears on your passport"
 
 firstName:
