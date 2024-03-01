@@ -377,10 +377,10 @@ Then(
 );
 
 Given(
-  /^I see support link (.*) in the footer and assert the url is correct and live$/,
-  async function (supportLink) {
+  /^The Support link in the footer reads (.*) and assert the url is correct and live$/,
+  async function (supportFooterLink) {
     const passportPage = new PassportPage(this.page);
-    await passportPage.assertFooterLink(supportLink);
+    await passportPage.assertFooterLink(supportFooterLink);
   }
 );
 
