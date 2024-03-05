@@ -1,6 +1,6 @@
 const fields = require("./fieldsHelper");
 
-describe("firstName middleNames validation fields test", () => {
+describe("firstName, middleNames, surname, passportNumber validation fields test", () => {
   it("should be false when first and middle name combined greater than 30 characters", () => {
     const validator = fields.firstNameMiddleNameLengthValidator.bind({
       values: {
@@ -87,6 +87,7 @@ describe("firstName middleNames validation fields test", () => {
 
     expect(validator(1, 30, "firstName", "middleNames")).to.be.true;
   });
+
   it("should be false when first and middle name combined is 30 characters", () => {
     const validator = fields.firstNameMiddleNameLengthValidator.bind({
       values: {
@@ -108,38 +109,87 @@ describe("firstName middleNames validation fields test", () => {
 
     expect(validator(1, 30, "firstName", "middleNames")).to.be.true;
   });
-});
 
-it("should be false when surname is only entered and is over 30 characters", () => {
-  const validator = fields.surnameLengthValidator.bind({
-    values: {
-      surname: "jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj"
-    }
+  it("should be false when passportNumber is only entered and is under 9 digits", () => {
+    const validator = fields.passportLengthValidator.bind({
+      values: {
+        passportNumber: "12345678"
+      }
+    });
+
+    expect(validator(1, 9, "passportNumber")).to.be.false;
   });
 
-  expect(validator(1, 30, "surname")).to.be.false;
-});
+  it("should be false when passportNumber is only entered and is over 9 digits", () => {
+    const validator = fields.passportLengthValidator.bind({
+      values: {
+        passportNumber: "1234567890"
+      }
+    });
 
-it("should be true when surname is only entered and is under 30 characters", () => {
-  const validator = fields.surnameLengthValidator.bind({
-    values: {
-      surname: "jjjjjjjjjjjjjjjjj"
-    }
+    expect(validator(1, 9, "passportNumber")).to.be.false;
   });
 
-  expect(validator(1, 30, "surname")).to.be.true;
-});
+  it("should be true when passportNumber is only entered and is exactly 9 digits", () => {
+    const validator = fields.passportLengthValidator.bind({
+      values: {
+        passportNumber: "123456789"
+      }
+    });
 
-it("should be true when surname is only entered and is 30 characters", () => {
-  const validator = fields.surnameLengthValidator.bind({
-    values: {
-      surname: "jjjjjjjjjjjjjjjjjjjjjjjjjjjjjj"
-    }
+    expect(validator(1, 9, "passportNumber")).to.be.true;
   });
 
-  expect(validator(1, 30, "surname")).to.be.true;
-});
+  it("should be false when passportNumber undefined", () => {
+    const validator = fields.passportLengthValidator.bind({
+      values: {
+        firstName: "undefinedPassportNumber"
+      }
+    });
 
+    expect(validator(1, 9, "passportNumber")).to.be.false;
+  });
+
+  it("should be false when surname is only entered and is over 30 characters", () => {
+    const validator = fields.surnameLengthValidator.bind({
+      values: {
+        surname: "jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj"
+      }
+    });
+
+    expect(validator(1, 30, "surname")).to.be.false;
+  });
+
+  it("should be true when surname is only entered and is under 30 characters", () => {
+    const validator = fields.surnameLengthValidator.bind({
+      values: {
+        surname: "jjjjjjjjjjjjjjjjj"
+      }
+    });
+
+    expect(validator(1, 30, "surname")).to.be.true;
+  });
+
+  it("should be true when surname is only entered and is 30 characters", () => {
+    const validator = fields.surnameLengthValidator.bind({
+      values: {
+        surname: "jjjjjjjjjjjjjjjjjjjjjjjjjjjjjj"
+      }
+    });
+
+    expect(validator(1, 30, "surname")).to.be.true;
+  });
+
+  it("should be false when surname is undefined", () => {
+    const validator = fields.surnameLengthValidator.bind({
+      values: {
+        firstName: "undefinedSurname"
+      }
+    });
+
+    expect(validator(1, 30, "surname")).to.be.false;
+  });
+});
 describe("expiryDate validation fields test", () => {
   it("should be true when expiryDate is 1 Year in the future", () => {
     const validator = fields.expiryDateValidator.bind({
