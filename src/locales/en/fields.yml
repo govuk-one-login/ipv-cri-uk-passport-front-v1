@@ -3,7 +3,7 @@ passportNumber:
   hint: "This is the 9 digit number in the top right hand corner of the photo page in your passport"
   validation:
     default: "Enter the number as it appears on your passport"
-    exactlength: "Your passport number should be 9 digits long"
+    passportLength: "Your passport number should be 9 digits long"
     numeric: "Your passport number should not include letters or symbols"
     limit: "Passport numbers do not start with 9 – enter the number as it appears on your passport"
 

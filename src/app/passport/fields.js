@@ -1,10 +1,16 @@
 const { firstNameMiddleNameLengthValidator } = require("./fieldsHelper");
+const { passportLengthValidator } = require("./fieldsHelper");
 const { expiryDateValidator } = require("./fieldsHelper");
 const { surnameLengthValidator } = require("./fieldsHelper");
 
 const firstNameMiddleNameLengthValidatorObj = {
   fn: firstNameMiddleNameLengthValidator,
   arguments: [30, "firstName", "middleNames"]
+};
+
+const passportLengthValidatorObj = {
+  fn: passportLengthValidator,
+  arguments: [9, "passportNumber"]
 };
 
 const expiryDateValidatorObj = {
@@ -20,14 +26,18 @@ const surnameLengthValidatorObj = {
 module.exports = {
   firstNameMiddleNameLengthValidator: firstNameMiddleNameLengthValidator,
   surnameLengthValidator: surnameLengthValidator,
+  passportLengthValidator: passportLengthValidator,
   passportNumber: {
     type: "text",
     journeyKey: "passportNumber",
     validate: [
       "required",
       "numeric",
-      { type: "exactlength", arguments: [9] },
-      { type: "limit", fn: (value) => !value.startsWith("9") }
+      { type: "limit", fn: (value) => !value.startsWith("9") },
+      {
+        type: "passportLength",
+        ...passportLengthValidatorObj
+      }
     ],
     classes: "govuk-input--width-10"
   },

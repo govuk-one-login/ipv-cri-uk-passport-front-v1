@@ -3,7 +3,7 @@ passportNumber:
   hint: "Dyma’r rhif 9 digid yng nghornel dde uchaf y dudalen llun yn eich pasbort"
   validation:
     default: "Rhowch y rhif fel mae’n ymddangos ar eich pasbort"
-    exactlength: "Dylai rhif eich pasbort fod yn 9 digid o hyd"
+    passportLength: "Dylai rhif eich pasbort fod yn 9 digid o hyd"
     numeric: "Ni ddylai rhif eich pasbort gynnwys llythrennau na symbolau"
     limit: "Nid yw rhifau pasbort yn dechrau gyda 9 - rhowch y rhif fel mae’n ymddangos ar eich pasbort"
 surname:

@@ -32,12 +32,29 @@ module.exports = {
   surnameLengthValidator(_value, length, surnameField) {
     const surname = this.values[surnameField];
 
+    if (!surname) {
+      return false;
+    }
+
     const surnameLength = validators.string(surname) ? surname.length : 0;
 
     const surnameMin = surnameLength > 0;
     const surnameMax = surnameLength <= length;
 
     return surnameMin && surnameMax;
+  },
+  passportLengthValidator(_value, length, passportField) {
+    const passport = this.values[passportField];
+
+    if (!passport) {
+      return false;
+    }
+
+    const passportLength = validators.string(passport) ? passport.length : 0;
+
+    const passportExactLength = passportLength === length;
+
+    return passportExactLength;
   },
   expiryDateValidator(_value, validMonths, expiryDateField) {
     let earliestValidDate = new Date(
