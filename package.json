@@ -12,7 +12,7 @@
     "start:ci": "NODE_ENV=development API_BASE_URL=http://127.0.0.1:8050/ yarn start",
     "dev": "LOG_LEVEL=debug nodemon --inspect=0.0.0.0:9229 src/app.js",
     "build": "yarn build-sass && yarn build-js && yarn copy-assets",
-    "build-sass": "rm -rf dist/public/style.css && sass --no-source-map src/assets/scss/application.scss dist/public/stylesheets/application.css --style compressed",
+    "build-sass": "rm -rf dist/public/stylesheets/application.css && sass --no-source-map src/assets/scss/application.scss dist/public/stylesheets/application.css --style compressed",
     "copy-assets": "mkdir -p dist/public/scripts && mkdir -p dist/public/images && mkdir -p dist/locales && cp -R src/locales/* dist/locales && cp -R src/assets/javascripts/*.js dist/public/scripts && cp -R src/assets/images/* dist/public/images",
     "build-js": "yarn build-js:analytics && yarn build-js:all",
     "build-js:analytics": "mkdir -p dist/public/javascripts; uglifyjs node_modules/@govuk-one-login/one-login-analytics/lib/analytics.js node_modules/@govuk-one-login/di-ipv-cri-common-express/src/assets/javascript/analytics/ua/init.js -o dist/public/javascripts/analytics.js",
@@ -58,8 +58,9 @@
     "uglify-js": "latest"
   },
   "dependencies": {
-    "@govuk-one-login/di-ipv-cri-common-express": "6.1.0",
+    "@govuk-one-login/di-ipv-cri-common-express": "6.2",
     "@govuk-one-login/one-login-analytics": "^0.0.9",
+    "@govuk-one-login/one-login-language-toggle": "^2.0.0",
     "aws-sdk": "^2.1300.0",
     "axios": "1.6.1",
     "cfenv": "1.2.4",

@@ -20,7 +20,8 @@ module.exports = {
       ANALYTICS_COOKIE_DOMAIN: process.env.ANALYTICS_DOMAIN || "localhost",
       GA4_DISABLED: process.env.GA4_DISABLED || false,
       UA_DISABLED: process.env.UA_DISABLED || true
-    }
+    },
+    LANGUAGE_TOGGLE_DISABLED: process.env.LANGUAGE_TOGGLE_DISABLED || "true"
   },
   PORT: process.env.PORT || 5050,
   SESSION_SECRET: process.env.SESSION_SECRET,

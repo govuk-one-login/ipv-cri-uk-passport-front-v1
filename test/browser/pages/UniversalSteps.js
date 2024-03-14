@@ -32,6 +32,6 @@ exports.UniversalSteps = class PlaywrightDevPage {
     if (language === "Welsh") {
       languageIsoCode = "cy";
     }
-    await this.page.goto(this.page.url() + "?lang=" + languageIsoCode);
+    await this.page.goto(this.page.url() + "?lng=" + languageIsoCode);
   }
 };
