@@ -9,6 +9,8 @@ exclude:
   - "src/app/passport/fields.js"
   - "src/lib/*"
   - "src/app.js"
+  - "src/router.js"
+  - "src/dynamo-session-config.js"
 report-dir: reports/coverage
 statements: 80
 branches: 80

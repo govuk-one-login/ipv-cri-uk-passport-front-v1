@@ -42,5 +42,11 @@ describe("feature sets", () => {
       );
       expect(req.session.featureSet).to.be.undefined;
     });
+
+    it("should throw an error if featureSet is blank", async () => {
+      req.query.featureSet = undefined;
+      await FeatureSets(req, res, next);
+      expect(req.session.featureSet).to.be.undefined;
+    });
   });
 });

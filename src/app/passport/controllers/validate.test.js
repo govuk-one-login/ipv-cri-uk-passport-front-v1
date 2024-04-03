@@ -33,7 +33,7 @@ describe("validate controller", () => {
     req.session.tokenId = sessionId;
     req.sessionModel.set("surname", "Jones Smith");
     req.sessionModel.set("firstName", "Dan");
-    req.sessionModel.set("middleNames", "Joe");
+    req.sessionModel.set("middleNames", "");
     req.sessionModel.set("dateOfBirth", "10/02/1975");
     req.sessionModel.set("expiryDate", "15/01/2035");
     req.session.authParams = {
@@ -57,7 +57,7 @@ describe("validate controller", () => {
       {
         passportNumber: "123456789",
         surname: "Jones Smith",
-        forenames: ["Dan", "Joe"],
+        forenames: ["Dan"],
         dateOfBirth: "10/02/1975",
         expiryDate: "15/01/2035"
       },
