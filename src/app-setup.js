@@ -7,7 +7,7 @@ const { setAPIConfig, setOAuthPaths } = require("./lib/settings");
 const sessionConfigService = require("./session-config");
 
 const path = require("path");
-const helmetConfig = commonExpress.lib.helmet;
+const helmetConfig = require("@govuk-one-login/di-ipv-cri-common-express/src/lib/helmet");
 const setHeaders = commonExpress.lib.headers;
 
 const init = (app) => {
