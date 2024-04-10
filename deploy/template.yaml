@@ -58,6 +58,7 @@ Mappings:
       desiredTaskCount: 2
       ga4Disabled: "false"
       uaDisabled: "false"
+      languageToggleDisabled: "false"
     build:
       logLevel: "request"
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
@@ -66,6 +67,7 @@ Mappings:
       desiredTaskCount: 2
       ga4Disabled: "false"
       uaDisabled: "false"
+      languageToggleDisabled: "false"
     staging:
       logLevel: "request"
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
@@ -74,6 +76,7 @@ Mappings:
       desiredTaskCount: 2
       ga4Disabled: "false"
       uaDisabled: "false"
+      languageToggleDisabled: "true"
     integration:
       logLevel: "request"
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
@@ -82,6 +85,7 @@ Mappings:
       desiredTaskCount: 2
       ga4Disabled: "true"
       uaDisabled: "false"
+      languageToggleDisabled: "true"
     production:
       logLevel: "request"
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceProductionVariables
@@ -90,6 +94,7 @@ Mappings:
       desiredTaskCount: 2
       ga4Disabled: "true"
       uaDisabled: "false"
+      languageToggleDisabled: "true"
 
   # see https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-access-logs.html
   ElasticLoadBalancerAccountIds:
@@ -463,6 +468,8 @@ Resources:
               Value: !FindInMap [ EnvironmentConfiguration, !Ref "Environment", ga4Disabled ]
             - Name: UA_DISABLED
               Value: !FindInMap [ EnvironmentConfiguration, !Ref "Environment", uaDisabled ]
+            - Name: LANGUAGE_TOGGLE_DISABLED
+              Value: !FindInMap [ EnvironmentConfiguration, !Ref "Environment", languageToggleDisabled ]
             - Name: ANALYTICS_DOMAIN
               Value:
                 !If [
