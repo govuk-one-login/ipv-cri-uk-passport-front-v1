@@ -48,7 +48,7 @@ describe("app", () => {
         table: SESSION_TABLE_NAME
       });
 
-      const helmetConfig = commonExpress.lib.helmet;
+      const helmetConfig = require("@govuk-one-login/di-ipv-cri-common-express");
 
       const sessionConfig = {
         cookieName: "service_session",
