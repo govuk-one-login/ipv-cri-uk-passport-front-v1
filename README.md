@@ -19,6 +19,7 @@ This repo has a `CODEOWNERS` file in the root and is configured to require PRs t
 - `UNIVERSAL_ANALYTICS_GTM_CONTAINER_ID` - Container ID for UA tracking.
 - `GA4_DISABLED` - BOOLEAN
 - `UA_DISABLED` - BOOLEAN
+- `LANGUAGE_TOGGLE_DISABLED` - Feature flag to disable Language Toggle, defaulted to `true`
 
 ## Local Testing
 

@@ -9,6 +9,7 @@ passportNumber:
 
 surname:
   label: Surname
+  hint: ""
   validation:
     default: "Enter your surname as it appears on your passport"
     surnamelength: "Enter your surname as it appears on your passport"
@@ -16,6 +17,7 @@ surname:
 
 firstName:
   label: First name
+  hint: ""
   validation:
     default: "Enter your first name as it appears on your passport"
     maxlength: "Enter your first name as it appears on your passport"

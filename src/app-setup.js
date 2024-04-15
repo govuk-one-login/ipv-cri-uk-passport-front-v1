@@ -2,15 +2,20 @@ const { API, APP, PORT, LOG_LEVEL } = require("./lib/config");
 
 const commonExpress = require("@govuk-one-login/di-ipv-cri-common-express");
 
-const { setGTM } = commonExpress.lib.settings;
+const { setGTM, setLanguageToggle } = commonExpress.lib.settings;
 const { setAPIConfig, setOAuthPaths } = require("./lib/settings");
 const sessionConfigService = require("./session-config");
 
 const path = require("path");
 const helmetConfig = require("@govuk-one-login/di-ipv-cri-common-express/src/lib/helmet");
 const setHeaders = commonExpress.lib.headers;
+const {
+  setI18n
+} = require("@govuk-one-login/di-ipv-cri-common-express/src/lib/i18next");
+// Common express relies on 0/1 strings
+const showLanguageToggle = APP.LANGUAGE_TOGGLE_DISABLED === "true" ? "0" : "1";
 
-const init = (app) => {
+const init = (app, router) => {
   setAPIConfig({
     app,
     baseUrl: API.BASE_URL,
@@ -27,6 +32,14 @@ const init = (app) => {
     analyticsCookieDomain: APP.GTM.ANALYTICS_COOKIE_DOMAIN,
     ga4Disabled: APP.GTM.GA4_DISABLED,
     uaDisabled: APP.GTM.UA_DISABLED
+  });
+  setLanguageToggle({ app, showLanguageToggle: showLanguageToggle });
+  setI18n({
+    router,
+    config: {
+      secure: true,
+      cookieDomain: APP.GTM.ANALYTICS_COOKIE_DOMAIN
+    }
   });
 };
 
@@ -71,6 +84,7 @@ const create = (setup) => {
         ),
         "components"
       ),
+      path.resolve("node_modules/@govuk-one-login/"),
       "views"
     ],
     middlewareSetupFn: (app) => {

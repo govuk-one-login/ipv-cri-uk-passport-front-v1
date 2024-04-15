@@ -8,12 +8,14 @@ passportNumber:
     limit: "Nid yw rhifau pasbort yn dechrau gyda 9 - rhowch y rhif fel mae’n ymddangos ar eich pasbort"
 surname:
   label: "Cyfenw"
+  hint: ""
   validation:
     default: "Rhowch eich cyfenw fel mae’n ymddangos ar eich pasbort"
     surnamelength: "Rhowch eich cyfenw fel mae’n ymddangos ar eich pasbort"
     regexpassport: "Rhowch eich cyfenw fel mae’n ymddangos ar eich pasbort"
 firstName:
   label: "Enw cyntaf"
+  hint: ""
   validation:
     default: "Rhowch eich enw cyntaf fel mae’n ymddangos ar eich pasbort"
     maxlength: "Rhowch eich enw cyntaf fel mae’n ymddangos ar eich pasbort"

@@ -12,6 +12,12 @@ govuk:
   phaseBanner:
     tag: beta
     content: 'Mae hwn yn wasanaeth newydd – bydd eich <a class="govuk-link" rel="noopener" target="_blank" href="https://home.account.gov.uk/contact-gov-uk-one-login">adborth (agor mewn tab newydd)</a> yn ein helpu i’w wella.'
+  languageToggle:
+    ariaLabel: Dewis iaith
+    englishLanguage: English
+    englishVisuallyHidden: Change to English
+    welshLanguage: Cymraeg
+    welshVisuallyHidden: Newid yr iaith ir Gymraeg
   cookie:
     cookieBanner:
       title: "Cwcis ar GOV.UK One Login"
