@@ -40,7 +40,7 @@ jobs:
           password: ${{ secrets.DYNATRACE_PAAS_TOKEN }}
 
       - name: "Push signed image to ECR, updated SAM template with image then upload it to the S3 Artifact Bucket"
-        uses: govuk-one-login/devplatform-upload-action-ecr@1.2.0
+        uses: govuk-one-login/devplatform-upload-action-ecr@1.2.2
         with:
           artifact-bucket-name: ${{ secrets.AWS_DEV_DEPLOY_PASSPORTA_FRONT_DEV_ARTIFACT_BUCKET_NAME }}
           template-file: deploy/template.yaml
