@@ -365,10 +365,10 @@
   resolved "https://registry.npmjs.org/@eslint/js/-/js-8.53.0.tgz"
   integrity sha512-Kn7K8dx/5U6+cT1yEhpX1w4PCSg0M+XyRILPgvwcEBjerFWCwQj5sbr3/VmxqV0JGHCBCzyd6LxypEuehypY1w==
 
-"@govuk-one-login/di-ipv-cri-common-express@6.2":
-  version "6.2.0"
-  resolved "https://registry.yarnpkg.com/@govuk-one-login/di-ipv-cri-common-express/-/di-ipv-cri-common-express-6.2.0.tgz#d1e50db124cedb56287d900886eb08deacea0b04"
-  integrity sha512-SsuFDzZOtaPvT/p/ItrDkDTrkCoREmlL1GL5r0jA5bn2DLwkvJ4Jfhf7YW1kiEVBtTK2kMcvO5M5Hdix1euNqQ==
+"@govuk-one-login/di-ipv-cri-common-express@6.2.2":
+  version "6.2.2"
+  resolved "https://registry.yarnpkg.com/@govuk-one-login/di-ipv-cri-common-express/-/di-ipv-cri-common-express-6.2.2.tgz#0c154ebf94588f37e60c63d2b087fda0ed5403b1"
+  integrity sha512-Yar63UjB7bVHid1bhxNP9DzkT5OmploNPOW9qxavmbj/n0pjEQoW1TjWCSpK7DBoxcjwgCru4rYHJbGK1LXF7w==
   dependencies:
     hmpo-logger "7.0.1"
     i18next "23.8.1"
@@ -377,10 +377,10 @@
     lodash.differencewith "4.5.0"
     lodash.frompairs "4.0.1"
 
-"@govuk-one-login/one-login-analytics@^0.0.9":
-  version "0.0.9"
-  resolved "https://registry.npmjs.org/@govuk-one-login/one-login-analytics/-/one-login-analytics-0.0.9.tgz"
-  integrity sha512-zsvmvDgkvMZyO5OGHAyjj3aYlIToOLEbORwjCXOB9+1kqBTe0HfXqhzy6TMxHg00UctbX8yy8Gw1muFHoe2C9A==
+"@govuk-one-login/frontend-analytics@^1.0.3":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@govuk-one-login/frontend-analytics/-/frontend-analytics-1.0.3.tgz#32da13a67f8804b96a648d53f21adf1b00ca3691"
+  integrity sha512-V0vH3OS5rz2Oj8IkOmKkl34FYA3liV8FaJzYVhVBn/hVjZD0cOaGhinunkdcgei2R9JJXiiU0JlEKDxPoYNdRQ==
 
 "@govuk-one-login/one-login-language-toggle@^2.0.0":
   version "2.0.0"
