@@ -76,7 +76,7 @@ Mappings:
       desiredTaskCount: 2
       ga4Disabled: "false"
       uaDisabled: "false"
-      languageToggleDisabled: "true"
+      languageToggleDisabled: "false"
     integration:
       logLevel: "request"
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
