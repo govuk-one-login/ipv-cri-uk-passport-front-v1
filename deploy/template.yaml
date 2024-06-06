@@ -85,7 +85,7 @@ Mappings:
       desiredTaskCount: 2
       ga4Disabled: "true"
       uaDisabled: "false"
-      languageToggleDisabled: "true"
+      languageToggleDisabled: "false"
     production:
       logLevel: "warn"
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceProductionVariables
@@ -94,7 +94,7 @@ Mappings:
       desiredTaskCount: 2
       ga4Disabled: "true"
       uaDisabled: "false"
-      languageToggleDisabled: "true"
+      languageToggleDisabled: "false"
 
   # see https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-access-logs.html
   ElasticLoadBalancerAccountIds:
