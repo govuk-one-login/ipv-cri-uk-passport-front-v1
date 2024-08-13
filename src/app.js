@@ -15,6 +15,7 @@ app.get("nunjucks").addGlobal("getContext", function () {
 });
 
 app.get("nunjucks").addGlobal("addLanguageParam", addLanguageParam);
+console.log("test");
 
 AppSetup.init(app, router);
 RoutingService.init(router);
