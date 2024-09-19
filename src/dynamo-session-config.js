@@ -1,17 +1,16 @@
 const { SESSION_TABLE_NAME } = require("./lib/config");
 
-const AWS = require("aws-sdk");
+const { DynamoDBClient } = require("@aws-sdk/client-dynamodb");
 const session = require("express-session");
 const DynamoDBStore = require("connect-dynamodb")(session);
 
 const createSessionStore = () => {
-  AWS.config.update({
+  const dynamodbClient = new DynamoDBClient({
     region: "eu-west-2"
   });
-  const dynamodb = new AWS.DynamoDB();
 
   const dynamoDBSessionStore = new DynamoDBStore({
-    client: dynamodb,
+    client: dynamodbClient,
     table: SESSION_TABLE_NAME
   });
 
