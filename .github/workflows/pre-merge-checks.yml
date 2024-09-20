@@ -24,11 +24,16 @@ jobs:
 
   run-premerge-checks:
     runs-on: ubuntu-latest
+    env:
+      AWS_REGION: eu-west-2
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+
+      - name: SAM Validate
+        run: sam validate --region ${{ env.AWS_REGION }} -t deploy/template.yaml --lint
 
       - name: Use Node.js 20.x
         uses: actions/setup-node@v4
