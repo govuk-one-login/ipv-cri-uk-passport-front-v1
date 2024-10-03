@@ -26,7 +26,7 @@ jobs:
           aws-region: eu-west-2
 
       - name: SAM Validate
-        run: sam validate --region ${{ env.AWS_REGION }} -t deploy/template.yaml
+        run: sam validate --region ${{ env.AWS_REGION }} -t deploy/template.yaml --lint
 
       # Likely source of node warning
       # https://github.com/aws-actions/amazon-ecr-login/issues/586

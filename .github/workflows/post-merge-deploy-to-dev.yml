@@ -26,7 +26,7 @@ jobs:
           aws-region: eu-west-2
 
       - name: SAM Validate
-        run: sam validate --region ${{ env.AWS_REGION }} -t deploy/template.yaml
+        run: sam validate --region ${{ env.AWS_REGION }} -t deploy/template.yaml --lint
 
       - name: Login to Amazon ECR
         id: login-ecr
