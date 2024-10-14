@@ -2147,9 +2147,9 @@ anymatch@~3.1.2:
     normalize-path "^3.0.0"
     picomatch "^2.0.4"
 
-app-root-path@^3.0.0:
+app-root-path@^3.1.0:
   version "3.1.0"
-  resolved "https://registry.npmjs.org/app-root-path/-/app-root-path-3.1.0.tgz"
+  resolved "https://registry.yarnpkg.com/app-root-path/-/app-root-path-3.1.0.tgz#5971a2fc12ba170369a7a1ef018c71e6e47c2e86"
   integrity sha512-biN3PwB2gUtjaYy/isrU3aNWI5w+fAfvHkSvCKeQGxhmYpwKFUxudR3Yya+KqVRHBmEDYh+/lTozYCFbmzX4nA==
 
 append-transform@^2.0.0:
@@ -2880,10 +2880,10 @@ debug@2.6.9:
   dependencies:
     ms "2.0.0"
 
-debug@4, debug@^4.1.0, debug@^4.1.1, debug@^4.3.2, debug@^4.3.4, debug@~4.3.4:
-  version "4.3.5"
-  resolved "https://registry.yarnpkg.com/debug/-/debug-4.3.5.tgz#e83444eceb9fedd4a1da56d671ae2446a01a6e1e"
-  integrity sha512-pt0bNEmneDIvdL1Xsd9oDQ/wrQRkXDT4AUWlNZNPKvW5x/jyO9VFXkJUP07vQ2upmw5PlaITaPKc31jK13V+jg==
+debug@4, debug@^4.1.0, debug@^4.1.1, debug@^4.3.2, debug@^4.3.4, debug@^4.3.6, debug@~4.3.4:
+  version "4.3.6"
+  resolved "https://registry.yarnpkg.com/debug/-/debug-4.3.6.tgz#2ab2c38fbaffebf8aa95fdfe6d88438c7a13c52b"
+  integrity sha512-O/09Bd4Z1fBrU4VzkhFqVgpPzaGbw6Sm9FEkBT1A/YBXQFGuuSxa1dN2nxgxS34JmKXqYx8CZAwEVoJFImUXIg==
   dependencies:
     ms "2.1.2"
 
@@ -4024,16 +4024,16 @@ hmpo-components@5.5.2:
     moment "^2.29.3"
     underscore "^1.13.4"
 
-hmpo-config@2.2.1:
-  version "2.2.1"
-  resolved "https://registry.npmjs.org/hmpo-config/-/hmpo-config-2.2.1.tgz"
-  integrity sha512-xza3G9NwtVyhljO2IXF+2CbS7BSJgMEmDycyOyYejzP9UzlBooha8LE2jzqGKnU988e6ercp4+d45oFp/96SFQ==
+hmpo-config@3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/hmpo-config/-/hmpo-config-3.0.1.tgz#7acbfabdce3a05066ccd08e7a6e1b3828a6d5545"
+  integrity sha512-Sfl5BkDE1xYLEe+dborsursTnAEtAcmAQQYXVZlbsfAYrcxhReTdKKSKYAmrKgP+JlNLoWL1+W/dkMzUZzQj4Q==
   dependencies:
-    app-root-path "^3.0.0"
-    debug "^4.3.4"
-    deep-clone-merge "^1.5.4"
+    app-root-path "^3.1.0"
+    debug "^4.3.6"
+    deep-clone-merge "^1.5.5"
     js-yaml "^4.1.0"
-    json5 "^2.2.1"
+    json5 "^2.2.3"
 
 hmpo-form-wizard@12.0.6:
   version "12.0.6"
