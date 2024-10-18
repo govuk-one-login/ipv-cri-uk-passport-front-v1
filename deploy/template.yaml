@@ -173,6 +173,11 @@ Resources:
     Type:
       AWS::S3::Bucket
       #checkov:skip=CKV_AWS_18: This is the bucket where our access logs go and AWS advise not sending a bucket's access logs to itself.
+    Metadata:
+      cfn-lint:
+        config:
+          ignore_checks:
+            - W3045 # Using a legacy 'AccessControl: LogDeliveryWrite' setup for now
     Properties:
       BucketName: !Join
         - "-"
@@ -443,7 +448,10 @@ Resources:
         - !Ref "Environment"
         - desiredTaskCount
       EnableECSManagedTags: false
-      HealthCheckGracePeriodSeconds: 60
+      HealthCheckGracePeriodSeconds: !If
+        - UseCanaryDeployment
+        - !Ref AWS::NoValue
+        - 60
       LaunchType: FARGATE
       LoadBalancers: !If
         - UseCanaryDeployment
