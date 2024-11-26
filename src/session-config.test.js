@@ -20,7 +20,7 @@ describe("app", () => {
         cookieName: "service_session",
         secret: "1234",
         cookieOptions: { maxAge: 7200000 },
-        ...("table-name" && { sessionStore: "sessionStoreMock" })
+        ...{ sessionStore: "sessionStoreMock" }
       });
     });
 
