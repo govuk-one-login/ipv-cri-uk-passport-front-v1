@@ -6749,10 +6749,10 @@ which@^2.0.1:
   dependencies:
     isexe "^2.0.0"
 
-wiremock@^3.1.0:
-  version "3.3.1"
-  resolved "https://registry.npmjs.org/wiremock/-/wiremock-3.3.1.tgz"
-  integrity sha512-/tUmRP2t52DjmyRbVUpj6N1Pv+X6Wz0VscpcUzqihu7mZtKFpLaGdQ4vNjx6TG+iXJIkp6+QgHUtSf0Snrk0ig==
+wiremock@^3.9.2:
+  version "3.9.2"
+  resolved "https://registry.yarnpkg.com/wiremock/-/wiremock-3.9.2.tgz#75f6618e08a1ba429a517105d77cc965f885a999"
+  integrity sha512-HLG2zvtsvr93T73fX3KJ3D+hyeYBHhWptoo3AijFO7JAnQA7HyI4xjlRXp4b0Fa+fB6nYn1t/kiqI80dB3PfhQ==
   dependencies:
     npm-java-runner "^1.0.2"
 
