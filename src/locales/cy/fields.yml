@@ -1,6 +1,7 @@
 passportNumber:
   label: "Rhif pasbort"
   hint: "Dyma’r rhif 9 digid yng nghornel dde uchaf y dudalen llun yn eich pasbort"
+  prefix: ""
   validation:
     default: "Rhowch y rhif fel mae’n ymddangos ar eich pasbort"
     passportLength: "Dylai rhif eich pasbort fod yn 9 digid o hyd"
@@ -9,6 +10,7 @@ passportNumber:
 surname:
   label: "Cyfenw"
   hint: ""
+  prefix: ""
   validation:
     default: "Rhowch eich cyfenw fel mae’n ymddangos ar eich pasbort"
     surnamelength: "Rhowch eich cyfenw fel mae’n ymddangos ar eich pasbort"
@@ -16,6 +18,7 @@ surname:
 firstName:
   label: "Enw cyntaf"
   hint: ""
+  prefix: ""
   validation:
     default: "Rhowch eich enw cyntaf fel mae’n ymddangos ar eich pasbort"
     maxlength: "Rhowch eich enw cyntaf fel mae’n ymddangos ar eich pasbort"
@@ -24,6 +27,7 @@ firstName:
 middleNames:
   label: "Enwau canol"
   hint: "Gadewch hyn yn wag os nad oes gennych unrhyw enwau canol"
+  prefix: ""
   validation:
     maxlength: "Rhowch eich enwau canol fel maent yn ymddangos ar eich pasbort"
     regexpassport: "Rhowch eich enwau canol fel maent yn ymddangos ar eich pasbort"
