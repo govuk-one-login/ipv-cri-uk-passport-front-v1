@@ -86,7 +86,7 @@
     "nyc": "15.1.0",
     "reqres": "^3.0.1",
     "wait-on": "^7.0.1",
-    "wiremock": "^3.1.0"
+    "wiremock": "^3.10.0"
   },
   "resolutions": {
     "strip-ansi": "^6.0.1",
