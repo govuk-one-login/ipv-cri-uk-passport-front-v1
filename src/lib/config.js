@@ -2,6 +2,7 @@ require("dotenv").config();
 
 module.exports = {
   API: {
+    PACKAGE_NAME: "di-ipv-cri-uk-passport-front-v1",
     BASE_URL: process.env.API_BASE_URL || "http://localhost:5007/",
     PATHS: {
       SESSION: "session",
