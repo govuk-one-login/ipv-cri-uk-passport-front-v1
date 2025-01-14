@@ -17,8 +17,8 @@ This repo has a `CODEOWNERS` file in the root and is configured to require PRs t
 - `PORT` - Default port to run webserver on.
 - `GOOGLE_ANALYTICS_4_GTM_CONTAINER_ID` - Container ID for GA4 tracking.
 - `UNIVERSAL_ANALYTICS_GTM_CONTAINER_ID` - Container ID for UA tracking.
-- `GA4_DISABLED` - BOOLEAN
-- `UA_DISABLED` - BOOLEAN
+- `GA4_ENABLED` - BOOLEAN
+- `UA_ENABLED` - BOOLEAN
 - `LANGUAGE_TOGGLE_DISABLED` - Feature flag to disable Language Toggle, defaulted to `true`
 
 ## Local Testing

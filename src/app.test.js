@@ -103,8 +103,15 @@ describe("app", () => {
         ga4ContainerId: APP.GTM.GA4_ID,
         uaContainerId: APP.GTM.UA_ID,
         analyticsCookieDomain: APP.GTM.ANALYTICS_COOKIE_DOMAIN,
-        ga4Disabled: APP.GTM.GA4_DISABLED,
-        uaDisabled: APP.GTM.UA_DISABLED
+        ga4Enabled: APP.GTM.GA4_ENABLED,
+        uaEnabled: APP.GTM.UA_ENABLED,
+        ga4PageViewEnabled: APP.GTM.GA4_PAGE_VIEW_ENABLED,
+        ga4FormResponseEnabled: APP.GTM.GA4_FORM_RESPONSE_ENABLED,
+        ga4FormErrorEnabled: APP.GTM.GA4_FORM_ERROR_ENABLED,
+        ga4FormChangeEnabled: APP.GTM.GA4_FORM_CHANGE_ENABLED,
+        ga4NavigationEnabled: APP.GTM.GA4_NAVIGATION_ENABLED,
+        ga4SelectContentEnabled: APP.GTM.GA4_SELECT_CONTENT_ENABLED,
+        analyticsDataSensitive: APP.GTM.ANALYTICS_DATA_SENSITIVE
       };
 
       setGTM(options);
@@ -122,8 +129,8 @@ describe("app", () => {
         setGTM,
         sinon.match.has("analyticsCookieDomain", "localhost")
       );
-      sinon.assert.calledWith(setGTM, sinon.match.has("ga4Disabled", false));
-      sinon.assert.calledWith(setGTM, sinon.match.has("uaDisabled", true));
+      sinon.assert.calledWith(setGTM, sinon.match.has("ga4Enabled", true));
+      sinon.assert.calledWith(setGTM, sinon.match.has("uaEnabled", false));
     });
   });
 });
