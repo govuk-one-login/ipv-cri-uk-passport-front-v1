@@ -52,9 +52,6 @@ Conditions:
     - !Equals [!Ref Environment, integration]
     - !Equals [!Ref Environment, production]
   IsProduction: !Equals [!Ref Environment, production]
-  IsPerformance: !Or
-    - !Equals [!Ref Environment, build]
-    - !Equals [!Ref Environment, production]
   UsePermissionsBoundary: !Not
     - !Equals [!Ref PermissionsBoundary, "none"]
   UseCodeSigning: !Not
@@ -72,6 +69,8 @@ Mappings:
       ga4Disabled: "false"
       uaDisabled: "false"
       languageToggleDisabled: "false"
+      minECSCount: 1
+      maxECSCount: 4
     build:
       logLevel: "info"
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
@@ -80,6 +79,8 @@ Mappings:
       ga4Disabled: "false"
       uaDisabled: "false"
       languageToggleDisabled: "false"
+      minECSCount: 4
+      maxECSCount: 60
     staging:
       logLevel: "warn"
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
@@ -88,6 +89,8 @@ Mappings:
       ga4Disabled: "false"
       uaDisabled: "false"
       languageToggleDisabled: "false"
+      minECSCount: 2
+      maxECSCount: 4
     integration:
       logLevel: "warn"
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
@@ -96,6 +99,8 @@ Mappings:
       ga4Disabled: "false"
       uaDisabled: "false"
       languageToggleDisabled: "false"
+      minECSCount: 2
+      maxECSCount: 4
     production:
       logLevel: "warn"
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceProductionVariables
@@ -104,6 +109,8 @@ Mappings:
       ga4Disabled: "false"
       uaDisabled: "false"
       languageToggleDisabled: "false"
+      minECSCount: 4
+      maxECSCount: 60
 
   # see https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-access-logs.html
   ElasticLoadBalancerAccountIds:
@@ -824,22 +831,36 @@ Resources:
 
   # ECS Autoscaling
   ECSAutoScalingTarget:
-    Condition: IsPerformance
     Type: AWS::ApplicationAutoScaling::ScalableTarget
     Properties:
-      MinCapacity: 4
-      MaxCapacity: 60
-      ResourceId: !Join
-        - '/'
-        - - "service"
-          - !Ref PassportFrontEcsCluster
-          - !GetAtt PassportFrontEcsService.Name
+      MaxCapacity:
+        !FindInMap [EnvironmentConfiguration, !Ref Environment, maxECSCount]
+      MinCapacity:
+        !FindInMap [EnvironmentConfiguration, !Ref Environment, minECSCount]
+      ResourceId: !Sub service/${PassportFrontEcsCluster}/${PassportFrontEcsService.Name}
       RoleARN: !Sub "arn:aws:iam::${AWS::AccountId}:role/aws-service-role/ecs.application-autoscaling.amazonaws.com/AWSServiceRoleForApplicationAutoScaling_ECSService"
       ScalableDimension: ecs:service:DesiredCount
       ServiceNamespace: ecs
 
+  ECSPredictiveScalingPolicy:
+    DependsOn: ECSAutoScalingTarget
+    Type: AWS::ApplicationAutoScaling::ScalingPolicy
+    Properties:
+      PolicyName: ECSPredictiveScalingPolicy
+      PolicyType: PredictiveScaling
+      ResourceId: !Sub service/${PassportFrontEcsCluster}/${PassportFrontEcsService.Name}
+      ScalableDimension: ecs:service:DesiredCount
+      ServiceNamespace: ecs
+      PredictiveScalingPolicyConfiguration:
+        MaxCapacityBreachBehavior: HonorMaxCapacity
+        MetricSpecifications:
+          - PredefinedMetricPairSpecification:
+              PredefinedMetricType: ECSServiceCPUUtilization
+            TargetValue: 60
+        Mode: ForecastOnly
+        SchedulingBufferTime: 600
+
   EcsStepScaleOutPolicy:
-    Condition: IsPerformance
     DependsOn: ECSAutoScalingTarget
     Type: AWS::ApplicationAutoScaling::ScalingPolicy
     Properties:
@@ -881,7 +902,6 @@ Resources:
             # on Fargate, so leave the upper bound open
 
   EcsStepScaleInPolicy:
-    Condition: IsPerformance
     DependsOn: ECSAutoScalingTarget
     Type: AWS::ApplicationAutoScaling::ScalingPolicy
     Properties:
@@ -913,7 +933,6 @@ Resources:
             # with <20% utilisation
 
   EcsStepScaleOutAlarm:
-    Condition: IsPerformance
     DependsOn: ECSAutoScalingTarget
     Type: AWS::CloudWatch::Alarm
     Properties:
@@ -937,7 +956,6 @@ Resources:
       Threshold: "60"
 
   EcsStepScaleInAlarm:
-    Condition: IsPerformance
     DependsOn: ECSAutoScalingTarget
     Type: AWS::CloudWatch::Alarm
     Properties:
