@@ -17,7 +17,7 @@ FROM node:20.9.0-alpine3.17@sha256:c049e006a20730f3d2536a8551c2e4ad74a397fdce707
 RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 
 RUN ["apk", "--no-cache", "upgrade"]
-RUN ["apk", "add", "--no-cache", "tini"]
+RUN ["apk", "add", "--no-cache", "tini", "curl"]
 RUN ["yarn", "set", "version", "1.22.17" ]
 USER appuser:appgroup
 
@@ -34,8 +34,12 @@ COPY --from=khw46367.live.dynatrace.com/linux/oneagent-codemodules-musl:nodejs /
 ENV LD_PRELOAD /opt/dynatrace/oneagent/agent/lib64/liboneagentproc.so
 
 ENV PORT 8080
+
+HEALTHCHECK --interval=5s --timeout=2s --retries=10 \
+  CMD curl -f http://localhost:8080/healthcheck || exit 1
+
 EXPOSE 8080
 
-ENTRYPOINT ["tini", "--"]
+ENTRYPOINT ["sh", "-c", "export DT_HOST_ID=CORE-FRONT-$RANDOM && tini npm start"]
 
 CMD ["yarn", "start"]

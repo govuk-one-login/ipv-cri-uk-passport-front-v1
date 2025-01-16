@@ -14,6 +14,9 @@ const {
 } = require("@govuk-one-login/di-ipv-cri-common-express/src/lib/i18next");
 // Common express relies on 0/1 strings
 const showLanguageToggle = APP.LANGUAGE_TOGGLE_DISABLED === "true" ? "0" : "1";
+const {
+  frontendVitalSignsInitFromApp
+} = require("@govuk-one-login/frontend-vital-signs");
 
 const init = (app, router) => {
   setAPIConfig({
@@ -88,6 +91,25 @@ const create = (setup) => {
       "views"
     ],
     middlewareSetupFn: (app) => {
+      frontendVitalSignsInitFromApp(app, {
+        interval: 60000,
+        logLevel: "info",
+        metrics: [
+          "requestsPerSecond",
+          "avgResponseTime",
+          "maxConcurrentConnections",
+          "eventLoopDelay",
+          "eventLoopUtilization"
+        ],
+        staticPaths: [
+          /^\/assets\/.*/,
+          "/ga4-assets",
+          "/javascript",
+          "/javascripts",
+          "/images",
+          "/stylesheets"
+        ]
+      });
       app.use(setHeaders);
     },
     dev: true
