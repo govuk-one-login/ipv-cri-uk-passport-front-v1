@@ -31,7 +31,8 @@ export default [
         ...globals.browser,
         sinon: true,
         expect: true,
-        setupDefaultMocks: true
+        setupDefaultMocks: true,
+        axe: true
       }
     }
   },

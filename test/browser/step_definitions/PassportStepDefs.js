@@ -2,6 +2,10 @@ const { Given, When, Then } = require("@cucumber/cucumber");
 
 const { PassportPage } = require("../pages/PassportPage.js");
 
+const { expect } = require("chai");
+
+const { injectAxe } = require("axe-playwright");
+
 Then(/^I can see CTA {string}$/, async function () {});
 
 Then(
@@ -9,6 +13,14 @@ Then(
   async function (PassportPageTitle) {
     const passportPage = new PassportPage(this.page);
     await passportPage.assertPageTitle(PassportPageTitle);
+    await injectAxe(this.page);
+    // Run Axe for WCAG 2.2 AA rules
+    const wcagResults = await this.page.evaluate(() => {
+      return axe.run({
+        runOnly: ["wcag2aa"]
+      });
+    });
+    expect(wcagResults.violations, "WCAG 2.2 AAA violations found").to.be.empty;
   }
 );
 

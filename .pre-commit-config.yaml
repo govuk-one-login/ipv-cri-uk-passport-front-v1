@@ -9,7 +9,7 @@ repos:
         args: [ --allow-missing-credentials ]
     -   id: detect-private-key
 -   repo: https://github.com/awslabs/cfn-python-lint
-    rev: v1.22.3 # The version of cfn-lint to use
+    rev: v1.22.4 # The version of cfn-lint to use
     hooks:
     -   id: cfn-python-lint
         files: .template\.yaml$
