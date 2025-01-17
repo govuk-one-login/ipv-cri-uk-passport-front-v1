@@ -3,7 +3,8 @@ const DateControllerMixin = require("hmpo-components").mixins.Date;
 
 const DateController = DateControllerMixin(BaseController);
 
-const logger = require("hmpo-logger").get();
+const { PACKAGE_NAME } = require("../../../lib/config");
+const logger = require("hmpo-logger").get(PACKAGE_NAME);
 
 class PassportDetailsController extends DateController {
   _padYear(value, offset) {
