@@ -7,8 +7,11 @@ const steps = require("./app/passport/steps");
 const fields = require("./app/passport/fields");
 const featureSets = require("./app/passport/featureSets");
 const wizard = require("hmpo-form-wizard");
+const overloadProtection = require("./app/passport/overloadProtection");
 
 const init = (router) => {
+  router.use(overloadProtection);
+
   router.use(getGTM);
   router.use(getLanguageToggle);
   router.use(setScenarioHeaders);
