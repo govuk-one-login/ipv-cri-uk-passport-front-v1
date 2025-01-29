@@ -7,7 +7,7 @@ describe("overloadProtection", () => {
 
   beforeEach(() => {
     protectStub = sinon.stub();
-    loggerStub = { info: sinon.stub() };
+    loggerStub = { warn: sinon.stub() };
     routerStub = { use: sinon.stub() };
 
     overloadProtection = proxyquire("./overloadProtection", {
@@ -26,7 +26,7 @@ describe("overloadProtection", () => {
     overloadProtection(req, res, next);
 
     expect(routerStub.use.calledWith(protectStub)).to.be.true;
-    expect(loggerStub.info.calledWith("Overload protection enabled")).to.be
+    expect(loggerStub.warn.calledWith("Overload protection enabled")).to.be
       .true;
     expect(next.called).to.be.false;
   });
@@ -40,7 +40,7 @@ describe("overloadProtection", () => {
     overloadProtection(req, res, next);
 
     expect(routerStub.use.called).to.be.false;
-    expect(loggerStub.info.called).to.be.false;
+    expect(loggerStub.warn.called).to.be.false;
     expect(next.called).to.be.true;
   });
 

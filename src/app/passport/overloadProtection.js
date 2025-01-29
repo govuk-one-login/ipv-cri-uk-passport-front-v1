@@ -20,7 +20,7 @@ module.exports = function (req, res, next) {
   try {
     if (protect(req, res) === true) {
       router.use(protect);
-      logger.info("Overload protection enabled");
+      logger.warn("Overload protection enabled");
       return;
     } else {
       next();
