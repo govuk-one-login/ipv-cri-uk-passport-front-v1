@@ -69,8 +69,8 @@ Mappings:
       ga4Enabled: "true"
       uaEnabled: "false"
       languageToggleDisabled: "false"
-      minECSCount: 1
-      maxECSCount: 1
+      minECSCount: 0
+      maxECSCount: 0
     build:
       logLevel: "info"
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
