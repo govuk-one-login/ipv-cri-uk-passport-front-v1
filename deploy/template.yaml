@@ -1103,7 +1103,6 @@ Resources:
             Period: 60
             Stat: Sum
 
-    
   FrontLoadBalancer503Error:
     Type: AWS::CloudWatch::Alarm
     Properties:
@@ -1149,8 +1148,7 @@ Resources:
                   Value: !Ref LoadBalancer
             Period: 60
             Stat: Sum
-    
-
+  
   EventLoopDelayMetricFilter:
     Type: AWS::Logs::MetricFilter
     Properties:
