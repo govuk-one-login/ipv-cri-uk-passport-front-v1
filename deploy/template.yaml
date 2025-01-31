@@ -1062,6 +1062,53 @@ Resources:
       ComparisonOperator: GreaterThanThreshold
       TreatMissingData: notBreaching
 
+  FE5XXErrorCriticalAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmName: !Sub "${AWS::StackName}-FE5XXErrorCriticalAlarm"
+      AlarmDescription: !Sub "There has been a significant proportion of 5XX errors on the frontend api-gateway. ${SupportManualURL}"
+      ActionsEnabled: true
+      OKActions:
+        - !ImportValue platform-alarm-topic-critical-alert
+      AlarmActions:
+        - !ImportValue platform-alarm-topic-critical-alert
+      EvaluationPeriods: 5
+      DatapointsToAlarm: 2
+      Threshold: 80
+      ComparisonOperator: GreaterThanOrEqualToThreshold
+      TreatMissingData: notBreaching
+      Metrics:
+        - Id: errorThreshold
+          Label: errorThreshold
+          ReturnData: true
+          Expression: IF(invocations<10,0,errorPercentage)
+        - Id: invocations
+          ReturnData: false
+          MetricStat:
+            Metric:
+              Namespace: AWS/ApiGateway
+              MetricName: Count
+              Dimensions:
+                - Name: ApiId
+                  Value: !Ref ApiGwHttpEndpoint
+            Period: 60
+            Stat: Sum
+        - Id: error
+          ReturnData: false
+          MetricStat:
+            Metric:
+              Namespace: AWS/ApiGateway
+              MetricName: 5XXError
+              Dimensions:
+                - Name: ApiId
+                  Value: !Ref ApiGwHttpEndpoint
+            Period: 60
+            Stat: Sum
+        - Id: errorPercentage
+          Label: errorPercentage
+          ReturnData: false
+          Expression: (error/invocations)*100
+
   FrontTargetGroup5xxPercentErrors:
     Type: AWS::CloudWatch::Alarm
     Condition: UseCanaryDeployment
