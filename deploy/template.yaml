@@ -74,8 +74,8 @@ Mappings:
     build:
       logLevel: "info"
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
-      fargateCPUsize: "1024"
-      fargateRAMsize: "2048"
+      fargateCPUsize: "2048"
+      fargateRAMsize: "4096"
       ga4Enabled: "true"
       uaEnabled: "false"
       languageToggleDisabled: "false"
@@ -104,8 +104,8 @@ Mappings:
     production:
       logLevel: "warn"
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceProductionVariables
-      fargateCPUsize: "1024"
-      fargateRAMsize: "2048"
+      fargateCPUsize: "2048"
+      fargateRAMsize: "4096"
       ga4Enabled: "true"
       uaEnabled: "false"
       languageToggleDisabled: "false"
