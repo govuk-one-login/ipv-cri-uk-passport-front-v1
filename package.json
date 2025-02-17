@@ -88,7 +88,7 @@
     "overload-protection": "1.2.3",
     "nyc": "15.1.0",
     "reqres": "^3.0.1",
-    "wait-on": "^7.0.1",
+    "wait-on": "^8.0.2",
     "wiremock": "3.11.0"
   },
   "resolutions": {
