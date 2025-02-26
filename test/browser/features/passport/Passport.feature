@@ -5,7 +5,7 @@ Feature: Passport Test
     Given Authenticatable Anita is using the system
     And they have provided their details
     And they have started the Passport journey
-    And I should be on the Passport details entry page Enter your details exactly as they appear on your UK passport – Prove your identity – GOV.UK
+    And I should be on the Passport details entry page Enter your details exactly as they appear on your UK passport – Prove your identity – GOV.UK One Login
 
 ###########   Field Validations ##########
   @mock-api:passport-success @Passport_test @build @staging @integration
