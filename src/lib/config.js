@@ -29,7 +29,8 @@ module.exports = {
       GA4_NAVIGATION_ENABLED: process.env.GA4_NAVIGATION_ENABLED || true,
       GA4_SELECT_CONTENT_ENABLED: process.env.GA4_SELECT_CONTENT_ENABLED || true
     },
-    LANGUAGE_TOGGLE_DISABLED: process.env.LANGUAGE_TOGGLE_DISABLED || "true"
+    LANGUAGE_TOGGLE_DISABLED: process.env.LANGUAGE_TOGGLE_DISABLED || "true",
+    MAX_EVENT_LOOP_DELAY: process.env.MAX_EVENT_LOOP_DELAY || 500
   },
   PORT: process.env.PORT || 5050,
   SESSION_SECRET: process.env.SESSION_SECRET,
