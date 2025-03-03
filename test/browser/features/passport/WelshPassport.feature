@@ -1,5 +1,5 @@
 @mock-api:passport-success
-Feature: Passport Test
+Feature: Passport CRI - Welsh Language Tests
 
   Background:
     Given Authenticatable Anita is using the system
@@ -9,7 +9,7 @@ Feature: Passport Test
     And I should be on the Passport details entry page Rhowch eich manylion yn union fel maent yn ymddangos ar eich pasbort y DU – GOV.UK One Login
 
   @mock-api:passport-success-supportLinks @language-regression
-  Scenario: Check support links
+  Scenario: Passport CRI - Check support links
     Given The Support link in the footer reads Cymorth (agor mewn tab newydd) and assert the url is correct and live
     When I view the beta banner
     Then the beta banner reads Mae hwn yn wasanaeth newydd – bydd eich adborth (agor mewn tab newydd) yn ein helpu i’w wella.
@@ -21,3 +21,16 @@ Feature: Passport Test
     And I assert the link on the error page is correct and live
     Then I go to page not found
     And I assert the link on the page not found page is correct and live
+
+  @mock-api:passport-success-supportLinks
+  Scenario: Passport CRI - Beta Banner Accept Analysis
+    When they view the Beta banner with the Welsh text as Mae hwn yn wasanaeth newydd – bydd eich adborth (agor mewn tab newydd) yn ein helpu i’w wella.
+    Then I select Accept analytics cookies button and see the text Rydych wedi derbyn cwcis ychwanegol. Gallwch newid eich gosodiadau cwcis unrhyw bryd.
+    Then I select the accepted link change your cookie settings and assert I have been redirected correctly
+
+  @mock-api:passport-success-supportLinks
+  Scenario: Passport CRI - Beta Banner Reject Analysis
+    When they view the Beta banner with the Welsh text as Mae hwn yn wasanaeth newydd – bydd eich adborth (agor mewn tab newydd) yn ein helpu i’w wella.
+    Then I select Reject analytics cookies button and see the text Rydych wedi gwrthod cwcis ychwanegol. Gallwch newid eich gosodiadau cwcis unrhyw bryd.
+    Then I select the rejected link change your cookie settings and assert I have been redirected correctly
+    
