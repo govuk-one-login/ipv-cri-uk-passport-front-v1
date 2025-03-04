@@ -6,7 +6,7 @@ Feature: Passport Test
     And they have provided their details
     And they have started the Passport journey
     And I add a cookie to change the language to Welsh
-    And I should be on the Passport details entry page Rhowch eich manylion yn union fel maent yn ymddangos ar eich pasbort y DU – Profi pwy ydych chi – GOV.UK One Login
+    And I should be on the Passport details entry page Rhowch eich manylion yn union fel maent yn ymddangos ar eich pasbort y DU – GOV.UK One Login
 
   @mock-api:passport-success-supportLinks @language-regression
   Scenario: Check support links
