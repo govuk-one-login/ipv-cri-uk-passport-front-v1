@@ -40,6 +40,6 @@ HEALTHCHECK --interval=5s --timeout=2s --retries=10 \
 
 EXPOSE 8080
 
-ENTRYPOINT ["sh", "-c", "export DT_HOST_ID=CORE-FRONT-$RANDOM && tini npm start"]
+ENTRYPOINT ["sh", "-c", "export DT_HOST_ID=PASSPORT-FRONT-$RANDOM && tini npm start"]
 
 CMD ["yarn", "start"]
