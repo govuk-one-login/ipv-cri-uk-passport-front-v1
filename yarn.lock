@@ -843,10 +843,10 @@
     nocache "^3.0.4"
     redis "^4.7.0"
 
-"@govuk-one-login/frontend-analytics@2.0.1":
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/@govuk-one-login/frontend-analytics/-/frontend-analytics-2.0.1.tgz#ff843241de1d1475407f719fb3f0f7180fc62dc1"
-  integrity sha512-8xAsQrRomVYxedFOQ8JDVdYx1JReJevSjU5EDZlcS/x3PhpCxm9DHjEqyOIvTo34zkFFoI4f2um6YkdD9IRQAg==
+"@govuk-one-login/frontend-analytics@3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@govuk-one-login/frontend-analytics/-/frontend-analytics-3.0.0.tgz#c1b121d126a9c0254de29fcbc83590d97cbad232"
+  integrity sha512-zjzOlyl1mb1WhKMyROqqCxAf0GWyvMK7igdnivWSyldL9ThaqZ5U4I/vDZl2FT+jII8kbQyOK+pL2AgW+mFIJQ==
   dependencies:
     copy-webpack-plugin "^12.0.2"
 
@@ -2557,7 +2557,7 @@ debug@2.6.9:
   dependencies:
     ms "2.0.0"
 
-debug@4, debug@^4.1.0, debug@^4.1.1, debug@^4.3.1, debug@^4.3.2, debug@^4.3.4, debug@^4.3.5, debug@^4.3.6:
+debug@4, debug@^4.1.0, debug@^4.1.1, debug@^4.3.1, debug@^4.3.2, debug@^4.3.4, debug@^4.3.5, debug@^4.3.7:
   version "4.4.0"
   resolved "https://registry.yarnpkg.com/debug/-/debug-4.4.0.tgz#2b3f2aea2ffeb776477460267377dc8710faba8a"
   integrity sha512-6WTZ/IxCY/T6BALoZHaE4ctp9xm+Z5kY/pzYaCHRFeyVhojxlrm+46y68HA6hr0TcwEssoxNiDEUJQjfPZ/RYA==
@@ -3663,13 +3663,13 @@ hmpo-components@7.1.0:
   optionalDependencies:
     fsevents "~2.3.3"
 
-hmpo-config@3.0.1:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/hmpo-config/-/hmpo-config-3.0.1.tgz#7acbfabdce3a05066ccd08e7a6e1b3828a6d5545"
-  integrity sha512-Sfl5BkDE1xYLEe+dborsursTnAEtAcmAQQYXVZlbsfAYrcxhReTdKKSKYAmrKgP+JlNLoWL1+W/dkMzUZzQj4Q==
+hmpo-config@4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/hmpo-config/-/hmpo-config-4.0.0.tgz#3bbf113167b6f2f6ba3d4bcfd57cd4b78294cdbb"
+  integrity sha512-kcoczwDk/OXT2fd+RjbkyyxbH8RxPcQJJV6FVctG5KxAP27a+tJPSkTeSQl2F1VPwaworYtKYE4ETjlAKxTkVg==
   dependencies:
     app-root-path "^3.1.0"
-    debug "^4.3.6"
+    debug "^4.3.7"
     deep-clone-merge "^1.5.5"
     js-yaml "^4.1.0"
     json5 "^2.2.3"
