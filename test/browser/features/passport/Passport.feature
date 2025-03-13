@@ -1,5 +1,5 @@
 @mock-api:passport-failed
-Feature: Passport Test
+Feature: Passport CRI - Happy Path and Field Valisation Tests
 
   Background:
     Given Authenticatable Anita is using the system
@@ -7,9 +7,46 @@ Feature: Passport Test
     And they have started the Passport journey
     And I should be on the Passport details entry page Enter your details exactly as they appear on your UK passport – GOV.UK One Login
 
-###########   Field Validations ##########
   @mock-api:passport-success @Passport_test @build @staging @integration
-  Scenario Outline: Passport Last name with numbers or special characters error validation dsadas
+  Scenario Outline: Passport CRI - Happy Path Test
+    Given User enters passport data as a <PassportSubject>
+    When User clicks on continue
+    Examples:
+      | PassportSubject             |
+      | PassportSubjectHappyKenneth |
+
+  ########### Page UI Elements (Links) ##########
+
+  @mock-api:passport-success
+  Scenario Outline: Passport CRI - Footer Links
+    Given they click Footer <link> and assert I have been redirected correctly
+    Examples:
+      | link           |
+      | Accessibility  |
+      | Cookies        |
+      | TsAndCs        |
+      | Privacy        |
+      | Support        |
+      | OGL            |
+      | CrownCopyright |
+
+  @mock-api:passport-success
+  Scenario: Passport CRI - Beta Banner
+    Given they view the Beta banner with the text as This is a new service – your feedback (opens in new tab) will help us to improve it.
+
+  @mock-api:passport-success
+  Scenario: Passport CRI - Cookies Accept Analysis
+    Given I select Accept analytics cookies button and see the text You’ve accepted additional cookies. You can change your cookie settings at any time.
+    Then I select the accepted link change your cookie settings and assert I have been redirected correctly
+
+  @mock-api:passport-success
+  Scenario: Passport CRI - Cookies Reject Analysis
+    Given I select Reject analytics cookies button and see the text You’ve rejected additional cookies. You can change your cookie settings at any time.
+    Then I select the rejected link change your cookie settings and assert I have been redirected correctly
+
+  ########### Field Validations ##########
+  @mock-api:passport-success @Passport_test @build @staging @integration
+  Scenario Outline: Passport CRI - Passport Last name with numbers or special characters error validation
     Given User enters passport data as a <PassportSubject>
     And User re-enters last name as <InvalidLastName>
     When User clicks on continue
@@ -20,7 +57,7 @@ Feature: Passport Test
       | PassportSubjectHappyKenneth | KYLE123         |
 
   @mock-api:passport-success @Passport_test @build @staging @integration
-  Scenario Outline: Passport Last name with numbers or special characters error validation
+  Scenario Outline: Passport CRI - Passport Last name with numbers or special characters error validation
     Given User enters passport data as a <PassportSubject>
     And User re-enters last name as <InvalidLastName>
     When User clicks on continue
@@ -31,7 +68,7 @@ Feature: Passport Test
       | PassportSubjectHappyKenneth | KYLE^&(         |
 
   @mock-api:passport-success @Passport_test @build @staging @integration
-  Scenario Outline: Passport No Last name in the Last name field error validation
+  Scenario Outline: Passport CRI - Passport No Last name in the Last name field error validation
     Given User enters passport data as a <PassportSubject>
     And User re-enters last name as <InvalidLastName>
     When User clicks on continue
@@ -42,7 +79,7 @@ Feature: Passport Test
       | PassportSubjectHappyKenneth |                 |
 
   @mock-api:passport-success @Passport_test @build @staging @integration
-  Scenario Outline: Passport First name with numberserror validation
+  Scenario Outline: Passport CRI - Passport First name with numberserror validation
     Given User enters passport data as a <PassportSubject>
     And User re-enters first name as <InvalidFirstName>
     When User clicks on continue
@@ -53,7 +90,7 @@ Feature: Passport Test
       | PassportSubjectHappyKenneth | SELINA987        |
 
   @mock-api:passport-success @Passport_test @build @staging @integration
-  Scenario Outline: Passport First name with special characters error validation
+  Scenario Outline: Passport CRI - Passport First name with special characters error validation
     Given User enters passport data as a <PassportSubject>
     And User re-enters first name as <InvalidFirstName>
     When User clicks on continue
@@ -64,7 +101,7 @@ Feature: Passport Test
       | PassportSubjectHappyKenneth | SELINA^&(        |
 
   @mock-api:passport-success @Passport_test @build @staging @integration
-  Scenario Outline: Passport No First name in the First name field error validation
+  Scenario Outline: Passport CRI - Passport No First name in the First name field error validation
     Given User enters passport data as a <PassportSubject>
     And User re-enters first name as <InvalidFirstName>
     When User clicks on continue
@@ -75,7 +112,7 @@ Feature: Passport Test
       | PassportSubjectHappyKenneth |                  |
 
   @mock-api:passport-success @Passport_test @build @staging @integration
-  Scenario Outline: Passport Date of birth that are not real error validation
+  Scenario Outline: Passport CRI - Passport Date of birth that are not real error validation
     Given User enters passport data as a <PassportSubject>
     And User re-enters day of birth as <InvalidDayOfBirth>
     And User re-enters month of birth as <InvalidMonthOfBirth>
@@ -88,7 +125,7 @@ Feature: Passport Test
       | PassportSubjectHappyKenneth | 51                | 71                  | 198                |
 
   @mock-api:passport-success @Passport_test @build @staging @integration
-  Scenario Outline: Passport Date of birth field failure as two digits provided
+  Scenario Outline: Passport CRI - Passport Date of birth field failure as two digits provided
     Given User enters passport data as a <PassportSubject>
     And User re-enters day of birth as <validDayOfBirth>
     And User re-enters month of birth as <validMonthOfBirth>
@@ -98,10 +135,10 @@ Feature: Passport Test
     Then I see the date of birth error in the field as Enter your date of birth as it appears on your passport
     Examples:
       | PassportSubject             | validDayOfBirth | validMonthOfBirth | InvalidYearOfBirth |
-      | PassportSubjectHappyKenneth | 8                | 7                  | 65                |
+      | PassportSubjectHappyKenneth | 8               | 7                 | 65                 |
 
   @mock-api:passport-success @Passport_test @build @staging @integration
-  Scenario Outline: Passport Expiry Date field failure as two digits provided
+  Scenario Outline: Passport CRI - Passport Expiry Date field failure as two digits provided
     Given User enters passport data as a <PassportSubject>
     And User re-enters expiry day as <validDayOfExpiry>
     And User re-enters expiry month as <validMonthOfExpiry>
@@ -111,10 +148,10 @@ Feature: Passport Test
     And I see invalid expiry date in the field as Enter the expiry date as it appears on your passport
     Examples:
       | PassportSubject             | validDayOfExpiry | validMonthOfExpiry | InvalidYearOfExpiry |
-      | PassportSubjectHappyKenneth | 5                | 5                  | 25                |
+      | PassportSubjectHappyKenneth | 5                | 5                  | 25                  |
 
   @mock-api:passport-success @Passport_test @build @staging @integration
-  Scenario Outline: Passport Date of birth with special characters error validation
+  Scenario Outline: Passport CRI - Passport Date of birth with special characters error validation
     Given User enters passport data as a <PassportSubject>
     And User re-enters day of birth as <InvalidDayOfBirth>
     And User re-enters month of birth as <InvalidMonthOfBirth>
@@ -127,7 +164,7 @@ Feature: Passport Test
       | PassportSubjectHappyKenneth | @                 | *&                  | 19 7%              |
 
   @mock-api:passport-success @Passport_test @build @staging @integration
-  Scenario Outline: Passport Date of birth in the future error validation
+  Scenario Outline: Passport CRI - Passport Date of birth in the future error validation
     Given User enters passport data as a <PassportSubject>
     And User re-enters day of birth as <InvalidDayOfBirth>
     And User re-enters month of birth as <InvalidMonthOfBirth>
@@ -140,7 +177,7 @@ Feature: Passport Test
       | PassportSubjectHappyKenneth | 10                | 10                  | 2042               |
 
   @mock-api:passport-success @Passport_test @build @staging @integration
-  Scenario Outline: Passport - No Date in the Date of birth field error validation
+  Scenario Outline: Passport CRI - Passport - No Date in the Date of birth field error validation
     Given User enters passport data as a <PassportSubject>
     And User re-enters day of birth as <InvalidDayOfBirth>
     And User re-enters month of birth as <InvalidMonthOfBirth>
@@ -153,7 +190,7 @@ Feature: Passport Test
       | PassportSubjectHappyKenneth |                   |                     |                    |
 
   @mock-api:passport-success @Passport_test @build @staging @integration
-  Scenario Outline: Passport Valid to date that are not real error validation
+  Scenario Outline: Passport CRI - Passport Valid to date that are not real error validation
     Given User enters passport data as a <PassportSubject>
     And User re-enters expiry day as <InvalidExpiryDay>
     And User re-enters expiry month as <InvalidExpiryMonth>
@@ -166,7 +203,7 @@ Feature: Passport Test
       | PassportSubjectHappyKenneth | !@               | £$                 | %^ *              |
 
   @mock-api:passport-success @Passport_test @build @staging @integration
-  Scenario Outline: Passport Valid to date with special characters error validation
+  Scenario Outline: Passport CRI - Passport Valid to date with special characters error validation
     Given User enters passport data as a <PassportSubject>
     And User re-enters expiry day as <InvalidExpiryDay>
     And User re-enters expiry month as <InvalidExpiryMonth>
@@ -179,7 +216,7 @@ Feature: Passport Test
       | PassportSubjectHappyKenneth | 4£               | 5!                 | 29 1@             |
 
   @mock-api:passport-success @Passport_test @build @staging @integration
-  Scenario Outline: Passport Valid to date in the past error validation
+  Scenario Outline: Passport CRI - Passport Valid to date in the past error validation
     Given User enters passport data as a <PassportSubject>
     And User re-enters expiry day as <InvalidExpiryDay>
     And User re-enters expiry month as <InvalidExpiryMonth>
@@ -192,7 +229,7 @@ Feature: Passport Test
       | PassportSubjectHappyKenneth | 10               | 01                 | 2010              |
 
   @mock-api:passport-success @Passport_test @build @staging @integration
-  Scenario Outline: Passport - No date in the Valid to date field error validation
+  Scenario Outline: Passport CRI - Passport - No date in the Valid to date field error validation
     Given User enters passport data as a <PassportSubject>
     And User re-enters expiry day as <InvalidExpiryDay>
     And User re-enters expiry month as <InvalidExpiryMonth>
@@ -205,7 +242,7 @@ Feature: Passport Test
       | PassportSubjectHappyKenneth |                  |                    |                   |
 
   @mock-api:passport-success @Passport_test @build @staging @integration
-  Scenario Outline: Passport number less than 8 characters error validation
+  Scenario Outline: Passport CRI - Passport number less than 8 characters error validation
     Given User enters passport data as a <PassportSubject>
     Then User re-enters passportNumber as <InvalidPassportNumber>
     When User clicks on continue
@@ -216,7 +253,7 @@ Feature: Passport Test
       | PassportSubjectHappyKenneth | 5566778               |
 
   @mock-api:passport-success @Passport_test @build @staging @integration
-  Scenario Outline: Passport number with special characters and spaces error validation
+  Scenario Outline: Passport CRI - Passport number with special characters and spaces error validation
     Given User enters passport data as a <PassportSubject>
     Then User re-enters passportNumber as <InvalidPassportNumber>
     When User clicks on continue
@@ -227,7 +264,7 @@ Feature: Passport Test
       | PassportSubjectHappyKenneth | 555667^&*             |
 
   @mock-api:passport-success @Passport_test @build @staging @integration
-  Scenario Outline: Passport number with alpha numeric characters error validation
+  Scenario Outline: Passport CRI - Passport number with alpha numeric characters error validation
     Given User enters passport data as a <PassportSubject>
     Then User re-enters passportNumber as <InvalidPassportNumber>
     When User clicks on continue
@@ -238,7 +275,7 @@ Feature: Passport Test
       | PassportSubjectHappyKenneth | 555667ABC             |
 
   @mock-api:passport-success @Passport_test @build @staging @integration
-  Scenario Outline: Passport number with alpha characters error validation
+  Scenario Outline: Passport CRI - Passport number with alpha characters error validation
     Given User enters passport data as a <PassportSubject>
     Then User re-enters passportNumber as <InvalidPassportNumber>
     When User clicks on continue
@@ -249,7 +286,7 @@ Feature: Passport Test
       | PassportSubjectHappyKenneth | XYZabdABC             |
 
   @mock-api:passport-success @Passport_test @build @staging @integration
-  Scenario Outline: Passport - No passport number in the passport number field error validation
+  Scenario Outline: Passport CRI - Passport - No passport number in the passport number field error validation
     Given User enters passport data as a <PassportSubject>
     Then User re-enters passportNumber as <InvalidPassportNumber>
     When User clicks on continue
@@ -260,7 +297,7 @@ Feature: Passport Test
       | PassportSubjectHappyKenneth |                       |
 
   @mock-api:passport-success
-  Scenario: Check support links
+  Scenario: Passport CRI - Check support links
     Given The Support link in the footer reads Support (opens in new tab) and assert the url is correct and live
     When I view the beta banner
     Then the beta banner reads This is a new service – your feedback (opens in new tab) will help us to improve it.
