@@ -5,6 +5,7 @@ const commonExpress = require("@govuk-one-login/di-ipv-cri-common-express");
 const { setGTM, setLanguageToggle } = commonExpress.lib.settings;
 const { setAPIConfig, setOAuthPaths } = require("./lib/settings");
 const sessionConfigService = require("./session-config");
+const overloadProtectionConfigService = require("./overload-protection-config");
 
 const path = require("path");
 const helmetConfig = require("@govuk-one-login/di-ipv-cri-common-express/src/lib/helmet");
@@ -68,6 +69,7 @@ const create = (setup) => {
   };
 
   const sessionConfig = sessionConfigService.init();
+  const overloadProtectionConfig = overloadProtectionConfigService.init();
 
   const { app, router } = setup({
     config: { APP_ROOT: __dirname },
@@ -119,6 +121,7 @@ const create = (setup) => {
       });
       app.use(setHeaders);
     },
+    overloadProtection: overloadProtectionConfig,
     dev: true
   });
   return { app, router };
