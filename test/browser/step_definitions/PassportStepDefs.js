@@ -30,6 +30,73 @@ Then(/^User clicks on continue$/, { timeout: 2 * 5000 }, async function () {
 });
 
 Given(
+  /^they click Footer (.*) and assert I have been redirected correctly$/,
+  async function (linkName) {
+    const passportPage = new PassportPage(this.page);
+
+    expect(passportPage.isCurrentPage()).to.be.true;
+
+    await passportPage.assertFooterLinks(linkName);
+  }
+);
+
+When(
+  /^they view the Beta banner with the text as (.*)$/,
+  async function (betaBannerText) {
+    const passportPage = new PassportPage(this.page);
+
+    expect(passportPage.isCurrentPage()).to.be.true;
+
+    await passportPage.assertBetaBannerText(betaBannerText);
+  }
+);
+
+Then(
+  /^I select Accept analytics cookies button and see the text (.*)$/,
+  async function (acceptCookiesText) {
+    const passportPage = new PassportPage(this.page);
+
+    await passportPage.assertAcceptCookies(acceptCookiesText);
+  }
+);
+
+Then(
+  "I select the accepted link change your cookie settings and assert I have been redirected correctly",
+  async function () {
+    const passportPage = new PassportPage(this.page);
+
+    await passportPage.assertAcceptedCookiesSettingLink();
+  }
+);
+
+Then(
+  /^I select Reject analytics cookies button and see the text (.*)$/,
+  async function (rejectCookiesText) {
+    const passportPage = new PassportPage(this.page);
+
+    await passportPage.assertRejectCookies(rejectCookiesText);
+  }
+);
+
+Then(
+  "I select the rejected link change your cookie settings and assert I have been redirected correctly",
+  async function () {
+    const passportPage = new PassportPage(this.page);
+
+    await passportPage.assertRejectedCookiesSettingLink();
+  }
+);
+
+When(
+  /^they view the Beta banner with the Welsh text as (.*)$/,
+  async function (betaBannerWelshText) {
+    const passportPage = new PassportPage(this.page);
+
+    await passportPage.assertBetaBannerWelshText(betaBannerWelshText);
+  }
+);
+
+Given(
   /^User enters passport data as a (.*)$/,
   { timeout: 2 * 5000 },
   async function (passportSubject) {

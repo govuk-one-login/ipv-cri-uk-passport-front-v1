@@ -10,7 +10,7 @@ BeforeAll(async function () {
         // Not headless so we can watch test runs
         headless: true,
         // Slow so we can see things happening
-        slowMo: 200
+        slowMo: 0
       });
 });
 
