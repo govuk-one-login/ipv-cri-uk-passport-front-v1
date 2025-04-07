@@ -41,7 +41,7 @@
   "devDependencies": {
     "@cucumber/cucumber": "10.0.1",
     "@eslint/eslintrc": "^3.2.0",
-    "@eslint/js": "^9.15.0",
+    "@eslint/js": "^9.24.0",
     "@playwright/test": "1.48.2",
     "chai": "4.5.0",
     "chai-as-promised": "7.1.1",
