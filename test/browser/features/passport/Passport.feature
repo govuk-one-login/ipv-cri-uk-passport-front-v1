@@ -309,3 +309,19 @@ Feature: Passport CRI - Happy Path and Field Valisation Tests
     And I assert the link on the error page is correct and live
     Then I go to page not found
     And I assert the link on the page not found page is correct and live
+
+  @mock-api:passport-success @Passport_test @build @staging @integration
+  Scenario Outline: Passport CRI - Axe Accessibility Scan - Passport Details Page
+    Given I run the Axe Accessibility check against the Passport details entry page
+    Then User enters passport data as a <PassportSubject>
+    When User clicks on continue
+    Examples:
+      | PassportSubject             |
+      | PassportSubjectHappyKenneth |
+
+    @mock-api:passport-success
+  Scenario: Passport CRI - Axe Accessibility Scan - Passport Error Page
+    Given I delete the session cookie
+    And User clicks on continue
+    Then they should see an error page
+    Then I run the Axe Accessibility check against the Error entry page
