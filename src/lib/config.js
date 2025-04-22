@@ -18,7 +18,7 @@ module.exports = {
     GTM: {
       GA4_ID: process.env.GOOGLE_ANALYTICS_4_GTM_CONTAINER_ID || "GTM-XXXXXXX",
       UA_ID: process.env.UNIVERSAL_ANALYTICS_GTM_CONTAINER_ID || "UA-XXXXXXX",
-      ANALYTICS_COOKIE_DOMAIN: process.env.ANALYTICS_DOMAIN || "localhost",
+      ANALYTICS_COOKIE_DOMAIN: process.env.FRONTEND_DOMAIN || "localhost",
       GA4_ENABLED: process.env.GA4_ENABLED || true,
       UA_ENABLED: process.env.UA_ENABLED || false,
       ANALYTICS_DATA_SENSITIVE: process.env.ANALYTICS_DATA_SENSITIVE || true, // Redacts all form response data, defaulted to `true`. Only to be set to `false` if a journey section contains no PII in none text based form controls
@@ -29,7 +29,10 @@ module.exports = {
       GA4_NAVIGATION_ENABLED: process.env.GA4_NAVIGATION_ENABLED || true,
       GA4_SELECT_CONTENT_ENABLED: process.env.GA4_SELECT_CONTENT_ENABLED || true
     },
-    LANGUAGE_TOGGLE_DISABLED: process.env.LANGUAGE_TOGGLE_DISABLED || "true"
+    LANGUAGE_TOGGLE_DISABLED: process.env.LANGUAGE_TOGGLE_DISABLED || "true",
+    DEVICE_INTELLIGENCE_ENABLED:
+      process.env.DEVICE_INTELLIGENCE_ENABLED || false,
+    DEVICE_INTELLIGENCE_DOMAIN: process.env.FRONTEND_DOMAIN || "localhost"
   },
   PORT: process.env.PORT || 5050,
   SESSION_SECRET: process.env.SESSION_SECRET,

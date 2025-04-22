@@ -33,4 +33,3 @@ Feature: Passport CRI - Welsh Language Tests
     When they view the Beta banner with the Welsh text as Mae hwn yn wasanaeth newydd – bydd eich adborth (agor mewn tab newydd) yn ein helpu i’w wella.
     Then I select Reject analytics cookies button and see the text Rydych wedi gwrthod cwcis ychwanegol. Gallwch newid eich gosodiadau cwcis unrhyw bryd.
     Then I select the rejected link change your cookie settings and assert I have been redirected correctly
-    

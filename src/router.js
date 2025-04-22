@@ -1,5 +1,6 @@
 const commonExpress = require("@govuk-one-login/di-ipv-cri-common-express");
-const { getGTM, getLanguageToggle } = commonExpress.lib.locals;
+const { getGTM, getLanguageToggle, getDeviceIntelligence } =
+  commonExpress.lib.locals;
 const setScenarioHeaders = commonExpress.lib.scenarioHeaders;
 const setAxiosDefaults = commonExpress.lib.axios;
 
@@ -11,6 +12,7 @@ const wizard = require("hmpo-form-wizard");
 const init = (router) => {
   router.use(getGTM);
   router.use(getLanguageToggle);
+  router.use(getDeviceIntelligence);
   router.use(setScenarioHeaders);
   router.use(setAxiosDefaults);
   router.use(featureSets);
