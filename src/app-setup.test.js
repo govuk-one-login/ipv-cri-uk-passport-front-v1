@@ -51,6 +51,31 @@ describe("app-setup", () => {
       sinon.assert.calledWith(app.set, "APP.GTM.GA4_ENABLED", true);
     });
 
+    it("should set Device Intelligence  variables", () => {
+      AppSetup.init(app, router);
+
+      sinon.assert.calledWith(
+        app.set,
+        "APP.DEVICE_INTELLIGENCE_ENABLED",
+        false
+      );
+      sinon.assert.calledWith(
+        app.set,
+        "APP.DEVICE_INTELLIGENCE_DOMAIN",
+        "localhost"
+      );
+      sinon.assert.calledWith(
+        app.set,
+        "APP.DEVICE_INTELLIGENCE_ENABLED",
+        false
+      );
+      sinon.assert.calledWith(
+        app.set,
+        "APP.DEVICE_INTELLIGENCE_DOMAIN",
+        "localhost"
+      );
+    });
+
     it("should set API config variables", () => {
       AppSetup.init(app, router);
 

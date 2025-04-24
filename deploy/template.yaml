@@ -66,9 +66,6 @@ Mappings:
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
       fargateCPUsize: "256"
       fargateRAMsize: "512"
-      ga4Enabled: "true"
-      uaEnabled: "false"
-      languageToggleDisabled: "false"
       minECSCount: 1
       maxECSCount: 4
     build:
@@ -76,9 +73,6 @@ Mappings:
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
       fargateCPUsize: "2048"
       fargateRAMsize: "4096"
-      ga4Enabled: "true"
-      uaEnabled: "false"
-      languageToggleDisabled: "false"
       minECSCount: 4
       maxECSCount: 60
     staging:
@@ -86,9 +80,6 @@ Mappings:
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
       fargateCPUsize: "256"
       fargateRAMsize: "512"
-      ga4Enabled: "true"
-      uaEnabled: "false"
-      languageToggleDisabled: "false"
       minECSCount: 2
       maxECSCount: 4
     integration:
@@ -96,9 +87,6 @@ Mappings:
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
       fargateCPUsize: "512"
       fargateRAMsize: "1024"
-      ga4Enabled: "true"
-      uaEnabled: "false"
-      languageToggleDisabled: "false"
       minECSCount: 2
       maxECSCount: 4
     production:
@@ -106,11 +94,35 @@ Mappings:
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceProductionVariables
       fargateCPUsize: "2048"
       fargateRAMsize: "4096"
+      minECSCount: 4
+      maxECSCount: 60
+
+  FeatureFlagMapping:
+    dev:
       ga4Enabled: "true"
       uaEnabled: "false"
       languageToggleDisabled: "false"
-      minECSCount: 4
-      maxECSCount: 60
+      deviceIntelligenceEnabled: "true"
+    build:
+      ga4Enabled: "true"
+      uaEnabled: "false"
+      languageToggleDisabled: "false"
+      deviceIntelligenceEnabled: "true"
+    staging:
+      ga4Enabled: "true"
+      uaEnabled: "false"
+      languageToggleDisabled: "false"
+      deviceIntelligenceEnabled: "true"
+    integration:
+      ga4Enabled: "true"
+      uaEnabled: "false"
+      languageToggleDisabled: "false"
+      deviceIntelligenceEnabled: "false"
+    production:
+      ga4Enabled: "true"
+      uaEnabled: "false"
+      languageToggleDisabled: "false"
+      deviceIntelligenceEnabled: "false"
 
   # see https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-access-logs.html
   ElasticLoadBalancerAccountIds:
@@ -527,12 +539,12 @@ Resources:
             - Name: GOOGLE_ANALYTICS_4_GTM_CONTAINER_ID
               Value: !If [ IsProduction, "GTM-K4PBJH3", "GTM-KD86CMZ" ]
             - Name: GA4_DISABLED
-              Value: !FindInMap [ EnvironmentConfiguration, !Ref "Environment", ga4Enabled ]
+              Value: !FindInMap [ FeatureFlagMapping, !Ref "Environment", ga4Enabled ]
             - Name: UA_ENABLED
-              Value: !FindInMap [ EnvironmentConfiguration, !Ref "Environment", uaEnabled ]
+              Value: !FindInMap [ FeatureFlagMapping, !Ref "Environment", uaEnabled ]
             - Name: LANGUAGE_TOGGLE_DISABLED
-              Value: !FindInMap [ EnvironmentConfiguration, !Ref "Environment", languageToggleDisabled ]
-            - Name: ANALYTICS_DOMAIN
+              Value: !FindInMap [ FeatureFlagMapping, !Ref "Environment", languageToggleDisabled ]
+            - Name: FRONTEND_DOMAIN
               Value:
                 !If [
                   IsProduction,
@@ -541,6 +553,13 @@ Resources:
                 ]
             - Name: LOG_LEVEL
               Value: !FindInMap [ EnvironmentConfiguration, !Ref "Environment", logLevel ]
+            - Name: DEVICE_INTELLIGENCE_ENABLED
+              Value:
+                !FindInMap [
+                  FeatureFlagMapping,
+                  !Ref "Environment",
+                  deviceIntelligenceEnabled
+                ]
           Secrets:
             - Name: DT_TENANT
               ValueFrom: !Join

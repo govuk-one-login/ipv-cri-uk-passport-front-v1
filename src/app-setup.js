@@ -2,7 +2,8 @@ const { API, APP, LOG_LEVEL } = require("./lib/config");
 
 const commonExpress = require("@govuk-one-login/di-ipv-cri-common-express");
 
-const { setGTM, setLanguageToggle } = commonExpress.lib.settings;
+const { setGTM, setLanguageToggle, setDeviceIntelligence } =
+  commonExpress.lib.settings;
 const { setAPIConfig, setOAuthPaths } = require("./lib/settings");
 const sessionConfigService = require("./session-config");
 const overloadProtectionConfigService = require("./overload-protection-config");
@@ -44,6 +45,13 @@ const init = (app, router) => {
     ga4SelectContentEnabled: APP.GTM.GA4_SELECT_CONTENT_ENABLED,
     analyticsDataSensitive: APP.GTM.ANALYTICS_DATA_SENSITIVE
   });
+
+  setDeviceIntelligence({
+    app,
+    deviceIntelligenceEnabled: APP.DEVICE_INTELLIGENCE_ENABLED,
+    deviceIntelligenceDomain: APP.DEVICE_INTELLIGENCE_DOMAIN
+  });
+
   setLanguageToggle({ app, showLanguageToggle: showLanguageToggle });
   setI18n({
     router,
