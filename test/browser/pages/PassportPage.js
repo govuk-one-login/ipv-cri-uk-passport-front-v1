@@ -633,4 +633,34 @@ exports.PassportPage = class PlaywrightDevPage {
     expect(await this.isCurrentPage()).to.be.true;
     expect(await this.header.innerText()).to.equal(pageHeading);
   }
+
+  async checkDeviceIntelligenceCookie(deviceIntelligenceCookieName) {
+    // Wait for the page to fully load
+    await this.page.waitForLoadState("networkidle", { timeout: 5000 });
+
+    const cookies = await this.page.context().cookies();
+
+    const cookie = cookies.find(
+      (cookie) => cookie.name === deviceIntelligenceCookieName
+    );
+
+    if (!cookie) {
+      throw new Error(
+        `Cookie with name '${deviceIntelligenceCookieName}' not found.`
+      );
+    }
+
+    if (
+      cookie.value === undefined ||
+      cookie.value === null ||
+      cookie.value.trim() === ""
+    ) {
+      // Check for undefined, null, or empty string in value field of the cookie
+      throw new Error(
+        `Cookie with name '${deviceIntelligenceCookieName}' has no value.`
+      );
+    }
+
+    return true;
+  }
 };

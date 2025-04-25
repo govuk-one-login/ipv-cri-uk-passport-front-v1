@@ -24,6 +24,16 @@ Then(
   }
 );
 
+Then(
+  /^I see the Device Intelligence Cookie (.*)$/,
+  async function (deviceIntelligenceCookieName) {
+    const passportPage = new PassportPage(this.page);
+    await passportPage.checkDeviceIntelligenceCookie(
+      deviceIntelligenceCookieName
+    );
+  }
+);
+
 Then(/^User clicks on continue$/, { timeout: 2 * 5000 }, async function () {
   const passportPage = new PassportPage(this.page);
   await passportPage.clickOnContinue();

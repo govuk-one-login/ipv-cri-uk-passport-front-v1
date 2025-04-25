@@ -41,7 +41,7 @@ jobs:
           node-version: 20
 
       - name: Install dependencies
-        run: yarn install && yarn playwright install
+        run: yarn install
 
       - name: Build assets
         run: yarn build
