@@ -309,3 +309,10 @@ Feature: Passport CRI - Happy Path and Field Valisation Tests
     And I assert the link on the error page is correct and live
     Then I go to page not found
     And I assert the link on the page not found page is correct and live
+
+  @mock-api:passport-success @Passport_test @build @staging @integration
+  Scenario: Driving Licence - Cookies - Device Intelligence
+    Given I see the Device Intelligence Cookie <DeviceIntelligenceCookieName>
+    Examples:
+      | DeviceIntelligenceCookieName |
+      | di-device-intelligence       |
