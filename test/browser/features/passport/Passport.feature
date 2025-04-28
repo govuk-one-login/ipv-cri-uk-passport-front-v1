@@ -316,3 +316,18 @@ Feature: Passport CRI - Happy Path and Field Valisation Tests
     Examples:
       | DeviceIntelligenceCookieName |
       | di-device-intelligence       |
+  @mock-api:passport-success @Passport_test @build @staging @integration
+  Scenario Outline: Passport CRI - Axe Accessibility Scan - Passport Details Page
+    Given I run the Axe Accessibility check against the Passport details entry page
+    Then User enters passport data as a <PassportSubject>
+    When User clicks on continue
+    Examples:
+      | PassportSubject             |
+      | PassportSubjectHappyKenneth |
+
+  @mock-api:passport-success @Passport_test @build @staging @integration
+  Scenario: Passport CRI - Axe Accessibility Scan - Passport Error Page
+    Given I delete the session cookie
+    And User clicks on continue
+    Then they should see an error page
+    Then I run the Axe Accessibility check against the Error entry page
