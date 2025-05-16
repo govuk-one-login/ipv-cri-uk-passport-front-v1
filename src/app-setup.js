@@ -132,6 +132,17 @@ const create = (setup) => {
     overloadProtection: overloadProtectionConfig,
     dev: true
   });
+  const nodeEnv = process.env.NODE_ENV;
+  const logLevel = process.env.logLevel || 'info';
+
+  function log(message, level = 'info') {
+    if (['debug', 'info', 'warn', 'error'].includes(level) && level !== 'debug' || (level === 'debug' && logLevel === 'debug')) {
+      const timestamp = new Date().toISOString();
+      console.log(`[${timestamp}] [${level.toUpperCase()}] [${nodeEnv}] ${message}`);
+    }
+  }
+  
+  log(`Application started in ${nodeEnv} mode`);
   return { app, router };
 };
 
