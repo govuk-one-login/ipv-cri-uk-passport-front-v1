@@ -1,5 +1,7 @@
 # Digital Identity Passport Credential Issuer
 
+TEST
+
 This the front-end code for V1 of the UK Passport Credential Issuer(CRI) for the Identity Proofing and Verification (IPV) system within the GDS digital identity platform, GOV.UK Sign In.
 
 Passport front V1 was created as part of all CRI's standardizing on using -
