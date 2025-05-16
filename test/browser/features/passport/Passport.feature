@@ -2,14 +2,13 @@
 Feature: Passport CRI - Happy Path and Field Valisation Tests
 
   Background:
-    Given Authenticatable Anita is using the system
+    Given Authenticatable Anita has started the Passport Journey
     And they have provided their details
-    And they have started the Passport journey
-    And I should be on the Passport details entry page Enter your details exactly as they appear on your UK passport – GOV.UK One Login
 
   @mock-api:passport-success @Passport_test @build @staging @integration
   Scenario Outline: Passport CRI - Happy Path Test
-    Given User enters passport data as a <PassportSubject>
+    Given I should be on the Passport details entry page Enter your details exactly as they appear on your UK passport – GOV.UK One Login
+    And User enters passport data as a <PassportSubject>
     When User clicks on continue
     Examples:
       | PassportSubject             |
@@ -47,7 +46,8 @@ Feature: Passport CRI - Happy Path and Field Valisation Tests
   ########### Field Validations ##########
   @mock-api:passport-success @Passport_test @build @staging @integration
   Scenario Outline: Passport CRI - Passport Last name with numbers or special characters error validation
-    Given User enters passport data as a <PassportSubject>
+    Given I should be on the Passport details entry page Enter your details exactly as they appear on your UK passport – GOV.UK One Login
+    And User enters passport data as a <PassportSubject>
     And User re-enters last name as <InvalidLastName>
     When User clicks on continue
     Then I see the Lastname error in the error summary as Enter your surname as it appears on your passport
@@ -58,7 +58,8 @@ Feature: Passport CRI - Happy Path and Field Valisation Tests
 
   @mock-api:passport-success @Passport_test @build @staging @integration
   Scenario Outline: Passport CRI - Passport Last name with numbers or special characters error validation
-    Given User enters passport data as a <PassportSubject>
+    Given I should be on the Passport details entry page Enter your details exactly as they appear on your UK passport – GOV.UK One Login
+    And User enters passport data as a <PassportSubject>
     And User re-enters last name as <InvalidLastName>
     When User clicks on continue
     Then I see the Lastname error in the error summary as Enter your surname as it appears on your passport
@@ -69,7 +70,8 @@ Feature: Passport CRI - Happy Path and Field Valisation Tests
 
   @mock-api:passport-success @Passport_test @build @staging @integration
   Scenario Outline: Passport CRI - Passport No Last name in the Last name field error validation
-    Given User enters passport data as a <PassportSubject>
+    Given I should be on the Passport details entry page Enter your details exactly as they appear on your UK passport – GOV.UK One Login
+    And User enters passport data as a <PassportSubject>
     And User re-enters last name as <InvalidLastName>
     When User clicks on continue
     Then I see the Lastname error in the error summary as Enter your surname as it appears on your passport
@@ -80,7 +82,8 @@ Feature: Passport CRI - Happy Path and Field Valisation Tests
 
   @mock-api:passport-success @Passport_test @build @staging @integration
   Scenario Outline: Passport CRI - Passport First name with numberserror validation
-    Given User enters passport data as a <PassportSubject>
+    Given I should be on the Passport details entry page Enter your details exactly as they appear on your UK passport – GOV.UK One Login
+    And User enters passport data as a <PassportSubject>
     And User re-enters first name as <InvalidFirstName>
     When User clicks on continue
     Then I see the Firstname error summary as Enter your first name as it appears on your passport
@@ -91,7 +94,8 @@ Feature: Passport CRI - Happy Path and Field Valisation Tests
 
   @mock-api:passport-success @Passport_test @build @staging @integration
   Scenario Outline: Passport CRI - Passport First name with special characters error validation
-    Given User enters passport data as a <PassportSubject>
+    Given I should be on the Passport details entry page Enter your details exactly as they appear on your UK passport – GOV.UK One Login
+    And User enters passport data as a <PassportSubject>
     And User re-enters first name as <InvalidFirstName>
     When User clicks on continue
     Then I see the Firstname error summary as Enter your first name as it appears on your passport
@@ -102,7 +106,8 @@ Feature: Passport CRI - Happy Path and Field Valisation Tests
 
   @mock-api:passport-success @Passport_test @build @staging @integration
   Scenario Outline: Passport CRI - Passport No First name in the First name field error validation
-    Given User enters passport data as a <PassportSubject>
+    Given I should be on the Passport details entry page Enter your details exactly as they appear on your UK passport – GOV.UK One Login
+    And User enters passport data as a <PassportSubject>
     And User re-enters first name as <InvalidFirstName>
     When User clicks on continue
     Then I see the Firstname error summary as Enter your first name as it appears on your passport
@@ -113,7 +118,8 @@ Feature: Passport CRI - Happy Path and Field Valisation Tests
 
   @mock-api:passport-success @Passport_test @build @staging @integration
   Scenario Outline: Passport CRI - Passport Date of birth that are not real error validation
-    Given User enters passport data as a <PassportSubject>
+    Given I should be on the Passport details entry page Enter your details exactly as they appear on your UK passport – GOV.UK One Login
+    And User enters passport data as a <PassportSubject>
     And User re-enters day of birth as <InvalidDayOfBirth>
     And User re-enters month of birth as <InvalidMonthOfBirth>
     And User re-enters year of birth as <InvalidYearOfBirth>
@@ -126,7 +132,8 @@ Feature: Passport CRI - Happy Path and Field Valisation Tests
 
   @mock-api:passport-success @Passport_test @build @staging @integration
   Scenario Outline: Passport CRI - Passport Date of birth field failure as two digits provided
-    Given User enters passport data as a <PassportSubject>
+    Given I should be on the Passport details entry page Enter your details exactly as they appear on your UK passport – GOV.UK One Login
+    And User enters passport data as a <PassportSubject>
     And User re-enters day of birth as <validDayOfBirth>
     And User re-enters month of birth as <validMonthOfBirth>
     And User re-enters year of birth as <InvalidYearOfBirth>
@@ -139,7 +146,8 @@ Feature: Passport CRI - Happy Path and Field Valisation Tests
 
   @mock-api:passport-success @Passport_test @build @staging @integration
   Scenario Outline: Passport CRI - Passport Expiry Date field failure as two digits provided
-    Given User enters passport data as a <PassportSubject>
+    Given I should be on the Passport details entry page Enter your details exactly as they appear on your UK passport – GOV.UK One Login
+    And User enters passport data as a <PassportSubject>
     And User re-enters expiry day as <validDayOfExpiry>
     And User re-enters expiry month as <validMonthOfExpiry>
     And User re-enters expiry year as <InvalidYearOfExpiry>
@@ -152,7 +160,8 @@ Feature: Passport CRI - Happy Path and Field Valisation Tests
 
   @mock-api:passport-success @Passport_test @build @staging @integration
   Scenario Outline: Passport CRI - Passport Date of birth with special characters error validation
-    Given User enters passport data as a <PassportSubject>
+    Given I should be on the Passport details entry page Enter your details exactly as they appear on your UK passport – GOV.UK One Login
+    And User enters passport data as a <PassportSubject>
     And User re-enters day of birth as <InvalidDayOfBirth>
     And User re-enters month of birth as <InvalidMonthOfBirth>
     And User re-enters year of birth as <InvalidYearOfBirth>
@@ -165,7 +174,8 @@ Feature: Passport CRI - Happy Path and Field Valisation Tests
 
   @mock-api:passport-success @Passport_test @build @staging @integration
   Scenario Outline: Passport CRI - Passport Date of birth in the future error validation
-    Given User enters passport data as a <PassportSubject>
+    Given I should be on the Passport details entry page Enter your details exactly as they appear on your UK passport – GOV.UK One Login
+    And User enters passport data as a <PassportSubject>
     And User re-enters day of birth as <InvalidDayOfBirth>
     And User re-enters month of birth as <InvalidMonthOfBirth>
     And User re-enters year of birth as <InvalidYearOfBirth>
@@ -178,7 +188,8 @@ Feature: Passport CRI - Happy Path and Field Valisation Tests
 
   @mock-api:passport-success @Passport_test @build @staging @integration
   Scenario Outline: Passport CRI - Passport - No Date in the Date of birth field error validation
-    Given User enters passport data as a <PassportSubject>
+    Given I should be on the Passport details entry page Enter your details exactly as they appear on your UK passport – GOV.UK One Login
+    And User enters passport data as a <PassportSubject>
     And User re-enters day of birth as <InvalidDayOfBirth>
     And User re-enters month of birth as <InvalidMonthOfBirth>
     And User re-enters year of birth as <InvalidYearOfBirth>
@@ -191,7 +202,8 @@ Feature: Passport CRI - Happy Path and Field Valisation Tests
 
   @mock-api:passport-success @Passport_test @build @staging @integration
   Scenario Outline: Passport CRI - Passport Valid to date that are not real error validation
-    Given User enters passport data as a <PassportSubject>
+    Given I should be on the Passport details entry page Enter your details exactly as they appear on your UK passport – GOV.UK One Login
+    And User enters passport data as a <PassportSubject>
     And User re-enters expiry day as <InvalidExpiryDay>
     And User re-enters expiry month as <InvalidExpiryMonth>
     And User re-enters expiry year as <InvalidExpiryYear>
@@ -204,7 +216,8 @@ Feature: Passport CRI - Happy Path and Field Valisation Tests
 
   @mock-api:passport-success @Passport_test @build @staging @integration
   Scenario Outline: Passport CRI - Passport Valid to date with special characters error validation
-    Given User enters passport data as a <PassportSubject>
+    Given I should be on the Passport details entry page Enter your details exactly as they appear on your UK passport – GOV.UK One Login
+    And User enters passport data as a <PassportSubject>
     And User re-enters expiry day as <InvalidExpiryDay>
     And User re-enters expiry month as <InvalidExpiryMonth>
     And User re-enters expiry year as <InvalidExpiryYear>
@@ -217,7 +230,8 @@ Feature: Passport CRI - Happy Path and Field Valisation Tests
 
   @mock-api:passport-success @Passport_test @build @staging @integration
   Scenario Outline: Passport CRI - Passport Valid to date in the past error validation
-    Given User enters passport data as a <PassportSubject>
+    Given I should be on the Passport details entry page Enter your details exactly as they appear on your UK passport – GOV.UK One Login
+    And User enters passport data as a <PassportSubject>
     And User re-enters expiry day as <InvalidExpiryDay>
     And User re-enters expiry month as <InvalidExpiryMonth>
     And User re-enters expiry year as <InvalidExpiryYear>
@@ -230,7 +244,8 @@ Feature: Passport CRI - Happy Path and Field Valisation Tests
 
   @mock-api:passport-success @Passport_test @build @staging @integration
   Scenario Outline: Passport CRI - Passport - No date in the Valid to date field error validation
-    Given User enters passport data as a <PassportSubject>
+    Given I should be on the Passport details entry page Enter your details exactly as they appear on your UK passport – GOV.UK One Login
+    And User enters passport data as a <PassportSubject>
     And User re-enters expiry day as <InvalidExpiryDay>
     And User re-enters expiry month as <InvalidExpiryMonth>
     And User re-enters expiry year as <InvalidExpiryYear>
@@ -243,7 +258,8 @@ Feature: Passport CRI - Happy Path and Field Valisation Tests
 
   @mock-api:passport-success @Passport_test @build @staging @integration
   Scenario Outline: Passport CRI - Passport number less than 8 characters error validation
-    Given User enters passport data as a <PassportSubject>
+    Given I should be on the Passport details entry page Enter your details exactly as they appear on your UK passport – GOV.UK One Login
+    And User enters passport data as a <PassportSubject>
     Then User re-enters passportNumber as <InvalidPassportNumber>
     When User clicks on continue
     Then I see the Passport number error summary as Your passport number should be 9 digits long
@@ -254,7 +270,8 @@ Feature: Passport CRI - Happy Path and Field Valisation Tests
 
   @mock-api:passport-success @Passport_test @build @staging @integration
   Scenario Outline: Passport CRI - Passport number with special characters and spaces error validation
-    Given User enters passport data as a <PassportSubject>
+    Given I should be on the Passport details entry page Enter your details exactly as they appear on your UK passport – GOV.UK One Login
+    And User enters passport data as a <PassportSubject>
     Then User re-enters passportNumber as <InvalidPassportNumber>
     When User clicks on continue
     Then I see the Passport number error summary as Your passport number should not include letters or symbols
@@ -265,7 +282,8 @@ Feature: Passport CRI - Happy Path and Field Valisation Tests
 
   @mock-api:passport-success @Passport_test @build @staging @integration
   Scenario Outline: Passport CRI - Passport number with alpha numeric characters error validation
-    Given User enters passport data as a <PassportSubject>
+    Given I should be on the Passport details entry page Enter your details exactly as they appear on your UK passport – GOV.UK One Login
+    And User enters passport data as a <PassportSubject>
     Then User re-enters passportNumber as <InvalidPassportNumber>
     When User clicks on continue
     Then I see the Passport number error summary as Your passport number should not include letters or symbols
@@ -276,7 +294,8 @@ Feature: Passport CRI - Happy Path and Field Valisation Tests
 
   @mock-api:passport-success @Passport_test @build @staging @integration
   Scenario Outline: Passport CRI - Passport number with alpha characters error validation
-    Given User enters passport data as a <PassportSubject>
+    Given I should be on the Passport details entry page Enter your details exactly as they appear on your UK passport – GOV.UK One Login
+    And User enters passport data as a <PassportSubject>
     Then User re-enters passportNumber as <InvalidPassportNumber>
     When User clicks on continue
     Then I see the Passport number error summary as Your passport number should not include letters or symbols
@@ -287,7 +306,8 @@ Feature: Passport CRI - Happy Path and Field Valisation Tests
 
   @mock-api:passport-success @Passport_test @build @staging @integration
   Scenario Outline: Passport CRI - Passport - No passport number in the passport number field error validation
-    Given User enters passport data as a <PassportSubject>
+    Given I should be on the Passport details entry page Enter your details exactly as they appear on your UK passport – GOV.UK One Login
+    And User enters passport data as a <PassportSubject>
     Then User re-enters passportNumber as <InvalidPassportNumber>
     When User clicks on continue
     Then I see the Passport number error summary as Enter the number as it appears on your passport
@@ -297,11 +317,14 @@ Feature: Passport CRI - Happy Path and Field Valisation Tests
       | PassportSubjectHappyKenneth |                       |
 
   @mock-api:passport-success
-  Scenario: Passport CRI - Check support links
-    Given The Support link in the footer reads Support (opens in new tab) and assert the url is correct and live
-    When I view the beta banner
-    Then the beta banner reads This is a new service – your feedback (opens in new tab) will help us to improve it.
+  Scenario: Passport CRI - Check support links are correct and live
+    Given The Support link in the footer reads Support (opens in new tab)
+    And I assert the support link url in the footer is correct and live
+    Then I assert the beta banner reads This is a new service – your feedback (opens in new tab) will help us to improve it.
     And I assert the link in the banner is correct and live
+
+  @mock-api:passport-success
+  Scenario: Passport CRI - Check error page following cookie deletion
     Then I delete the session cookie
     And User clicks on continue
     Then they should see an error page
