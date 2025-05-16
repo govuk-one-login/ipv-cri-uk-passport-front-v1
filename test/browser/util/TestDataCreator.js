@@ -1,7 +1,7 @@
 const PassportSubject = require("../model/PassportSubject.js");
 
 exports.getPassportTestUserFromMap = function (passportSubjectScenario) {
-  var primaryPassport = new PassportSubject();
+  let primaryPassport = new PassportSubject();
   primaryPassport.fill({
     passportNumber: "321654987",
     birthDay: "08",

@@ -496,18 +496,19 @@ exports.PassportPage = class PlaywrightDevPage {
     expect(await this.errorLink.innerText()).to.equal(contactOneLoginTeamLink);
   }
 
-  async assertFooterLink(supportFooterLink) {
+  async assertFooterLinkText(supportFooterLink) {
     await this.page.waitForLoadState("domcontentloaded");
     expect(await this.isCurrentPage()).to.be.true;
     expect(await this.supportLink.innerText()).to.equal(supportFooterLink);
+  }
+
+  async assertFooterLinkIsCorrectAndLive() {
+    await this.page.waitForLoadState("domcontentloaded");
+
+    const newPagePromise = this.page.waitForEvent("popup");
+
     await this.supportLink.click();
-    await this.page.waitForTimeout(2000); //waitForNavigation and waitForLoadState do not work in this case
-    let context = await this.page.context();
-    let pages = await context.pages();
-    expect(await pages[1].url()).to.equal(
-      "https://home.account.gov.uk/contact-gov-uk-one-login"
-    );
-    await pages[1].close();
+    await this.assertNewPageIsCorrectAndLive(newPagePromise);
   }
 
   async assertFooterLinks(linkName) {
@@ -573,46 +574,25 @@ exports.PassportPage = class PlaywrightDevPage {
     }
   }
 
-  async assertBannerLink() {
-    await this.betaBannerLink.click();
-    await this.page.waitForTimeout(2000); //waitForNavigation and waitForLoadState do not work in this case
-    let context = await this.page.context();
-    let pages = await context.pages();
-    expect(await pages[1].url()).to.equal(
-      "https://home.account.gov.uk/contact-gov-uk-one-login"
-    );
-    expect(await pages[1].title()).to.not.equal(
-      "Page not found - GOV.UK One Login"
-    );
-    await pages[1].close();
-  }
+  async assertErrorLinkIsCorrectAndLive() {
+    const newPagePromise = this.page.waitForEvent("popup");
 
-  async assertErrorLink() {
     await this.errorLink.click();
-    await this.page.waitForTimeout(2000); //waitForNavigation and waitForLoadState do not work in this case
-    let context = await this.page.context();
-    let pages = await context.pages();
-    expect(await pages[1].url()).to.equal(
-      "https://home.account.gov.uk/contact-gov-uk-one-login"
-    );
-    expect(await pages[1].title()).to.not.equal(
-      "Page not found - GOV.UK One Login"
-    );
-    await pages[1].close();
+    await this.assertNewPageIsCorrectAndLive(newPagePromise);
   }
 
-  async assertNotFoundLink() {
+  async assertNotFoundLinkIsCorrectAndLive() {
+    const newPagePromise = this.page.waitForEvent("popup");
+
     await this.notFoundLink.click();
-    await this.page.waitForTimeout(2000); //waitForNavigation and waitForLoadState do not work in this case
-    let context = await this.page.context();
-    let pages = await context.pages();
-    expect(await pages[1].url()).to.equal(
-      "https://home.account.gov.uk/contact-gov-uk-one-login"
-    );
-    expect(await pages[1].title()).to.not.equal(
-      "Page not found - GOV.UK One Login"
-    );
-    await pages[1].close();
+    await this.assertNewPageIsCorrectAndLive(newPagePromise);
+  }
+
+  async assertBannerLinkIsCorrectAndLive() {
+    const newPagePromise = this.page.waitForEvent("popup");
+
+    await this.betaBannerLink.click();
+    await this.assertNewPageIsCorrectAndLive(newPagePromise);
   }
 
   async deleteSessionCookie() {
@@ -662,5 +642,21 @@ exports.PassportPage = class PlaywrightDevPage {
     }
 
     return true;
+  }
+
+  async assertNewPageIsCorrectAndLive(newPagePromise) {
+    const newPage = await newPagePromise;
+    await newPage.waitForLoadState("domcontentloaded");
+
+    const expectedURL = "https://home.account.gov.uk/contact-gov-uk-one-login";
+    const unexpectedTitle = "Page not found - GOV.UK One Login";
+
+    const actualTitle = await newPage.title();
+    expect(actualTitle).to.not.equal(unexpectedTitle);
+
+    const actualURL = await newPage.url();
+    expect(actualURL).to.equal(expectedURL);
+
+    await newPage.close();
   }
 };
