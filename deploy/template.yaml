@@ -68,6 +68,7 @@ Mappings:
       fargateRAMsize: "512"
       minECSCount: 1
       maxECSCount: 4
+      nodeEnv: "development"
     build:
       logLevel: "info"
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
@@ -75,6 +76,7 @@ Mappings:
       fargateRAMsize: "4096"
       minECSCount: 4
       maxECSCount: 60
+      nodeEnv: "production"
     staging:
       logLevel: "warn"
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
@@ -82,6 +84,7 @@ Mappings:
       fargateRAMsize: "512"
       minECSCount: 2
       maxECSCount: 4
+      nodeEnv: "development"
     integration:
       logLevel: "warn"
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
@@ -89,6 +92,7 @@ Mappings:
       fargateRAMsize: "1024"
       minECSCount: 2
       maxECSCount: 4
+      nodeEnv: "development"
     production:
       logLevel: "warn"
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceProductionVariables
@@ -96,6 +100,7 @@ Mappings:
       fargateRAMsize: "4096"
       minECSCount: 4
       maxECSCount: 60
+      nodeEnv: "production"
 
   FeatureFlagMapping:
     dev:
@@ -538,7 +543,7 @@ Resources:
               Value: !If [IsProduction, "GTM-TT5HDKV", "GTM-TK92W68"]
             - Name: GOOGLE_ANALYTICS_4_GTM_CONTAINER_ID
               Value: !If [ IsProduction, "GTM-K4PBJH3", "GTM-KD86CMZ" ]
-            - Name: GA4_DISABLED
+            - Name: GA4_ENABLED
               Value: !FindInMap [ FeatureFlagMapping, !Ref "Environment", ga4Enabled ]
             - Name: UA_ENABLED
               Value: !FindInMap [ FeatureFlagMapping, !Ref "Environment", uaEnabled ]
@@ -559,6 +564,13 @@ Resources:
                   FeatureFlagMapping,
                   !Ref "Environment",
                   deviceIntelligenceEnabled
+                ]
+            - Name: NODE_ENV
+              Value:
+                !FindInMap [
+                  EnvironmentConfiguration,
+                  !Ref Environment,
+                  nodeEnv
                 ]
           Secrets:
             - Name: DT_TENANT
