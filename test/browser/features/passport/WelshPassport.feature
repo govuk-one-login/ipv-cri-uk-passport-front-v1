@@ -2,18 +2,20 @@
 Feature: Passport CRI - Welsh Language Tests
 
   Background:
-    Given Authenticatable Anita is using the system
+    Given Authenticatable Anita has started the Passport Journey
     And they have provided their details
-    And they have started the Passport journey
     And I add a cookie to change the language to Welsh
     And I should be on the Passport details entry page Rhowch eich manylion yn union fel maent yn ymddangos ar eich pasbort y DU – GOV.UK One Login
 
   @mock-api:passport-success-supportLinks @language-regression
-  Scenario: Passport CRI - Check support links
-    Given The Support link in the footer reads Cymorth (agor mewn tab newydd) and assert the url is correct and live
-    When I view the beta banner
-    Then the beta banner reads Mae hwn yn wasanaeth newydd – bydd eich adborth (agor mewn tab newydd) yn ein helpu i’w wella.
+  Scenario: Passport CRI - Check support links are correct and live
+    Given The Support link in the footer reads Cymorth (agor mewn tab newydd)
+    Then I assert the support link url in the footer is correct and live
+    And I assert the beta banner reads Mae hwn yn wasanaeth newydd – bydd eich adborth (agor mewn tab newydd) yn ein helpu i’w wella.
     And I assert the link in the banner is correct and live
+
+  @mock-api:passport-success-supportLinks @language-regression
+  Scenario: Passport CRI - Check error page following cookie deletion
     Then I delete the session cookie
     And User clicks on continue
     Then I see the heading Mae’n ddrwg gennym, mae problem

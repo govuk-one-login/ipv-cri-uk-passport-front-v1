@@ -121,11 +121,6 @@ Given(
   }
 );
 
-When(
-  /^they (?:have )?start(?:ed)? the Passport journey$/,
-  async function () {}
-);
-
 // Re-enter test data step-defs
 
 Then(
@@ -420,7 +415,7 @@ Then(
   }
 );
 
-Then(/^the beta banner reads (.*)$/, async function (betaBannerText) {
+Then(/^I assert the beta banner reads (.*)$/, async function (betaBannerText) {
   const passportPage = new PassportPage(this.page);
   await passportPage.assertBetaBannerText(betaBannerText);
 });
@@ -472,10 +467,18 @@ Then(
 );
 
 Given(
-  /^The Support link in the footer reads (.*) and assert the url is correct and live$/,
+  /^The Support link in the footer reads (.*)$/,
   async function (supportFooterLink) {
     const passportPage = new PassportPage(this.page);
-    await passportPage.assertFooterLink(supportFooterLink);
+    await passportPage.assertFooterLinkText(supportFooterLink);
+  }
+);
+
+Given(
+  /^I assert the support link url in the footer is correct and live$/,
+  async function () {
+    const passportPage = new PassportPage(this.page);
+    await passportPage.assertFooterLinkIsCorrectAndLive();
   }
 );
 
@@ -483,7 +486,7 @@ Given(
   /^I assert the link in the banner is correct and live$/,
   async function () {
     const passportPage = new PassportPage(this.page);
-    await passportPage.assertBannerLink();
+    await passportPage.assertBannerLinkIsCorrectAndLive();
   }
 );
 
@@ -491,7 +494,7 @@ Given(
   /^I assert the link on the error page is correct and live$/,
   async function () {
     const passportPage = new PassportPage(this.page);
-    await passportPage.assertErrorLink();
+    await passportPage.assertErrorLinkIsCorrectAndLive();
   }
 );
 
@@ -499,7 +502,7 @@ Given(
   /^I assert the link on the page not found page is correct and live$/,
   async function () {
     const passportPage = new PassportPage(this.page);
-    await passportPage.assertNotFoundLink();
+    await passportPage.assertNotFoundLinkIsCorrectAndLive();
   }
 );
 
