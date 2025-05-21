@@ -117,7 +117,7 @@ Mappings:
       ga4Enabled: "true"
       uaEnabled: "false"
       languageToggleDisabled: "false"
-      deviceIntelligenceEnabled: "true"
+      deviceIntelligenceEnabled: "false"
     integration:
       ga4Enabled: "true"
       uaEnabled: "false"
