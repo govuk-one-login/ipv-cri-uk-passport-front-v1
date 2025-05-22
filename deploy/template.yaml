@@ -556,6 +556,8 @@ Resources:
                   "account.gov.uk",
                   !Sub "${Environment}.account.gov.uk"
                 ]
+            - Name: DEVICE_INTELLIGENCE_DOMAIN
+              Value: "account.gov.uk"
             - Name: LOG_LEVEL
               Value: !FindInMap [ EnvironmentConfiguration, !Ref "Environment", logLevel ]
             - Name: DEVICE_INTELLIGENCE_ENABLED
