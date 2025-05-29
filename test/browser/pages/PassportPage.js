@@ -99,18 +99,11 @@ exports.PassportPage = class PlaywrightDevPage {
       'xpath=//*[@id="passportNumber-error"]'
     );
 
-    this.passportRetryMessageHeading = this.page.locator(
-      'xpath=//*[@id="main-content"]/div/div/div[1]/div[2]'
-    );
-
     this.passportNumberFieldError = this.page.locator(
       'xpath=//*[@id="passportNumber-error"]'
     );
     this.invalidDobFieldError = this.page.locator(
       'xpath=//*[@id="dateOfBirth-error"]'
-    );
-    this.invalidValidToDateFieldError = this.page.locator(
-      'xpath=//*[@id="expiryDate-error"]'
     );
 
     this.Continue = this.page.locator('xpath=//*[@id="submitButton"]');
@@ -324,6 +317,76 @@ exports.PassportPage = class PlaywrightDevPage {
     await this.passportValidToYear.fill(InvalidExpiryYear);
   }
 
+  //Field Labels and hint texts
+
+  async assertLastNameLabel(lastNameLabelText) {
+    await this.page.waitForLoadState("domcontentloaded");
+    expect(await this.isCurrentPage()).to.be.true;
+    expect(await this.lastNameLabel.innerText()).to.equal(lastNameLabelText);
+  }
+
+  async assertFirstNameLabel(firstNameLabelText) {
+    await this.page.waitForLoadState("domcontentloaded");
+    expect(await this.isCurrentPage()).to.be.true;
+    expect(await this.firstNameLabel.innerText()).to.equal(firstNameLabelText);
+  }
+
+  async assertMiddleNameLabel(middleNameLabelText) {
+    await this.page.waitForLoadState("domcontentloaded");
+    expect(await this.isCurrentPage()).to.be.true;
+    expect(await this.middleNames.innerText()).to.equal(middleNameLabelText);
+  }
+
+  async assertMiddleNameHint(middleNameHintText) {
+    await this.page.waitForLoadState("domcontentloaded");
+    expect(await this.isCurrentPage()).to.be.true;
+    expect(await this.middleNameSentence.innerText()).to.equal(
+      middleNameHintText
+    );
+  }
+
+  async assertDobExample(dobExampleText) {
+    await this.page.waitForLoadState("domcontentloaded");
+    expect(await this.isCurrentPage()).to.be.true;
+    expect(await this.dobExample.innerText()).to.equal(dobExampleText);
+  }
+
+  async assertDobDayLabel(dobDayLabelText) {
+    await this.page.waitForLoadState("domcontentloaded");
+    expect(await this.isCurrentPage()).to.be.true;
+    expect(await this.dayLabel.innerText()).to.equal(dobDayLabelText);
+  }
+
+  async assertDobMonthLabel(dobMonthLabelText) {
+    await this.page.waitForLoadState("domcontentloaded");
+    expect(await this.isCurrentPage()).to.be.true;
+    expect(await this.monthLabel.innerText()).to.equal(dobMonthLabelText);
+  }
+
+  async assertDobYearLabel(dobYearLabelText) {
+    await this.page.waitForLoadState("domcontentloaded");
+    expect(await this.isCurrentPage()).to.be.true;
+    expect(await this.yearLabel.innerText()).to.equal(dobYearLabelText);
+  }
+
+  async assertDoBFieldTitle(dobTitle) {
+    await this.page.waitForLoadState("domcontentloaded");
+    expect(await this.isCurrentPage()).to.be.true;
+    expect(await this.dobFieldTitleLegend.innerText()).to.equal(dobTitle);
+  }
+
+  async assertPassportTitle(passportTitle) {
+    await this.page.waitForLoadState("domcontentloaded");
+    expect(await this.isCurrentPage()).to.be.true;
+    expect(await this.passportNumberLabel.innerText()).to.equal(passportTitle);
+  }
+
+  async assertPassportHint(passportHint) {
+    await this.page.waitForLoadState("domcontentloaded");
+    expect(await this.isCurrentPage()).to.be.true;
+    expect(await this.passportNumberHint.innerText()).to.equal(passportHint);
+  }
+
   // Summary box errors
 
   async assertInvalidLastNameInErrorSummary(errorSummaryText) {
@@ -428,14 +491,6 @@ exports.PassportPage = class PlaywrightDevPage {
     await this.page.waitForLoadState("domcontentloaded");
     expect(await this.isCurrentPage()).to.be.true;
     expect(await this.invalidDobFieldError.innerText()).to.contains(
-      fieldErrorText
-    );
-  }
-
-  async assertInvalidValidToDateOnField(fieldErrorText) {
-    await this.page.waitForLoadState("domcontentloaded");
-    expect(await this.isCurrentPage()).to.be.true;
-    expect(await this.invalidValidToDateFieldError.innerText()).to.contains(
       fieldErrorText
     );
   }
