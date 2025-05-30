@@ -35,10 +35,10 @@ jobs:
       - name: SAM Validate
         run: sam validate --region ${{ env.AWS_REGION }} -t deploy/template.yaml --lint
 
-      - name: Use Node.js 20.x
+      - name: Use Node.js 22.x
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
 
       - name: Install dependencies
         run: yarn install
