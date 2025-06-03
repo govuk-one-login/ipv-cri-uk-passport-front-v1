@@ -99,18 +99,11 @@ exports.PassportPage = class PlaywrightDevPage {
       'xpath=//*[@id="passportNumber-error"]'
     );
 
-    this.passportRetryMessageHeading = this.page.locator(
-      'xpath=//*[@id="main-content"]/div/div/div[1]/div[2]'
-    );
-
     this.passportNumberFieldError = this.page.locator(
       'xpath=//*[@id="passportNumber-error"]'
     );
     this.invalidDobFieldError = this.page.locator(
       'xpath=//*[@id="dateOfBirth-error"]'
-    );
-    this.invalidValidToDateFieldError = this.page.locator(
-      'xpath=//*[@id="expiryDate-error"]'
     );
 
     this.Continue = this.page.locator('xpath=//*[@id="submitButton"]');
@@ -324,6 +317,76 @@ exports.PassportPage = class PlaywrightDevPage {
     await this.passportValidToYear.fill(InvalidExpiryYear);
   }
 
+  //Field Labels and hint texts
+
+  async assertLastNameLabel(lastNameLabelText) {
+    await this.page.waitForLoadState("domcontentloaded");
+    expect(await this.isCurrentPage()).to.be.true;
+    expect(await this.lastNameLabel.innerText()).to.equal(lastNameLabelText);
+  }
+
+  async assertFirstNameLabel(firstNameLabelText) {
+    await this.page.waitForLoadState("domcontentloaded");
+    expect(await this.isCurrentPage()).to.be.true;
+    expect(await this.firstNameLabel.innerText()).to.equal(firstNameLabelText);
+  }
+
+  async assertMiddleNameLabel(middleNameLabelText) {
+    await this.page.waitForLoadState("domcontentloaded");
+    expect(await this.isCurrentPage()).to.be.true;
+    expect(await this.middleNames.innerText()).to.equal(middleNameLabelText);
+  }
+
+  async assertMiddleNameHint(middleNameHintText) {
+    await this.page.waitForLoadState("domcontentloaded");
+    expect(await this.isCurrentPage()).to.be.true;
+    expect(await this.middleNameSentence.innerText()).to.equal(
+      middleNameHintText
+    );
+  }
+
+  async assertDobExample(dobExampleText) {
+    await this.page.waitForLoadState("domcontentloaded");
+    expect(await this.isCurrentPage()).to.be.true;
+    expect(await this.dobExample.innerText()).to.equal(dobExampleText);
+  }
+
+  async assertDobDayLabel(dobDayLabelText) {
+    await this.page.waitForLoadState("domcontentloaded");
+    expect(await this.isCurrentPage()).to.be.true;
+    expect(await this.dayLabel.innerText()).to.equal(dobDayLabelText);
+  }
+
+  async assertDobMonthLabel(dobMonthLabelText) {
+    await this.page.waitForLoadState("domcontentloaded");
+    expect(await this.isCurrentPage()).to.be.true;
+    expect(await this.monthLabel.innerText()).to.equal(dobMonthLabelText);
+  }
+
+  async assertDobYearLabel(dobYearLabelText) {
+    await this.page.waitForLoadState("domcontentloaded");
+    expect(await this.isCurrentPage()).to.be.true;
+    expect(await this.yearLabel.innerText()).to.equal(dobYearLabelText);
+  }
+
+  async assertDoBFieldTitle(dobTitle) {
+    await this.page.waitForLoadState("domcontentloaded");
+    expect(await this.isCurrentPage()).to.be.true;
+    expect(await this.dobFieldTitleLegend.innerText()).to.equal(dobTitle);
+  }
+
+  async assertPassportTitle(passportTitle) {
+    await this.page.waitForLoadState("domcontentloaded");
+    expect(await this.isCurrentPage()).to.be.true;
+    expect(await this.passportNumberLabel.innerText()).to.equal(passportTitle);
+  }
+
+  async assertPassportHint(passportHint) {
+    await this.page.waitForLoadState("domcontentloaded");
+    expect(await this.isCurrentPage()).to.be.true;
+    expect(await this.passportNumberHint.innerText()).to.equal(passportHint);
+  }
+
   // Summary box errors
 
   async assertInvalidLastNameInErrorSummary(errorSummaryText) {
@@ -432,14 +495,6 @@ exports.PassportPage = class PlaywrightDevPage {
     );
   }
 
-  async assertInvalidValidToDateOnField(fieldErrorText) {
-    await this.page.waitForLoadState("domcontentloaded");
-    expect(await this.isCurrentPage()).to.be.true;
-    expect(await this.invalidValidToDateFieldError.innerText()).to.contains(
-      fieldErrorText
-    );
-  }
-
   //  Language
   async assertBetaBanner(betaBannerLabel) {
     await this.page.waitForLoadState("domcontentloaded");
@@ -496,18 +551,19 @@ exports.PassportPage = class PlaywrightDevPage {
     expect(await this.errorLink.innerText()).to.equal(contactOneLoginTeamLink);
   }
 
-  async assertFooterLink(supportFooterLink) {
+  async assertFooterLinkText(supportFooterLink) {
     await this.page.waitForLoadState("domcontentloaded");
     expect(await this.isCurrentPage()).to.be.true;
     expect(await this.supportLink.innerText()).to.equal(supportFooterLink);
+  }
+
+  async assertFooterLinkIsCorrectAndLive() {
+    await this.page.waitForLoadState("domcontentloaded");
+
+    const newPagePromise = this.page.waitForEvent("popup");
+
     await this.supportLink.click();
-    await this.page.waitForTimeout(2000); //waitForNavigation and waitForLoadState do not work in this case
-    let context = await this.page.context();
-    let pages = await context.pages();
-    expect(await pages[1].url()).to.equal(
-      "https://home.account.gov.uk/contact-gov-uk-one-login"
-    );
-    await pages[1].close();
+    await this.assertNewPageIsCorrectAndLive(newPagePromise);
   }
 
   async assertFooterLinks(linkName) {
@@ -573,46 +629,25 @@ exports.PassportPage = class PlaywrightDevPage {
     }
   }
 
-  async assertBannerLink() {
-    await this.betaBannerLink.click();
-    await this.page.waitForTimeout(2000); //waitForNavigation and waitForLoadState do not work in this case
-    let context = await this.page.context();
-    let pages = await context.pages();
-    expect(await pages[1].url()).to.equal(
-      "https://home.account.gov.uk/contact-gov-uk-one-login"
-    );
-    expect(await pages[1].title()).to.not.equal(
-      "Page not found - GOV.UK One Login"
-    );
-    await pages[1].close();
-  }
+  async assertErrorLinkIsCorrectAndLive() {
+    const newPagePromise = this.page.waitForEvent("popup");
 
-  async assertErrorLink() {
     await this.errorLink.click();
-    await this.page.waitForTimeout(2000); //waitForNavigation and waitForLoadState do not work in this case
-    let context = await this.page.context();
-    let pages = await context.pages();
-    expect(await pages[1].url()).to.equal(
-      "https://home.account.gov.uk/contact-gov-uk-one-login"
-    );
-    expect(await pages[1].title()).to.not.equal(
-      "Page not found - GOV.UK One Login"
-    );
-    await pages[1].close();
+    await this.assertNewPageIsCorrectAndLive(newPagePromise);
   }
 
-  async assertNotFoundLink() {
+  async assertNotFoundLinkIsCorrectAndLive() {
+    const newPagePromise = this.page.waitForEvent("popup");
+
     await this.notFoundLink.click();
-    await this.page.waitForTimeout(2000); //waitForNavigation and waitForLoadState do not work in this case
-    let context = await this.page.context();
-    let pages = await context.pages();
-    expect(await pages[1].url()).to.equal(
-      "https://home.account.gov.uk/contact-gov-uk-one-login"
-    );
-    expect(await pages[1].title()).to.not.equal(
-      "Page not found - GOV.UK One Login"
-    );
-    await pages[1].close();
+    await this.assertNewPageIsCorrectAndLive(newPagePromise);
+  }
+
+  async assertBannerLinkIsCorrectAndLive() {
+    const newPagePromise = this.page.waitForEvent("popup");
+
+    await this.betaBannerLink.click();
+    await this.assertNewPageIsCorrectAndLive(newPagePromise);
   }
 
   async deleteSessionCookie() {
@@ -662,5 +697,21 @@ exports.PassportPage = class PlaywrightDevPage {
     }
 
     return true;
+  }
+
+  async assertNewPageIsCorrectAndLive(newPagePromise) {
+    const newPage = await newPagePromise;
+    await newPage.waitForLoadState("domcontentloaded");
+
+    const expectedURL = "https://home.account.gov.uk/contact-gov-uk-one-login";
+    const unexpectedTitle = "Page not found - GOV.UK One Login";
+
+    const actualTitle = await newPage.title();
+    expect(actualTitle).to.not.equal(unexpectedTitle);
+
+    const actualURL = await newPage.url();
+    expect(actualURL).to.equal(expectedURL);
+
+    await newPage.close();
   }
 };

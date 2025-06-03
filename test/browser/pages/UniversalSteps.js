@@ -28,7 +28,7 @@ exports.UniversalSteps = class PlaywrightDevPage {
   }
 
   async changeLanguageTo(language) {
-    var languageIsoCode = "eng";
+    let languageIsoCode = "en";
     if (language === "Welsh") {
       languageIsoCode = "cy";
     }

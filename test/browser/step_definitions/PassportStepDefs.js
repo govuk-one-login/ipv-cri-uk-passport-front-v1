@@ -121,11 +121,6 @@ Given(
   }
 );
 
-When(
-  /^they (?:have )?start(?:ed)? the Passport journey$/,
-  async function () {}
-);
-
 // Re-enter test data step-defs
 
 Then(
@@ -267,6 +262,47 @@ Then(
   }
 );
 
+// field Label and Hint text
+
+When(/^I can see the lastName as (.*)$/, async function (lastNameLabelText) {
+  const passportPage = new PassportPage(this.page);
+  await passportPage.assertLastNameLabel(lastNameLabelText);
+});
+
+Then(/^I can see the firstName as (.*)$/, async function (lastNameLabelText) {
+  const passportPage = new PassportPage(this.page);
+  await passportPage.assertFirstNameLabel(lastNameLabelText);
+});
+
+Then(/^I can see the middleName as (.*)$/, async function (lastNameLabelText) {
+  const passportPage = new PassportPage(this.page);
+  await passportPage.assertMiddleNameLabel(lastNameLabelText);
+});
+
+Then(
+  /^I can see the middleName hint text (.*)$/,
+  async function (lastNameLabelText) {
+    const passportPage = new PassportPage(this.page);
+    await passportPage.assertMiddleNameHint(lastNameLabelText);
+  }
+);
+
+When(
+  /^I can see the passport number field titled (.*)$/,
+  async function (lastNameLabelText) {
+    const passportPage = new PassportPage(this.page);
+    await passportPage.assertPassportTitle(lastNameLabelText);
+  }
+);
+
+Then(
+  /^I see the passport number sentence (.*)$/,
+  async function (lastNameLabelText) {
+    const passportPage = new PassportPage(this.page);
+    await passportPage.assertPassportHint(lastNameLabelText);
+  }
+);
+
 // Summary box and field errors step-defs
 
 Then(
@@ -393,37 +429,7 @@ Then(
   }
 );
 
-Then(
-  /^I can see the valid to date error in the error summary as (.*)$/,
-  async function (errorSummaryText) {
-    const passportPage = new PassportPage(this.page);
-    await passportPage.assertInvalidValidToDateInErrorSummary(errorSummaryText);
-  }
-);
-
-Then(
-  /^I can see the Valid to date field error as (.*)$/,
-  async function (fieldErrorText) {
-    const passportPage = new PassportPage(this.page);
-    await passportPage.assertInvalidValidToDateOnField(fieldErrorText);
-  }
-);
-
 //################### Text content comparisons ########################
-
-Then(
-  /^I view the (.*) banner$/,
-  { timeout: 2 * 5000 },
-  async function (betaBannerLabel) {
-    const passportPage = new PassportPage(this.page);
-    await passportPage.assertBetaBanner(betaBannerLabel);
-  }
-);
-
-Then(/^the beta banner reads (.*)$/, async function (betaBannerText) {
-  const passportPage = new PassportPage(this.page);
-  await passportPage.assertBetaBannerText(betaBannerText);
-});
 
 Then(
   /^I see Contact the One Login team link reads (.*)$/,
@@ -445,37 +451,32 @@ Then(/^I can see example as (.*)$/, async function (dobExample) {
 
 Then(/^I can see date as (.*)$/, async function (day) {
   const passportPage = new PassportPage(this.page);
-  await passportPage.assertDay(day);
+  await passportPage.assertDobDayLabel(day);
 });
 
 Then(/^I can see month as (.*)$/, async function (month) {
   const passportPage = new PassportPage(this.page);
-  await passportPage.assertMonth(month);
+  await passportPage.assertDobMonthLabel(month);
 });
 
 Then(/^I can see year as (.*)$/, async function (year) {
   const passportPage = new PassportPage(this.page);
-  await passportPage.assertYear(year);
+  await passportPage.assertDobYearLabel(year);
 });
 
-Then(/^I see error word as (.*)$/, async function (errorPrefix) {
-  const passportPage = new PassportPage(this.page);
-  await passportPage.assertErrorPrefix(errorPrefix);
-});
-
-Then(
-  /^I see Check your details as (.*)$/,
-  async function (errorSummaryMessage) {
+Given(
+  /^The Support link in the footer reads (.*)$/,
+  async function (supportFooterLink) {
     const passportPage = new PassportPage(this.page);
-    await passportPage.assertYouWillBeAbleToFindSentence(errorSummaryMessage);
+    await passportPage.assertFooterLinkText(supportFooterLink);
   }
 );
 
 Given(
-  /^The Support link in the footer reads (.*) and assert the url is correct and live$/,
-  async function (supportFooterLink) {
+  /^I assert the support link url in the footer is correct and live$/,
+  async function () {
     const passportPage = new PassportPage(this.page);
-    await passportPage.assertFooterLink(supportFooterLink);
+    await passportPage.assertFooterLinkIsCorrectAndLive();
   }
 );
 
@@ -483,7 +484,7 @@ Given(
   /^I assert the link in the banner is correct and live$/,
   async function () {
     const passportPage = new PassportPage(this.page);
-    await passportPage.assertBannerLink();
+    await passportPage.assertBannerLinkIsCorrectAndLive();
   }
 );
 
@@ -491,7 +492,7 @@ Given(
   /^I assert the link on the error page is correct and live$/,
   async function () {
     const passportPage = new PassportPage(this.page);
-    await passportPage.assertErrorLink();
+    await passportPage.assertErrorLinkIsCorrectAndLive();
   }
 );
 
@@ -499,7 +500,7 @@ Given(
   /^I assert the link on the page not found page is correct and live$/,
   async function () {
     const passportPage = new PassportPage(this.page);
-    await passportPage.assertNotFoundLink();
+    await passportPage.assertNotFoundLinkIsCorrectAndLive();
   }
 );
 
