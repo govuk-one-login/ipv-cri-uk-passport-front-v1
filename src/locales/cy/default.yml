@@ -44,7 +44,7 @@ govuk:
           text: "Cwcis"
         - href: "https://signin.account.gov.uk/terms-and-conditions"
           text: "Telerau ac amodau"
-        - href: "https://signin.account.gov.uk/privacy-notice"
+        - href: "https://www.gov.uk/government/publications/govuk-one-login-privacy-notice"
           text: "Hysbysiad preifatrwydd"
         - href: "https://home.account.gov.uk/contact-gov-uk-one-login"
           text: "Cymorth (agor mewn tab newydd)"

@@ -44,7 +44,7 @@ govuk:
           text: "Cookies"
         - href: "https://signin.account.gov.uk/terms-and-conditions"
           text: "Terms and conditions"
-        - href: "https://signin.account.gov.uk/privacy-notice"
+        - href: "https://www.gov.uk/government/publications/govuk-one-login-privacy-notice"
           text: "Privacy notice"
         - href: "https://home.account.gov.uk/contact-gov-uk-one-login"
           text: "Support (opens in new tab)"
