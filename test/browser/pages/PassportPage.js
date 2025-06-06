@@ -579,7 +579,8 @@ exports.PassportPage = class PlaywrightDevPage {
       Accessibility: "https://signin.account.gov.uk/accessibility-statement",
       Cookies: "https://signin.account.gov.uk/cookies",
       TsAndCs: "https://signin.account.gov.uk/terms-and-conditions",
-      Privacy: "https://signin.account.gov.uk/privacy-notice",
+      Privacy:
+        "https://www.gov.uk/government/publications/govuk-one-login-privacy-notice",
       Support: "https://home.account.gov.uk/contact-gov-uk-one-login",
       OGL: "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
       CrownCopyright:
