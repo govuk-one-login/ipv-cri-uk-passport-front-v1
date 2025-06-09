@@ -1,4 +1,4 @@
-FROM node:20.9.0-alpine3.17@sha256:c049e006a20730f3d2536a8551c2e4ad74a397fdce707f2b79c353837f142d5c AS builder
+FROM node:22.16.0-alpine3.21@sha256:4437d7c27c4b9306c577caa17577dc7b367fc320fb7469dbe2c994e23b11d11c AS builder
 WORKDIR /app
 RUN [ "yarn", "set", "version", "1.22.17" ]
 COPY .yarn ./.yarn
@@ -13,7 +13,7 @@ RUN yarn build
 RUN [ "rm", "-rf", "node_modules" ]
 RUN yarn install --production
 
-FROM node:20.9.0-alpine3.17@sha256:c049e006a20730f3d2536a8551c2e4ad74a397fdce707f2b79c353837f142d5c AS final
+FROM node:22.16.0-alpine3.21@sha256:4437d7c27c4b9306c577caa17577dc7b367fc320fb7469dbe2c994e23b11d11c AS final
 RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 
 RUN ["apk", "--no-cache", "upgrade"]
