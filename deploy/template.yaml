@@ -1050,10 +1050,10 @@ Resources:
       ComparisonOperator: LessThanThreshold
       TreatMissingData: breaching
 
-  PassportOnlyOneTaskCountAlarm:
+  PassportBelowMinTaskCountAlarm:
     Type: AWS::CloudWatch::Alarm
     Properties:
-      AlarmDescription: !Sub Passport ${Environment} frontend below desired ECS service tasks
+      AlarmDescription: !Sub Passport ${Environment} frontend below minimum ECS service tasks
       ActionsEnabled: true
       AlarmActions:
         - !Ref AlarmTopicPassport
@@ -1069,7 +1069,7 @@ Resources:
       Period: 300
       EvaluationPeriods: 3
       DatapointsToAlarm: 3
-      Threshold: 2
+      Threshold: !FindInMap [EnvironmentConfiguration, !Ref Environment, minECSCount]
       ComparisonOperator: LessThanThreshold
       TreatMissingData: breaching
 
