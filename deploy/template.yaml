@@ -117,17 +117,17 @@ Mappings:
       ga4Enabled: "true"
       uaEnabled: "false"
       languageToggleDisabled: "false"
-      deviceIntelligenceEnabled: "false"
+      deviceIntelligenceEnabled: "true"
     integration:
       ga4Enabled: "true"
       uaEnabled: "false"
       languageToggleDisabled: "false"
-      deviceIntelligenceEnabled: "false"
+      deviceIntelligenceEnabled: "true"
     production:
       ga4Enabled: "true"
       uaEnabled: "false"
       languageToggleDisabled: "false"
-      deviceIntelligenceEnabled: "false"
+      deviceIntelligenceEnabled: "true"
 
   # see https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-access-logs.html
   ElasticLoadBalancerAccountIds:
