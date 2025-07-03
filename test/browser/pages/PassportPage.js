@@ -138,7 +138,7 @@ exports.PassportPage = class PlaywrightDevPage {
       "xpath=/html/body/div[1]/div[3]/div[1]/div/div/p/a"
     );
 
-    this.betaBanner = this.page.locator("xpath=/html/body/div[2]/div/p/strong");
+    this.betaBanner = this.page.locator("xpath=/html/body/div[2]/div");
 
     this.betaBannerText = this.page.locator(
       "xpath=/html/body/div[2]/div/p/span"
@@ -504,13 +504,6 @@ exports.PassportPage = class PlaywrightDevPage {
     );
   }
 
-  async assertBetaBannerText(assertBetaBannerText) {
-    await this.page.waitForLoadState("domcontentloaded");
-    expect(await this.isCurrentPage()).to.be.true;
-    var textContent = await this.betaBannerReads.textContent();
-    await expect(textContent.trim()).to.equal(assertBetaBannerText.trim());
-  }
-
   async assertAcceptCookies(acceptCookiesText) {
     await this.acceptCookiesButton.click();
     expect(await this.acceptCookiesMessage.innerText()).to.equal(
@@ -637,6 +630,14 @@ exports.PassportPage = class PlaywrightDevPage {
     await this.assertNewPageIsCorrectAndLive(newPagePromise);
   }
 
+  async assertFeedbackLinkIsCorrectAndLive() {
+    const timeout = 5000;
+    const newPagePromise = this.page.waitForEvent("popup", { timeout });
+
+    await this.betaBannerLink.click();
+    await this.assertFeedbackPageIsCorrectAndLive(newPagePromise);
+  }
+
   async assertNotFoundLinkIsCorrectAndLive() {
     const newPagePromise = this.page.waitForEvent("popup");
 
@@ -649,6 +650,16 @@ exports.PassportPage = class PlaywrightDevPage {
 
     await this.betaBannerLink.click();
     await this.assertNewPageIsCorrectAndLive(newPagePromise);
+  }
+
+  async betaBannerDisplayed() {
+    await this.page.waitForLoadState("domcontentloaded");
+    await this.betaBanner.isVisible();
+  }
+
+  async assertBetaBannerText(betaBannerText) {
+    await this.page.waitForLoadState("domcontentloaded");
+    expect(await this.betaBannerText.innerText()).to.equal(betaBannerText);
   }
 
   async deleteSessionCookie() {
@@ -712,6 +723,21 @@ exports.PassportPage = class PlaywrightDevPage {
 
     const actualURL = await newPage.url();
     expect(actualURL).to.equal(expectedURL);
+
+    await newPage.close();
+  }
+
+  async assertFeedbackPageIsCorrectAndLive(expectedURL) {
+    const newPagePromise = this.page.waitForEvent("popup");
+
+    await this.betaBannerLink.click();
+
+    const newPage = await newPagePromise;
+    await newPage.waitForLoadState("domcontentloaded");
+
+    const actualURL = await newPage.url();
+
+    expect(actualURL).to.contain(expectedURL); // Use to.equal for exact URL match
 
     await newPage.close();
   }

@@ -7,11 +7,13 @@ const setAxiosDefaults = commonExpress.lib.axios;
 const steps = require("./app/passport/steps");
 const fields = require("./app/passport/fields");
 const featureSets = require("./app/passport/featureSets");
+const frontendUi = require("@govuk-one-login/frontend-ui");
 const wizard = require("hmpo-form-wizard");
 
 const init = (router) => {
   router.use(getGTM);
   router.use(getLanguageToggle);
+  router.use(frontendUi.frontendUiMiddlewareIdentityBypass);
   router.use(getDeviceIntelligence);
   router.use(setScenarioHeaders);
   router.use(setAxiosDefaults);

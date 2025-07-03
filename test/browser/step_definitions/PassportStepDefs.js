@@ -488,11 +488,29 @@ Given(
   }
 );
 
+Given(/^The beta banner is displayed$/, async function () {
+  const passportPage = new PassportPage(this.page);
+  await passportPage.betaBannerDisplayed();
+});
+
+Then(/^The beta banner reads (.*)$/, async function (betaBannerText) {
+  const passportPage = new PassportPage(this.page);
+  await passportPage.assertBetaBannerText(betaBannerText);
+});
+
 Given(
   /^I assert the link on the error page is correct and live$/,
   async function () {
     const passportPage = new PassportPage(this.page);
     await passportPage.assertErrorLinkIsCorrectAndLive();
+  }
+);
+
+Given(
+  /^I assert the feedback URL (.*) is correct and live$/,
+  async function (expectedURL) {
+    const passportPage = new PassportPage(this.page);
+    await passportPage.assertFeedbackPageIsCorrectAndLive(expectedURL);
   }
 );
 

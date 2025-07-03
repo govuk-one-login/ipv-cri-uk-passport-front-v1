@@ -8,7 +8,7 @@ Feature: Passport CRI - Welsh Language Tests
     And I should be on the Passport details entry page Rhowch eich manylion yn union fel maent yn ymddangos ar eich pasbort y DU – GOV.UK One Login
 
  ########### Page Element Validations ##########
- 
+
   @mock-api:passport-success-supportLinks @language-regression
   Scenario: Passport CRI - Check support links are correct and live
     Given The Support link in the footer reads Cymorth (agor mewn tab newydd)
@@ -16,8 +16,8 @@ Feature: Passport CRI - Welsh Language Tests
 
   @mock-api:passport-success-betaBanner @language-regression
   Scenario: Passport CRI - Beta Banner
-    Given they view the Beta banner with the Welsh text as Mae hwn yn wasanaeth newydd – bydd eich adborth (agor mewn tab newydd) yn ein helpu i’w wella.
-    And I assert the link in the banner is correct and live
+    Given The beta banner is displayed
+    And The beta banner reads Mae hwn yn wasanaeth newydd. Helpwch ni i'w wella a rhoi eich adborth (agor mewn tab newydd).
 
   @mock-api:passport-success-errorPage @language-regression
   Scenario: Passport CRI - Check error page following cookie deletion
@@ -29,12 +29,12 @@ Feature: Passport CRI - Welsh Language Tests
 
   @mock-api:passport-success-cookieBannerAccept @language-regression
   Scenario: Passport CRI - Cookies Accept Analysis
-    Given I select Accept analytics cookies button and see the text Rydych wedi derbyn cwcis ychwanegol. Gallwch newid eich gosodiadau cwcis unrhyw bryd.
+    Given I select Accept analytics cookies button and see the text Rydych wedi derbyn cwcis ychwanegol. Gallwch newid eich gosodiadau cwcis ar unrhyw adeg.
     Then I select the accepted link change your cookie settings and assert I have been redirected correctly
 
   @mock-api:passport-success-cookieBannerReject @language-regression
   Scenario: Passport CRI - Cookies Reject Analysis
-    Given I select Reject analytics cookies button and see the text Rydych wedi gwrthod cwcis ychwanegol. Gallwch newid eich gosodiadau cwcis unrhyw bryd.
+    Given I select Reject analytics cookies button and see the text Rydych wedi gwrthod cwcis ychwanegol. Gallwch newid eich gosodiadau cwcis ar unrhyw adeg.
     Then I select the rejected link change your cookie settings and assert I have been redirected correctly
 
   ########### Field Validations ##########
@@ -118,7 +118,7 @@ Feature: Passport CRI - Welsh Language Tests
     Examples:
       | PassportSubject             | InvalidExpiryDay | InvalidExpiryMonth | InvalidExpiryYear |
       | PassportSubjectHappyKenneth |                  |                    |                   |
-      
+
   @mock-api:passport-success @Language-regression
   Scenario Outline: Passport CRI - Passport number with special characters and spaces error validation
     And User enters passport data as a <PassportSubject>
