@@ -8,9 +8,9 @@ BeforeAll(async function () {
     ? await chromium.launch()
     : await chromium.launch({
         // Not headless so we can watch test runs
-        headless: true,
+        headless: false,
         // Slow so we can see things happening
-        slowMo: 0
+        slowMo: 500
       });
 });
 

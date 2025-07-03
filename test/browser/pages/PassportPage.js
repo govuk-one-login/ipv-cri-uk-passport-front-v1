@@ -508,7 +508,7 @@ exports.PassportPage = class PlaywrightDevPage {
     await this.page.waitForLoadState("domcontentloaded");
     expect(await this.isCurrentPage()).to.be.true;
     var textContent = await this.betaBannerReads.textContent();
-    await expect(textContent.trim()).to.equal(assertBetaBannerText.trim());
+    await expect(textContent.innerText()).to.equal(assertBetaBannerText.trim());
   }
 
   async assertAcceptCookies(acceptCookiesText) {
