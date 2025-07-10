@@ -35,22 +35,26 @@ Feature: Passport CRI - Happy Path and Field Valisation Tests
       | CrownCopyright |
 
   @mock-api:passport-success @passport-page-element-validation
-  Scenario: Passport CRI - Beta Banner
-    Given they view the Beta banner with the text as This is a new service – your feedback (opens in new tab) will help us to improve it.
-    And I assert the link in the banner is correct and live
+  Scenario Outline: Passport CRI - Beta Banner
+    Given The beta banner is displayed
+    And The beta banner reads This is a new service. Help us improve it and give your feedback (opens in a new tab).
+    Then I assert the feedback URL <expectedPageUrl> is correct and live
+    Examples:
+      | expectedPageUrl                          |
+      | https://signin.account.gov.uk/contact-us |
 
   @mock-api:passport-success @passport-page-element-validation
   Scenario: Passport CRI - Cookies Accept Analysis
-    Given I select Accept analytics cookies button and see the text You’ve accepted additional cookies. You can change your cookie settings at any time.
+    Given I select Accept analytics cookies button and see the text You've accepted additional cookies. You can change your cookie settings at any time.
     Then I select the accepted link change your cookie settings and assert I have been redirected correctly
 
   @mock-api:passport-success @passport-page-element-validation
   Scenario: Passport CRI - Cookies Reject Analysis
-    Given I select Reject analytics cookies button and see the text You’ve rejected additional cookies. You can change your cookie settings at any time.
+    Given I select Reject analytics cookies button and see the text You've rejected additional cookies. You can change your cookie settings at any time.
     Then I select the rejected link change your cookie settings and assert I have been redirected correctly
 
   ########### Field Validations ##########
-  
+
   @mock-api:passport-success @passport-field-validation
   Scenario Outline: Passport CRI - Passport Details Validation - Last Name - Invalid Numbers/Chars/Missing Values
     Given I should be on the Passport details entry page Enter your details exactly as they appear on your UK passport – GOV.UK One Login
