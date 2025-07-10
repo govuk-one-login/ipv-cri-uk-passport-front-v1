@@ -126,7 +126,7 @@ Mappings:
       uaEnabled: "false"
       languageToggleDisabled: "false"
       deviceIntelligenceEnabled: "true"
-      may2025RebrandEnabled: "false"
+      may2025RebrandEnabled: "true"
     production:
       ga4Enabled: "true"
       uaEnabled: "false"
