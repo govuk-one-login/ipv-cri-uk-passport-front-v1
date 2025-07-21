@@ -4237,19 +4237,7 @@ hmpo-app@2.4.0:
     underscore "^1.13.4"
     uuid "^8.3.2"
 
-hmpo-components@7.1.0:
-  version "7.1.0"
-  resolved "https://registry.yarnpkg.com/hmpo-components/-/hmpo-components-7.1.0.tgz#bae09ce82d3bb6a0a35d3f1d243f46dd7ae2ade0"
-  integrity sha512-gv/m2+tDfHU10xxnT9seoI2nVtJEgcMSFfl3zACdUY1rNV3SCUv426tvxuq0Z/7jAoHLfB8mvDcHaHpPEysVLw==
-  dependencies:
-    bytes "^3.1.2"
-    deep-clone-merge "^1.5.5"
-    moment "^2.30.1"
-    underscore "^1.13.7"
-  optionalDependencies:
-    fsevents "~2.3.3"
-
-hmpo-components@^7.1.0:
+hmpo-components@7.1.1, hmpo-components@^7.1.0:
   version "7.1.1"
   resolved "https://registry.yarnpkg.com/hmpo-components/-/hmpo-components-7.1.1.tgz#d8e53fcf673e30c293f30b66fbe823bce93f5453"
   integrity sha512-aZiW4hqCF0NT0mdgC4iEy7+xkqArUbybEXtwzT5l/pVatiSUIpSeJw3/dEFR29UoqpE3jmkHqxqr8AV4DAP6uA==
