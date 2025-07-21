@@ -218,7 +218,7 @@ Feature: Passport CRI - Happy Path and Field Valisation Tests
       | PassportSubjectHappyKenneth |
 
   @mock-api:passport-success @passport-accessibility
-  Scenario: Passport CRI - Axe Accessibility Scan - Passport Error Page
+  Scenario: Passport CRI - Passport Error Page
     Given I delete the session cookie
     And User clicks on continue
     Then they should see an error page

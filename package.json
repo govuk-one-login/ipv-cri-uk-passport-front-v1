@@ -9,7 +9,7 @@
   },
   "scripts": {
     "start": "node src/app.js",
-    "start:ci": "DEVICE_INTELLIGENCE_ENABLED=true NODE_ENV=development API_BASE_URL=http://127.0.0.1:8050/ yarn start",
+    "start:ci": "MAY_2025_REBRAND_ENABLED=true DEVICE_INTELLIGENCE_ENABLED=true NODE_ENV=development API_BASE_URL=http://127.0.0.1:8050/ yarn start",
     "dev": "LOG_LEVEL=debug nodemon --inspect=0.0.0.0:9229 src/app.js",
     "build": "yarn build-sass && yarn build-js && yarn copy-assets",
     "build-sass": "rm -rf dist/public/stylesheets/application.css && sass --no-source-map src/assets/scss/application.scss dist/public/stylesheets/application.css --style compressed",
@@ -40,11 +40,11 @@
   "homepage": "https://github.com/alphagov/di-ipv-cri-uk-passport-front-v1#readme",
   "packageManager": "yarn@2.4.3",
   "devDependencies": {
-    "@cucumber/cucumber": "11.3.0",
+    "@cucumber/cucumber": "10.0.1",
     "@eslint/eslintrc": "3.3.1",
     "@eslint/js": "9.28.0",
     "axe-playwright": "2.1.0",
-    "@playwright/test": "1.54.1",
+    "@playwright/test": "1.51.1",
     "chai": "4.5.0",
     "chai-as-promised": "8.0.1",
     "copyfiles": "2.4.1",
