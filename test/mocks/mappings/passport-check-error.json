@@ -26,7 +26,7 @@
         "jsonBody": {
           "session_id": "ABADCAFE",
           "state": "sT@t3",
-          "redirect_uri": "http://example.net/return"
+          "redirect_uri": "http://localhost:8050/return"
         }
       }
     },
