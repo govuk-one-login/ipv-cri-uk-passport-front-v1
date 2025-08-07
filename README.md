@@ -20,7 +20,7 @@ This repo has a `CODEOWNERS` file in the root and is configured to require PRs t
 - `GA4_ENABLED` - BOOLEAN
 - `UA_ENABLED` - BOOLEAN
 - `LANGUAGE_TOGGLE_DISABLED` - Feature flag to disable Language Toggle, defaulted to `true`
-- `MAY_2025_REBRAND_ENABLED` - Feature flag to enable the May 2025 GOV.UK branding change, defaults to `false`
+- `MAY_2025_REBRAND_ENABLED` - Feature flag to enable the May 2025 GOV.UK branding change, defaults to `true`
 
 ## Local Testing
 
