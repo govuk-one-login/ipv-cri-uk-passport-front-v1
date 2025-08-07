@@ -7,6 +7,7 @@ govuk:
   errorSummaryTitle: "Mae problem"
   error: "Gwall"
   warning: "Rhybudd"
+  skipLink: "Neidio i’r prif gynnwys"
 
 passport:
   title: "Rhowch eich manylion yn union fel maent yn ymddangos ar eich pasbort y DU"

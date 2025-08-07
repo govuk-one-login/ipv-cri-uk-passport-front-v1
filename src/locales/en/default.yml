@@ -7,6 +7,7 @@ govuk:
   errorSummaryTitle: There’s a problem
   error: Error
   warning: Warning
+  skipLink: Skip to main content
 
 passport:
   title: Enter your details exactly as they appear on your UK passport
