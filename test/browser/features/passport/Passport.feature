@@ -19,6 +19,11 @@ Feature: Passport CRI - Happy Path and Field Valisation Tests
     Given The Support link in the footer reads Support (opens in new tab)
     And I assert the support link url in the footer is correct and live
 
+  @mock-api:passport-success @passport-happy-path
+  Scenario: Passport CRI - Skip to Main Content
+    Given I should be on the Passport details entry page Enter your details exactly as they appear on your UK passport – GOV.UK One Login
+    Then I see the Skip to main content Link Text
+
   ########### Page UI Elements (Links) ##########
 
   @mock-api:passport-success @passport-page-element-validation

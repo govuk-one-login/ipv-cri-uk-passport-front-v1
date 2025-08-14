@@ -464,6 +464,11 @@ Then(/^I can see year as (.*)$/, async function (year) {
   await passportPage.assertDobYearLabel(year);
 });
 
+Then(/^I see the (.*) Link Text$/, async function (skipToMainContent) {
+  const passportPage = new PassportPage(this.page);
+  await passportPage.assertSkipToMainContent(skipToMainContent);
+});
+
 Given(
   /^The Support link in the footer reads (.*)$/,
   async function (supportFooterLink) {
