@@ -9,6 +9,8 @@ exports.PassportPage = class PlaywrightDevPage {
 
     this.passportNumber = this.page.locator('xpath=//*[@id="passportNumber"]');
 
+    this.skipToMainContent = this.page.locator("xpath=//html/body/a");
+
     this.lastName = this.page.locator('xpath=//*[@id="surname"]');
     this.firstName = this.page.locator('xpath=//*[@id="firstName"]');
     this.middleNames = this.page.locator('xpath=//*[@id="middleNames"]');
@@ -495,7 +497,14 @@ exports.PassportPage = class PlaywrightDevPage {
     );
   }
 
-  //  Language
+  async assertSkipToMainContent(skipToMainContent) {
+    await this.page.waitForLoadState("domcontentloaded");
+    await this.skipToMainContent.textContent(skipToMainContent);
+    expect(await this.skipToMainContent.textContent()).to.contains(
+      skipToMainContent
+    );
+  }
+
   async assertBetaBanner(betaBannerLabel) {
     await this.page.waitForLoadState("domcontentloaded");
     expect(await this.isCurrentPage()).to.be.true;
