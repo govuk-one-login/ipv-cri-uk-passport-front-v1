@@ -838,10 +838,12 @@
   dependencies:
     copy-webpack-plugin "^12.0.2"
 
-"@govuk-one-login/frontend-device-intelligence@1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@govuk-one-login/frontend-device-intelligence/-/frontend-device-intelligence-1.1.0.tgz#46986297b4bc18331a520a7ca7750ec2696ff081"
-  integrity sha512-d17WVKllVZeHTVU40n95bvVIXXeNdNI6shn8xg15xDtwqV6VZ+SEr6l5pvoWxjiPHbbfbpZ8IjUldjhvwm2ASw==
+"@govuk-one-login/frontend-device-intelligence@1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@govuk-one-login/frontend-device-intelligence/-/frontend-device-intelligence-1.2.0.tgz#17142d0da29fa388ba609bdb289f7d043776bf6a"
+  integrity sha512-DTMGfQ3JzPdHjHd9a4lDGCgLprATGW+u8vPBAFRC9RI3ZXYyQtEEgDmCOI8VDQiycbeKyX96onCkPmAQjHopSw==
+  dependencies:
+    loglevel "^1.9.2"
 
 "@govuk-one-login/frontend-language-toggle@1.1.0":
   version "1.1.0"
@@ -4769,6 +4771,11 @@ log-update@^6.1.0:
     slice-ansi "^7.1.0"
     strip-ansi "^7.1.0"
     wrap-ansi "^9.0.0"
+
+loglevel@^1.9.2:
+  version "1.9.2"
+  resolved "https://registry.yarnpkg.com/loglevel/-/loglevel-1.9.2.tgz#c2e028d6c757720107df4e64508530db6621ba08"
+  integrity sha512-HgMmCqIJSAKqo68l0rS2AanEWfkxaZ5wNiEFb5ggm08lDs9Xl2KxBlX3PTcaD2chBM1gXAYf491/M2Rv8Jwayg==
 
 lolex@^4.2.0:
   version "4.2.0"
