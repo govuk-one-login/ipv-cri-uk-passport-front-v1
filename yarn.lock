@@ -808,10 +808,10 @@
     "@eslint/core" "^0.15.2"
     levn "^0.4.1"
 
-"@govuk-one-login/di-ipv-cri-common-express@11.1.0":
-  version "11.1.0"
-  resolved "https://registry.yarnpkg.com/@govuk-one-login/di-ipv-cri-common-express/-/di-ipv-cri-common-express-11.1.0.tgz#a506c905331c20d006ac886ddd0bc2dd410eb8e2"
-  integrity sha512-mZFl69j8MkxlwOmwG4oCZ9dB2N3WOXCd7VgFTabp27z9aa9ITDAqs2a7q0d1bDSdPCv/ef0A8YV5nIz41cN7kg==
+"@govuk-one-login/di-ipv-cri-common-express@11.2.0":
+  version "11.2.0"
+  resolved "https://registry.yarnpkg.com/@govuk-one-login/di-ipv-cri-common-express/-/di-ipv-cri-common-express-11.2.0.tgz#4ceacc908eb93867004ecf0bf268130c1114cd71"
+  integrity sha512-68xbQMnGRAbHeqp5Cn0eKZs2gKWmHXWeiZTn+2oVy5r0qpz1CVCb9Z0RG7uCjmxUNs4dvi42eRz3xXuZw3biGQ==
   dependencies:
     "@govuk-one-login/frontend-ui" "^1.2.0"
     async "^3.2.6"
