@@ -1,14 +1,11 @@
-name: Pre-merge checks
+name: Daily Smoke Tests in DEV
 on:
-  push:
+  schedule:
+    # Monday to Friday at 1PM.
+    - cron: '0 13 * * 1-5'
+  pull_request:
     branches:
       - main
-  pull_request:
-    types:
-      - opened
-      - reopened
-      - ready_for_review
-      - synchronize
 
 jobs:
   pre-commit:
@@ -61,29 +58,3 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-
-      - name: Get test results history
-        uses: actions/checkout@v4
-        if: always()
-        continue-on-error: true
-        with:
-          ref: gh-pages
-          path: gh-pages
-
-      - name: Cucumber HTML Report action
-        uses: PavanMudigonda/html-reporter-github-pages@v1.1
-        id: test-report
-        if: always()
-        with:
-          test_results: reports
-          gh_pages: gh-pages
-          results_history: results-history
-
-      - name: Publish Github Pages
-        if: ${{ github.actor != 'dependabot[bot]' }}
-        uses: peaceiris/actions-gh-pages@v3.9.3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_branch: gh-pages
-          publish_dir: results-history
-          keep_files: true
