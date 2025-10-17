@@ -272,14 +272,17 @@ Resources:
                 "aws:SourceAccount": !Ref AWS::AccountId
           - Sid: AllowSSLRequestsOnly
             Effect: Deny
+            Principal: "*"
             Action:
               - "s3:*"
-            Resource:
-              - !Sub "${AccessLogsBucket.Arn}/*"
-            Principal: "*"
             Condition:
               Bool:
-                "aws:SecureTransport": "false"
+                "aws:SecureTransport": false
+              NumericLessThan:
+                "s3:TlsVersion": "1.2"
+            Resource:
+              - !GetAtt AccessLogsBucket.Arn
+              - !Sub "${AccessLogsBucket.Arn}/*"
 
   # Private Application Load Balancer
   LoadBalancer:
