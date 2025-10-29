@@ -1,59 +1,92 @@
 name: Pre-merge checks
 on:
-  push:
-    branches:
-      - main
   pull_request:
     types:
       - opened
       - reopened
       - ready_for_review
       - synchronize
+  push:
+    branches:
+      - main
 
 jobs:
+  resolve-test-versions:
+    runs-on: ubuntu-latest
+    outputs:
+      playwright-version: ${{ steps['resolve-playwright-version'].outputs.version }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Resolve Playwright version
+        id: resolve-playwright-version
+        run: |
+          version="$(yq -r '.devDependencies["@playwright/test"] // .dependencies["@playwright/test"] // ""' package.json)"
+          test -n "$version" || { echo "No @playwright/test version found in package.json"; exit 1; }
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+
   pre-commit:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-python@v5
+    - name: Check out repository code
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
       with:
         python-version: '3.x'
-    - uses: pre-commit/action@v3.0.1
+
+    - name: Pre-commit github action
+      uses: pre-commit/action@v3.0.1
       with:
         extra_args: "detect-secrets --all-files"
 
-  run-premerge-checks:
-    runs-on: ubuntu-latest
-    env:
-      AWS_REGION: eu-west-2
-    steps:
-      - name: Check out repository code
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+    - name: SAM Validate
+      run: sam validate --region eu-west-2 -t deploy/template.yaml --lint
 
-      - name: SAM Validate
-        run: sam validate --region ${{ env.AWS_REGION }} -t deploy/template.yaml --lint
+  run-tests:
+    runs-on: ubuntu-latest
+    needs: resolve-test-versions
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
 
       - name: Use Node.js 22.x
         uses: actions/setup-node@v4
         with:
           node-version: 22
+          cache: "yarn"
 
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
-      - name: Build assets
+      - name: Cache Playwright
+        id: playwright-cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-browsers-${{ needs['resolve-test-versions'].outputs.playwright-version }}
+
+      - name: Setup Playwright
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: yarn playwright install chromium --with-deps
+
+      - name: Setup Playwright dependencies
+        run: yarn playwright install-deps chromium
+        if: steps.playwright-cache.outputs.cache-hit == 'true'
+
+      - name: Build dependencies
         run: yarn build
 
       - name: Run lint
         run: yarn lint
 
       - name: Run test and write coverage
-        run: yarn run test:coverage
+        run: yarn test:coverage
 
       - name: Run browser tests
-        run: yarn run test:browser:ci
+        run: yarn test:browser:ci
 
       - name: Run sonarcloud scan
         if: ${{ github.actor != 'dependabot[bot]' }}
