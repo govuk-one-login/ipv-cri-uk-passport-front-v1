@@ -95,7 +95,7 @@
     "jsonwebtoken": "9.0.2",
     "nunjucks": "3.2.4",
     "overload-protection": "1.2.3",
-    "webpack": "5.94.0"
+    "webpack": "5.102.1"
   },
   "resolutions": {
     "strip-ansi": "^6.0.1",
