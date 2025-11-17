@@ -1,6 +1,6 @@
 const { setWorldConstructor } = require("@cucumber/cucumber");
 
-require("playwright");
+require("@playwright/test");
 
 const users = {
   "Authenticatable Anita": {},
