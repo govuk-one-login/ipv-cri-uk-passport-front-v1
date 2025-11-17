@@ -4,7 +4,7 @@ const { expect } = require("chai");
 
 const { ErrorPage } = require("../pages");
 
-const { injectAxe } = require("axe-playwright");
+const { AxeBuilder } = require("@axe-core/playwright");
 
 Then("they should see an error page", async function () {
   const errorPage = new ErrorPage(this.page);
@@ -17,13 +17,10 @@ Then("they should see an error page", async function () {
 Then(
   "I run the Axe Accessibility check against the Error entry page",
   async function () {
-    await injectAxe(this.page);
-    // Run Axe for WCAG 2.2 AA rules
-    const wcagResults = await this.page.evaluate(() => {
-      return axe.run({
-        runOnly: ["wcag21aa"]
-      });
-    });
-    expect(wcagResults.violations).to.be.empty;
+    const results = await new AxeBuilder({ page: this.page })
+      .withTags(["wcag22aa"])
+      .analyze();
+
+    expect(results.violations).to.be.empty;
   }
 );
