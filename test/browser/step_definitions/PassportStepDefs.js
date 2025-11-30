@@ -4,7 +4,7 @@ const { PassportPage } = require("../pages/PassportPage.js");
 
 const { expect } = require("chai");
 
-const { injectAxe } = require("axe-playwright");
+const { AxeBuilder } = require("@axe-core/playwright");
 
 Then(/^I can see CTA {string}$/, async function () {});
 
@@ -19,14 +19,11 @@ Then(
 Given(
   /^I run the Axe Accessibility check against the Passport details entry page$/,
   async function () {
-    await injectAxe(this.page);
-    // Run Axe for WCAG 2.2 AA rules
-    const wcagResults = await this.page.evaluate(() => {
-      return axe.run({
-        runOnly: ["wcag22aa"]
-      });
-    });
-    expect(wcagResults.violations).to.be.empty;
+    const results = await new AxeBuilder({ page: this.page })
+      .withTags(["wcag22aa"])
+      .analyze();
+
+    expect(results.violations).to.be.empty;
   }
 );
 

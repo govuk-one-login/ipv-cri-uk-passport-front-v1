@@ -272,14 +272,17 @@ Resources:
                 "aws:SourceAccount": !Ref AWS::AccountId
           - Sid: AllowSSLRequestsOnly
             Effect: Deny
+            Principal: "*"
             Action:
               - "s3:*"
-            Resource:
-              - !Sub "${AccessLogsBucket.Arn}/*"
-            Principal: "*"
             Condition:
               Bool:
-                "aws:SecureTransport": "false"
+                "aws:SecureTransport": false
+              NumericLessThan:
+                "s3:TlsVersion": "1.2"
+            Resource:
+              - !GetAtt AccessLogsBucket.Arn
+              - !Sub "${AccessLogsBucket.Arn}/*"
 
   # Private Application Load Balancer
   LoadBalancer:
@@ -294,13 +297,19 @@ Resources:
         - Fn::ImportValue: !Sub ${VpcStackName}-PrivateSubnetIdB
         - Fn::ImportValue: !Sub ${VpcStackName}-PrivateSubnetIdC
       Type: application
-      LoadBalancerAttributes: !If
-        - IsNotDevelopment
-        - - Key: access_logs.s3.enabled
+      LoadBalancerAttributes:
+        - Key: routing.http.drop_invalid_header_fields.enabled
+          Value: true
+        - !If
+          - IsNotDevelopment
+          - Key: access_logs.s3.enabled
             Value: true
+          - !Ref AWS::NoValue
+        - !If
+          - IsNotDevelopment
           - Key: access_logs.s3.bucket
             Value: !Ref AccessLogsBucket
-        - !Ref AWS::NoValue
+          - !Ref AWS::NoValue
       Tags:
         - Key: FMSRegionalPolicy
           Value: false
@@ -630,6 +639,21 @@ Resources:
               awslogs-group: !Ref ECSAccessLogsGroup
               awslogs-region: !Sub ${AWS::Region}
               awslogs-stream-prefix: !Sub passport-front-${Environment}
+          ReadonlyRootFilesystem: true
+          MountPoints:
+            - SourceVolume: tmp
+              ContainerPath: /tmp
+              ReadOnly: false
+            - SourceVolume: dynatrace-log
+              ContainerPath: /var/log/dynatrace/oneagent
+              ReadOnly: false
+            - SourceVolume: dynatrace
+              ContainerPath: /var/lib/dynatrace/oneagent
+              ReadOnly: false
+      Volumes:
+        - Name: tmp
+        - Name: dynatrace-log
+        - Name: dynatrace
       Cpu: !FindInMap [ EnvironmentConfiguration, !Ref "Environment", fargateCPUsize ]
       ExecutionRoleArn: !GetAtt ECSTaskExecutionRole.Arn
       Memory: !FindInMap [ EnvironmentConfiguration, !Ref "Environment", fargateRAMsize ]

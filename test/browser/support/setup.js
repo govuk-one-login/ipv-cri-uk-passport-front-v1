@@ -1,5 +1,5 @@
 const { Before, BeforeAll, AfterAll, After } = require("@cucumber/cucumber");
-const { chromium } = require("playwright");
+const { chromium } = require("@playwright/test");
 const axios = require("axios");
 
 BeforeAll(async function () {
