@@ -11,6 +11,14 @@
 {% from "hmpo-form/macro.njk" import hmpoForm %}
 {% from "hmpo-date/macro.njk" import hmpoDate %}
 
+{% set isPageDataSensitive = false %}
+{% set statusCode = '200' %}
+{% set pageTitleKey = "pages.passport.title" %}
+{% set contentID = "9dd1d4a2-2902-46c3-b05f-75bae7c8f971" %}
+{% set taxLevel2 = 'passport' %}
+{% set isPageDynamic = false %}
+{% set loggedInStatus = true %}
+
 {% block mainContent %}
 {% if values.showRetryMessage and not(ctx("errors") | length) %}
 {# user is retrying #}
@@ -187,22 +195,6 @@ html: translate("passport.passportTryAnotherWay")
             }
         })
     }
-
-    window.addEventListener('load', function () {
-      window
-      .DI
-      .analyticsGa4
-      .pageViewTracker
-      .trackOnPageLoad({
-        statusCode: '200', // Access status code
-        englishPageTitle: '{{translate("pages.passport.title")}}',
-        taxonomy_level1: 'web cri', // Access taxonomy level 1
-        taxonomy_level2: 'Passport', // Access taxonomy level 2
-        content_id: '001',
-        logged_in_status: true,
-        dynamic: false,
-      });
-    });
 
     </script>
     {% endblock %}
