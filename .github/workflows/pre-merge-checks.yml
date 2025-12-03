@@ -56,10 +56,9 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: "yarn"
 
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: npm ci
 
       - name: Cache Playwright
         id: playwright-cache
@@ -70,23 +69,23 @@ jobs:
 
       - name: Setup Playwright
         if: steps.playwright-cache.outputs.cache-hit != 'true'
-        run: yarn playwright install chromium --with-deps
+        run: npm run playwright install chromium --with-deps
 
       - name: Setup Playwright dependencies
-        run: yarn playwright install-deps chromium
+        run: npm run playwright install-deps chromium
         if: steps.playwright-cache.outputs.cache-hit == 'true'
 
       - name: Build assets
-        run: yarn build
+        run: npm run build
 
       - name: Run lint
-        run: yarn lint
+        run: npm run lint
 
       - name: Run test and write coverage
-        run: yarn test:coverage
+        run: npm run test:coverage
 
       - name: Run browser tests
-        run: yarn test:browser:ci
+        run: npm run test:browser:ci
 
       - name: Run sonarcloud scan
         if: ${{ github.actor != 'dependabot[bot]' }}
