@@ -19,3 +19,5 @@
 ### Other considerations
 
 <!-- Are there any further considerations to call out? e.g. changes in the README.md, new parameters added etc-->
+
+<!-- Add in a yarn.lock check where any changes are due to specific dependency upgrades. -->
