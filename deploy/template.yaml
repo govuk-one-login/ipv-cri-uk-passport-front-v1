@@ -962,10 +962,10 @@ Resources:
         # multiple alarm breaches occurring in rapid succession.
         MinAdjustmentMagnitude: 1
         StepAdjustments:
-          - MetricIntervalUpperBound: 1 # 61% temporary adjustment to restore value via cloudformation
+          - MetricIntervalUpperBound: 0 # 60% 
             ScalingAdjustment: 100 # Scale by 100% of containers if the metric is breached
             # with <60% utilisation
-          - MetricIntervalLowerBound: 1 # 61% temporary adjustment to restore value via cloudformation
+          - MetricIntervalLowerBound: 0 # 60%
             MetricIntervalUpperBound: 30 # 90%
             ScalingAdjustment: 200 # Scale by 200% of containers if the metric is breached
             # with 80-90% utilisation
