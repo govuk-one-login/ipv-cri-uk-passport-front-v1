@@ -1,3 +1,4 @@
+// @QualityGateUnitTest
 const path = require("path");
 const commonExpress = require("@govuk-one-login/di-ipv-cri-common-express");
 

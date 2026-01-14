@@ -1,3 +1,4 @@
+// @QualityGateUnitTest
 const FeatureSets = require("./featureSets");
 
 describe("feature sets", () => {
