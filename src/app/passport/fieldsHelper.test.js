@@ -1,3 +1,4 @@
+// @QualityGateUnitTest
 const fields = require("./fieldsHelper");
 
 describe("firstName, middleNames, surname, passportNumber validation fields test", () => {

@@ -1,3 +1,4 @@
+@QualityGateRegressionTest
 @mock-api:passport-success
 Feature: Passport CRI - Welsh Language Tests
 

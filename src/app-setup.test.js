@@ -1,3 +1,4 @@
+// @QualityGateUnitTest
 const AppSetup = require("./app-setup");
 const path = require("path");
 const sessionConfig = require("./session-config");

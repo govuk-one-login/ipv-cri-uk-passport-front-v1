@@ -1,3 +1,4 @@
+@QualityGateRegressionTest @QualityGateNewFeatureTest
 @mock-api:passport-success
 Feature: Passport CRI - Happy Path and Field Valisation Tests
 
@@ -212,7 +213,7 @@ Feature: Passport CRI - Happy Path and Field Valisation Tests
     Then I assert the link on the page not found page is correct and live
 
   ########### Axe Accessibility ##########
-
+  @QualityGateAccessibilityTest
   @mock-api:passport-success @passport-accessibility
   Scenario Outline: Passport CRI - Axe Accessibility Scan - Passport Details Page
     Given I run the Axe Accessibility check against the Passport details entry page
@@ -222,6 +223,7 @@ Feature: Passport CRI - Happy Path and Field Valisation Tests
       | PassportSubject             |
       | PassportSubjectHappyKenneth |
 
+  @QualityGateAccessibilityTest
   @mock-api:passport-success @passport-accessibility
   Scenario: Passport CRI - Passport Error Page
     Given I delete the session cookie
