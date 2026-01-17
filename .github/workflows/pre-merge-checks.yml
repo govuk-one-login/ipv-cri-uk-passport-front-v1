@@ -94,3 +94,29 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+      - name: Get test results history
+        uses: actions/checkout@v4
+        if: always()
+        continue-on-error: true
+        with:
+          ref: gh-pages
+          path: gh-pages
+
+      - name: Cucumber HTML Report action
+        uses: PavanMudigonda/html-reporter-github-pages@v1.1
+        id: test-report
+        if: always()
+        with:
+          test_results: reports
+          gh_pages: gh-pages
+          results_history: results-history
+
+      - name: Publish Github Pages
+        if: ${{ github.actor != 'dependabot[bot]' }}
+        uses: peaceiris/actions-gh-pages@v3.9.3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: results-history
+          keep_files: true
