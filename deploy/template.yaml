@@ -1224,6 +1224,52 @@ Resources:
             Period: 60
             Stat: Sum
 
+  FrontLoadBalancer503Error:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmName: FrontLoadBalancer503Alarm
+      AlarmDescription:  >
+        The number of HTTP 503 errors that originate from the
+        load balancer is greater than 5% of all traffic (Overload Protection).
+      ActionsEnabled: true
+      AlarmActions:
+        - !ImportValue platform-alarm-warning-alert-topic
+      OKActions:
+        - !ImportValue platform-alarm-warning-alert-topic
+      InsufficientDataActions: []
+      EvaluationPeriods: 2
+      DatapointsToAlarm: 2
+      Threshold: 5
+      ComparisonOperator: GreaterThanThreshold
+      TreatMissingData: notBreaching
+      Metrics:
+        - Id: e1
+          Label: ErrorPercent
+          ReturnData: true
+          Expression: (m1/m2)*100
+        - Id: m1
+          ReturnData: false
+          MetricStat:
+            Metric:
+              Namespace: AWS/ApplicationELB
+              MetricName: HTTPCode_ELB_503_Count
+              Dimensions:
+               - Name: LoadBalancer
+                 Value: !Ref LoadBalancer
+            Period: 60
+            Stat: Sum
+        - Id: m2
+          ReturnData: false
+          MetricStat:
+            Metric:
+              Namespace: AWS/ApplicationELB
+              MetricName: RequestCount
+              Dimensions:
+                - Name: LoadBalancer
+                  Value: !Ref LoadBalancer
+            Period: 60
+            Stat: Sum
+  
   EventLoopDelayMetricFilter:
     Type: AWS::Logs::MetricFilter
     Properties:
