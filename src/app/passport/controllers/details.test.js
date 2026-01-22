@@ -1,4 +1,3 @@
-// @QualityGateUnitTest
 const BaseController = require("hmpo-form-wizard").Controller;
 const DetailsController = require("./details");
 

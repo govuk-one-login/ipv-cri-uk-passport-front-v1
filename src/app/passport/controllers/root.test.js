@@ -1,4 +1,3 @@
-// @QualityGateUnitTest
 const RootController = require("./root");
 const { Controller: BaseController } = require("hmpo-form-wizard");
 
