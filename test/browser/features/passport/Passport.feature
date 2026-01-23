@@ -1,4 +1,4 @@
-@QualityGateRegressionTest @QualityGateNewFeatureTest
+@QualityGateRegressionTest @QualityGateIntegrationTest
 @mock-api:passport-success
 Feature: Passport CRI - Happy Path and Field Valisation Tests
 

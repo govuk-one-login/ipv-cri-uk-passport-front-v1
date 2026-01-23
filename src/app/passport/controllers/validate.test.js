@@ -1,4 +1,3 @@
-// @QualityGateUnitTest
 const axios = require("axios");
 const BaseController = require("hmpo-form-wizard").Controller;
 const ValidateController = require("./validate");

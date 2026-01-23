@@ -1,4 +1,3 @@
-// @QualityGateUnitTest
 const sessionConfig = require("./session-config");
 const sessionDbConfig = require("./dynamo-session-config");
 
