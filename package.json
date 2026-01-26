@@ -87,7 +87,7 @@
     "hmpo-logger": "7.0.1",
     "nunjucks": "3.2.4",
     "overload-protection": "1.2.3",
-    "webpack": "5.94.0"
+    "webpack": "5.104.1"
   },
   "resolutions": {
     "qs": "6.14.1",
