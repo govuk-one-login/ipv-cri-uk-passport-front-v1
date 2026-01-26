@@ -41,7 +41,7 @@
   "packageManager": "yarn@2.4.3",
   "devDependencies": {
     "@axe-core/playwright": "4.11.0",
-    "@cucumber/cucumber": "11.3.0",
+    "@cucumber/cucumber": "12.6.0",
     "@eslint/eslintrc": "3.3.1",
     "@eslint/js": "9.33.0",
     "@playwright/test": "1.56.1",
