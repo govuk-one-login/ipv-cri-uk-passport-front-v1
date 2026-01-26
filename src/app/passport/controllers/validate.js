@@ -4,12 +4,15 @@ const BaseController = require("hmpo-form-wizard").Controller;
 const {
   API: {
     BASE_URL,
-    PATHS: { CHECK }
+    PATHS: { CHECK },
+    PACKAGE_NAME
   }
 } = require("../../../lib/config");
 
-const { PACKAGE_NAME } = require("../../../lib/config");
-const logger = require("hmpo-logger").get(PACKAGE_NAME);
+const logger =
+  require("@govuk-one-login/di-ipv-cri-common-express/src/bootstrap/lib/logger").get(
+    PACKAGE_NAME
+  );
 const {
   createPersonalDataHeaders
 } = require("@govuk-one-login/frontend-passthrough-headers");
