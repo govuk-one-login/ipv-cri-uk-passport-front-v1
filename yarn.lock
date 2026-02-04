@@ -882,10 +882,10 @@
     redis "4.7.1"
     uuid "10.0.0"
 
-"@govuk-one-login/frontend-analytics@3.0.1":
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/@govuk-one-login/frontend-analytics/-/frontend-analytics-3.0.1.tgz#3dcf4a117abca0823a11e7190f37c335c464d41d"
-  integrity sha512-Si1ZHG+RV4JBdDBH2bAAJFHRxnukExeix/JOL12prMThUkLsnZbamgPUAcVoByZRydYYXzilJgRw7PNiO1g1Kg==
+"@govuk-one-login/frontend-analytics@3.3.1":
+  version "3.3.1"
+  resolved "https://registry.yarnpkg.com/@govuk-one-login/frontend-analytics/-/frontend-analytics-3.3.1.tgz#0d5d682780966947ed22a2d87ba7b2285d3b87b7"
+  integrity sha512-es0NHFTl0yk6OMc00rHqqz0WqoSHN1iphZ+O2HJl9w87kLoPJTVXZVrVW4d5vBpVCZ4dehIeS/sTe0OBf+YjHA==
   dependencies:
     copy-webpack-plugin "^12.0.2"
     loglevel "^1.9.1"
