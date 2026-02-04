@@ -2,6 +2,14 @@
 {# the content for this page is controlled by locales/en/default.yml #}
 {% set hmpoPageKey = "passport" %}
 
+{% set isPageDataSensitive = false %}
+{% set statusCode = '200' %}
+{% set pageTitleKey = "pages.passport.title" %}
+{% set contentID = "001" %}
+{% set taxLevel2 = 'passport' %}
+{% set isPageDynamic = false %}
+{% set loggedInStatus = true %}
+
 {% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
 {% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
 {% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
@@ -187,22 +195,5 @@ html: translate("passport.passportTryAnotherWay")
             }
         })
     }
-
-    window.addEventListener('load', function () {
-      window
-      .DI
-      .analyticsGa4
-      .pageViewTracker
-      .trackOnPageLoad({
-        statusCode: '200', // Access status code
-        englishPageTitle: '{{translate("pages.passport.title")}}',
-        taxonomy_level1: 'web cri', // Access taxonomy level 1
-        taxonomy_level2: 'Passport', // Access taxonomy level 2
-        content_id: '001',
-        logged_in_status: true,
-        dynamic: false,
-      });
-    });
-
     </script>
     {% endblock %}
