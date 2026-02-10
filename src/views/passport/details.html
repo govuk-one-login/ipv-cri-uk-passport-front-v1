@@ -2,6 +2,14 @@
 {# the content for this page is controlled by locales/en/default.yml #}
 {% set hmpoPageKey = "passport" %}
 
+{% set isPageDataSensitive = false %}
+{% set statusCode = '200' %}
+{% set pageTitleKey = "pages.passport.title" %}
+{% set contentID = "9dd1d4a2-2902-46c3-b05f-75bae7c8f971" %}
+{% set taxLevel2 = 'passport' %}
+{% set isPageDynamic = false %}
+{% set loggedInStatus = true %}
+
 {% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
 {% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
 {% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
@@ -10,14 +18,6 @@
 {% from "hmpo-text/macro.njk" import hmpoText %}
 {% from "hmpo-form/macro.njk" import hmpoForm %}
 {% from "hmpo-date/macro.njk" import hmpoDate %}
-
-{% set isPageDataSensitive = false %}
-{% set statusCode = '200' %}
-{% set pageTitleKey = "pages.passport.title" %}
-{% set contentID = "9dd1d4a2-2902-46c3-b05f-75bae7c8f971" %}
-{% set taxLevel2 = 'passport' %}
-{% set isPageDynamic = false %}
-{% set loggedInStatus = true %}
 
 {% block mainContent %}
 {% if values.showRetryMessage and not(ctx("errors") | length) %}
@@ -195,6 +195,5 @@ html: translate("passport.passportTryAnotherWay")
             }
         })
     }
-
     </script>
     {% endblock %}

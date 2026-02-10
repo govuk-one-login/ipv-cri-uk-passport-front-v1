@@ -1,0 +1,67 @@
+{
+  "$schema": "https://raw.githubusercontent.com/govuk-one-login/quality-gates/refs/tags/v0.1.0/schemas/schema.json",
+  "services": [
+    {
+      "quality-gates": [
+        {
+          "check-types": [
+            "code style and linting",
+            "secret scanning"
+          ],
+          "config": {
+            "file": ".github/workflows/pre-merge-checks.yml",
+            "name": "pre-commit",
+            "path": "jobs.pre-commit"
+          },
+          "phase": "pre-merge",
+          "provider": "GitHub"
+        },
+        {
+          "check-types": [
+            "accessibility",
+            "code quality",
+            "code style and linting",
+            "integration",
+            "regression",
+            "unit",
+            "unit test coverage",
+            "vulnerability detection"
+          ],
+          "config": {
+            "file": ".github/workflows/pre-merge-checks.yml",
+            "name": "run-premerge-checks",
+            "path": "jobs.run-premerge-checks"
+          },
+          "phase": "pre-merge",
+          "provider": "GitHub"
+        },
+        {
+          "check-types": [
+            "code quality",
+            "vulnerability detection"
+          ],
+          "config": {
+            "file": ".github/workflows/codeql.yml",
+            "name": "Analyze",
+            "path": "jobs.analyze"
+          },
+          "phase": "pre-merge",
+          "provider": "GitHub"
+        },
+        {
+          "check-types": [
+            "code style and linting"
+          ],
+          "config": {
+            "file": ".github/workflows/i18n.yml",
+            "name": "check-i18n",
+            "path": "jobs.check-i18n"
+          },
+          "phase": "pre-merge",
+          "provider": "GitHub"
+        }
+      ],
+      "service-tag": "ipv-cri-passport"
+    }
+  ]
+}
