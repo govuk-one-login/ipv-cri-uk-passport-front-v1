@@ -84,7 +84,7 @@
     "hmpo-form-wizard": "12.0.6",
     "hmpo-logger": "7.0.1",
     "nunjucks": "3.2.4",
-    "webpack": "5.94.0"
+    "webpack": "5.105.1"
   },
   "resolutions": {
     "nyc/@istanbuljs/load-nyc-config/js-yaml": "4.1.1",
