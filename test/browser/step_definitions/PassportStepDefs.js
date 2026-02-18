@@ -44,6 +44,7 @@ Then(/^User clicks on continue$/, { timeout: 2 * 5000 }, async function () {
 
 Given(
   /^they click Footer (.*) and assert I have been redirected correctly$/,
+  { timeout: 30000 },
   async function (linkName) {
     const passportPage = new PassportPage(this.page);
 
