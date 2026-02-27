@@ -3,5 +3,6 @@ spec:
   - '**/*.test.js'
 ignore:
   - 'node_modules/**'
+  - 'test/cloudformation/**'
 file:
   - './test/utils/mocha-helpers'

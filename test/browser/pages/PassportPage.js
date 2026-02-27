@@ -507,10 +507,8 @@ exports.PassportPage = class PlaywrightDevPage {
 
   async assertBetaBanner(betaBannerLabel) {
     await this.page.waitForLoadState("domcontentloaded");
-    expect(await this.isCurrentPage()).to.be.true;
-    await expect(await this.betaBanner.textContent()).to.contains(
-      betaBannerLabel
-    );
+    expect(this.isCurrentPage()).to.be.true;
+    expect(await this.betaBanner.textContent()).to.contains(betaBannerLabel);
   }
 
   async assertAcceptCookies(acceptCookiesText) {
@@ -538,7 +536,7 @@ exports.PassportPage = class PlaywrightDevPage {
   async assertRejectedCookiesSettingLink() {
     await this.cookiesRejectedSettingLink.click();
     await this.page.waitForTimeout(3000); //waitForNavigation and waitForLoadState do not work in this case
-    let context = await this.page.context();
+    let context = this.page.context();
     let pages = context.pages();
     expect(pages[0].url()).to.equal("https://signin.account.gov.uk/cookies");
   }
@@ -549,13 +547,13 @@ exports.PassportPage = class PlaywrightDevPage {
 
   async assertContactOneLoginTeamLink(contactOneLoginTeamLink) {
     await this.page.waitForLoadState("domcontentloaded");
-    expect(await this.isCurrentPage()).to.be.true;
+    expect(this.isCurrentPage()).to.be.true;
     expect(await this.errorLink.innerText()).to.equal(contactOneLoginTeamLink);
   }
 
   async assertFooterLinkText(supportFooterLink) {
     await this.page.waitForLoadState("domcontentloaded");
-    expect(await this.isCurrentPage()).to.be.true;
+    expect(this.isCurrentPage()).to.be.true;
     expect(await this.supportLink.innerText()).to.equal(supportFooterLink);
   }
 
@@ -569,14 +567,12 @@ exports.PassportPage = class PlaywrightDevPage {
   }
 
   async assertFooterLinks(linkName) {
-    const timeout = 10000;
     const linkLocator = this.footerLinks[linkName];
 
     if (!linkLocator) {
       throw new Error(`No locator defined for footer link: ${linkName}`);
     }
 
-    // Define urlAssertions only once
     const urlAssertions = {
       Accessibility: "https://signin.account.gov.uk/accessibility-statement",
       Cookies: "https://signin.account.gov.uk/cookies",
@@ -589,46 +585,37 @@ exports.PassportPage = class PlaywrightDevPage {
         "https://www.nationalarchives.gov.uk/information-management/re-using-public-sector-information/uk-government-licensing-framework/crown-copyright/"
     };
 
-    // Determine if the link opens in a new tab or not
-    const targetAttribute = await linkLocator.evaluate((el) =>
-      el.getAttribute("target")
-    );
-    const newTabExpected = targetAttribute === "_blank";
+    const expectedUrl = urlAssertions[linkName];
+    if (!expectedUrl) {
+      throw new Error(`No URL assertion defined for footer link: ${linkName}`);
+    }
 
-    if (newTabExpected) {
-      await Promise.all([
-        this.page.waitForEvent("popup", { timeout }),
-        linkLocator.click({ modifier: "Ctrl" })
-      ]);
+    await linkLocator.waitFor({ state: "visible", timeout: 5000 });
 
-      const pages = this.page.context().pages();
-      const newTab = pages[pages.length - 1];
+    const hasTargetBlank =
+      (await linkLocator.getAttribute("target")) === "_blank";
 
-      expect(await newTab.title()).to.not.equal(
-        "Page not found - GOV.UK One Login"
-      );
-
-      if (urlAssertions[linkName]) {
-        expect(newTab.url()).to.contain(urlAssertions[linkName]);
-      } else {
-        throw new Error(
-          `No URL assertion defined for footer link: ${linkName}`
-        );
-      }
-    } else {
-      // Pass a URL pattern or '*' to waitForURL
-      await Promise.all([
-        this.page.waitForURL(/.*/, { timeout }), // Wait for any URL change
+    if (hasTargetBlank) {
+      const [newPage] = await Promise.all([
+        this.page.context().waitForEvent("page"),
         linkLocator.click()
       ]);
 
-      if (urlAssertions[linkName]) {
-        expect(this.page.url()).to.contain(urlAssertions[linkName]);
-      } else {
-        throw new Error(
-          `No URL assertion defined for footer link: ${linkName}`
-        );
-      }
+      await newPage.waitForLoadState("domcontentloaded");
+      expect(newPage.url()).to.contain(expectedUrl);
+      expect(await newPage.title()).to.not.equal(
+        "Page not found - GOV.UK One Login"
+      );
+      await newPage.close();
+    } else {
+      await Promise.all([
+        this.page.waitForURL((url) => url.toString().includes(expectedUrl), {
+          timeout: 10000
+        }),
+        linkLocator.click()
+      ]);
+
+      expect(this.page.url()).to.contain(expectedUrl);
     }
   }
 
