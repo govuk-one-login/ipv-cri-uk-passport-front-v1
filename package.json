@@ -60,7 +60,7 @@
     "playwright-core": "1.58.0",
     "prettier": "3.8.1",
     "reqres": "3.0.1",
-    "sass": "1.63.4",
+    "sass": "1.97.3",
     "sinon": "21.0.1",
     "sinon-chai": "3.7.0",
     "uglify-js": "3.19.3",
