@@ -77,7 +77,7 @@
     "@govuk-one-login/frontend-vital-signs": "0.1.4",
     "axios": "1.13.5",
     "connect-dynamodb": "3.0.5",
-    "dotenv": "17.2.3",
+    "dotenv": "17.3.1",
     "express": "4.22.1",
     "express-async-errors": "3.1.1",
     "express-session": "1.18.2",
