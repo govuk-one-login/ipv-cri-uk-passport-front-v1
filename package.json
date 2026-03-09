@@ -43,7 +43,7 @@
   "devDependencies": {
     "@axe-core/playwright": "4.11.1",
     "@cucumber/cucumber": "12.6.0",
-    "@eslint/eslintrc": "3.3.4",
+    "@eslint/eslintrc": "3.3.5",
     "@eslint/js": "10.0.1",
     "@playwright/test": "1.58.1",
     "chai": "4.5.0",
