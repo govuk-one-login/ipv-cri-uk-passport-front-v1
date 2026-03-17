@@ -127,3 +127,6 @@ template.zip
 # Test results
 reports/*
 results/*
+
+# npm package-lock
+package-lock.json

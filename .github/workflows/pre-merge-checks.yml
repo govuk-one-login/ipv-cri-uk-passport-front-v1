@@ -85,6 +85,9 @@ jobs:
       - name: Run test and write coverage
         run: yarn test:coverage
 
+      - name: Run CloudFormation tests
+        run: yarn test:cloudformation
+
       - name: Run browser tests
         run: yarn test:browser:ci
 

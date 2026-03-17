@@ -1,0 +1,8 @@
+fail-zero: false
+spec:
+  - 'test/cloudformation/resources/*.test.js'
+  - 'test/cloudformation/general.test.js'
+  - 'test/cloudformation/coverage.test.js'
+ignore:
+  - 'node_modules/**'
+  - 'test/cloudformation/template.test.js'
