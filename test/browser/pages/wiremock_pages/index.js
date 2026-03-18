@@ -1,6 +1,6 @@
 module.exports = {
-  UniversalSteps: require("./UniversalSteps.js"),
-  PassportPage: require("./PassportPage.js"),
+  UniversalSteps: require("./universal-steps.js"),
+  PassportPage: require("./details.js").PassportPage,
   RelyingPartyPage: require("./relying-party.js"),
   ErrorPage: require("./error.js")
 };

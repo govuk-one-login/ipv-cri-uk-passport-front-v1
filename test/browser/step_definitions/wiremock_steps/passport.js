@@ -1,6 +1,6 @@
 const { Given, When, Then } = require("@cucumber/cucumber");
 
-const { PassportPage } = require("../pages/PassportPage.js");
+const { PassportPage } = require("../../pages/wiremock_pages");
 
 const { expect } = require("chai");
 

@@ -34,6 +34,10 @@ exports.getPassportTestUserFromMap = function (passportSubjectScenario) {
     return primaryPassport;
   }
 
+  if (passportSubjectScenario === "primaryPassport") {
+    return primaryPassport;
+  }
+
   if (
     passportSubjectScenario === "PassportSubjectIncorrectPassportNumberKenneth"
   ) {

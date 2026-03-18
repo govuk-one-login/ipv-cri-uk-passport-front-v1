@@ -24,6 +24,25 @@
       "response": {
         "status": 500
       }
+    },
+    {
+      "scenarioName": "passport-session-error",
+      "request": {
+        "method": "GET",
+        "urlPathPattern": "/return.*",
+        "queryParameters": {
+          "error": {
+            "equalTo": "server_error"
+          },
+          "error_description": {
+            "equalTo": "general error"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "OAuth error callback received"
+      }
     }
   ]
 }

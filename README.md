@@ -43,6 +43,26 @@ Run with `yarn run test`
 
 Run with `yarn run test:browser:ci`
 
+## Core Stub Tests
+
+There are E2E tests which run against the core stub, in the Dev, Build and Staging environments.
+
+To execute these tests run:
+
+`yarn run test:browser:stub:ci`
+
+To build the Docker image run:
+
+`docker build --tag passport-cri-test-image -f Dockerfile ..`
+
+To build the Docker image in a Mac using Arm64 run: 
+
+`DOCKER_DEFAULT_PLATFORM=linux/amd64 docker build --tag passport-cri-test-image -f test/Dockerfile .`
+
+To execute the tests in docker run:
+
+`docker run -e STACK_NAME=local passport-cri-test-image` - add `-e ENVIRONMENT=dev` to run in Dev environment
+
 ## Pre-Commit Checking / Verification
 
 Completely optional, there is a `.pre-commit-config.yaml` configuration setup in this repo, this uses [pre-commit](https://pre-commit.com/) to verify your commit before actually commiting, it runs the following checks:
