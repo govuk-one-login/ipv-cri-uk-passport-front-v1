@@ -903,7 +903,7 @@
     copy-webpack-plugin "^12.0.2"
     loglevel "^1.9.1"
 
-"@govuk-one-login/frontend-analytics@^4.0.3":
+"@govuk-one-login/frontend-analytics@^4.0.3", "@govuk-one-login/frontend-analytics@^4.0.7":
   version "4.0.7"
   resolved "https://registry.yarnpkg.com/@govuk-one-login/frontend-analytics/-/frontend-analytics-4.0.7.tgz#f598f27ee5fe53dbb48a9dddd7d49185d34d1fa8"
   integrity sha512-G78BF00pluhlxATx8Gc3/wejDPg2yf2wMQPCIV6l0uotuh0wb81Qw+j7IN+rsDNMzwvtKxFpAmjKcfxJZPXh7w==
@@ -938,6 +938,16 @@
     pino "8.20.0"
   optionalDependencies:
     "@govuk-one-login/frontend-analytics" "^4.0.3"
+    hmpo-components "^7.1.0"
+
+"@govuk-one-login/frontend-ui@5.0.0":
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/@govuk-one-login/frontend-ui/-/frontend-ui-5.0.0.tgz#9e6fab0b96c3011f8a260124e2ed8c0785075b6f"
+  integrity sha512-ztxstiC19zSxWv2eotwSQgw8oMe+XBPtCJ2OGrXBVaiRwBl0KzX6nmZlMLJCrtGnNJF1ywlrYty/Zn8GzkiHng==
+  dependencies:
+    pino "^10.1.0"
+  optionalDependencies:
+    "@govuk-one-login/frontend-analytics" "^4.0.7"
     hmpo-components "^7.1.0"
 
 "@govuk-one-login/frontend-vital-signs@0.1.4":
