@@ -74,7 +74,7 @@ Mappings:
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
       fargateCPUsize: "2048"
       fargateRAMsize: "4096"
-      minECSCount: 4
+      minECSCount: 3
       maxECSCount: 60
       nodeEnv: "production"
     staging:
