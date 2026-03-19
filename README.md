@@ -55,7 +55,7 @@ To build the Docker image run:
 
 `docker build --tag passport-cri-test-image -f Dockerfile ..`
 
-To build the Docker image in a Mac using Arm64 run: 
+To build the Docker image on a Mac using Arm64 run:
 
 `DOCKER_DEFAULT_PLATFORM=linux/amd64 docker build --tag passport-cri-test-image -f test/Dockerfile .`
 
@@ -122,7 +122,7 @@ trim trailing whitespace.................................................Passed
 detect aws credentials...................................................Passed
 detect private key.......................................................Passed
 AWS CloudFormation Linter................................................Failed
-- hook id: cfn-python-lint
+- hook id: cfn-lint
 - exit code: 4
 W3011 Both UpdateReplacePolicy and DeletionPolicy are needed to protect Resources/PublicHostedZone from deletion
 core/deploy/dns-zones/template.yaml:20:3
