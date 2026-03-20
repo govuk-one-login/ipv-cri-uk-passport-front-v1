@@ -1,6 +1,6 @@
 const { Given, When, Then } = require("@cucumber/cucumber");
 
-const { RelyingPartyPage } = require("../pages");
+const { RelyingPartyPage } = require("../../pages/wiremock_pages");
 const { expect } = require("chai");
 
 Then("they should be redirected as a success", function () {

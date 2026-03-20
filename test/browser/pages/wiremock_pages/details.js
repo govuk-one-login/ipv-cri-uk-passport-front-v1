@@ -1,6 +1,6 @@
 const { expect: expect } = require("chai");
 const moment = require("moment");
-const TestDataCreator = require("../util/TestDataCreator");
+const TestDataCreator = require("../../util/TestDataCreator");
 
 exports.PassportPage = class PlaywrightDevPage {
   constructor(page) {

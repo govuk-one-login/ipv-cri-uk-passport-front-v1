@@ -25,8 +25,10 @@
     "lint": "prettier --check --no-editorconfig src test && eslint .",
     "lint-apply": "prettier --write src test && eslint .",
     "mocks": "yarn run wiremock --port 8050 --root-dir test/mocks",
-    "test:browser": "mkdir -p reports && wait-on tcp:127.0.0.1:8050 tcp:127.0.0.1:5050 && cucumber-js --config test/browser/cucumber.js",
+    "test:browser": "mkdir -p reports && wait-on tcp:127.0.0.1:8050 tcp:127.0.0.1:5050 && API_BASE_URL=http://127.0.0.1:8050/ MOCK_API=true cucumber-js --config test/browser/cucumber.js --profile wiremock_tests",
     "test:browser:ci": "npm-run-all -p -r start:ci mocks test:browser",
+    "test:browser:stub": "mkdir -p reports && dotenv -e .env -- cucumber-js --config test/browser/cucumber.js --profile stub_tests",
+    "test:browser:stub:ci": "npm-run-all -p -r test:browser:stub",
     "check-translation": "node node_modules/@govuk-one-login/di-ipv-cri-common-express/scripts/checkTranslations.js '../../../../src/locales'"
   },
   "repository": {
@@ -48,6 +50,7 @@
     "@playwright/test": "1.58.1",
     "chai": "4.5.0",
     "chai-as-promised": "8.0.2",
+    "dotenv-cli": "7.0.0",
     "eslint": "10.0.2",
     "eslint-config-prettier": "10.1.8",
     "eslint-plugin-prettier": "5.5.5",

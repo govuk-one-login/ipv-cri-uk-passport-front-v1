@@ -2,7 +2,7 @@ const { Given, When, Then } = require("@cucumber/cucumber");
 
 const { expect } = require("chai");
 
-const { ErrorPage } = require("../pages");
+const { ErrorPage } = require("../../pages/wiremock_pages");
 
 const { AxeBuilder } = require("@axe-core/playwright");
 
