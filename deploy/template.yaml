@@ -941,7 +941,7 @@ Resources:
       ActionsEnabled: true
       AlarmActions:
         - !Ref EcsStepScaleOutPolicy
-      AlarmDescription: "EcsClusterOver60PercentCPU"
+      AlarmDescription: "EcsClusterOver30PercentCPU"
       ComparisonOperator: "GreaterThanThreshold"
       DatapointsToAlarm: "1"
       Dimensions:
@@ -955,7 +955,7 @@ Resources:
       Namespace: "AWS/ECS"
       Statistic: "Average"
       Period: "60"
-      Threshold: "60"
+      Threshold: "30"
 
   EcsStepScaleInAlarm:
     DependsOn: ECSAutoScalingTarget
@@ -965,7 +965,7 @@ Resources:
       ActionsEnabled: true
       AlarmActions:
         - !Ref EcsStepScaleInPolicy
-      AlarmDescription: "EcsClusterUnder60PercentCPU"
+      AlarmDescription: "EcsClusterUnder30PercentCPU"
       ComparisonOperator: "LessThanThreshold"
       DatapointsToAlarm: "5"
       Dimensions:
@@ -979,7 +979,7 @@ Resources:
       Namespace: "AWS/ECS"
       Statistic: "Average"
       Period: "60"
-      Threshold: "20"
+      Threshold: "30"
 
 ####################################################################
 #                                                                  #
