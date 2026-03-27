@@ -35,7 +35,7 @@ echo "STACK_NAME: ${STACK_NAME}"
 if [ "${STACK_NAME}" != "local" ]; then
   echo "Fetching test configuration from AWS SSM Parameter Store..."
 
-  export JOURNEY_TAG=$(aws ssm get-parameter --name "/tests/passport-cri-front/TestTag" --region eu-west-2 | jq -r ".Parameter.Value")
+  export JOURNEY_TAG=$(aws ssm get-parameter --name "/tests/${STACK_NAME}/TestTag" --region eu-west-2 | jq -r ".Parameter.Value")
 
   PARAMETERS_NAMES=(coreStubPassword coreStubUrl coreStubUsername)
   tLen=${#PARAMETERS_NAMES[@]}
@@ -59,14 +59,6 @@ echo "TEST_TAG: ${JOURNEY_TAG}"
 # Run tests
 cd /home/node
 echo "Running Cucumber tests with tag: ${JOURNEY_TAG}"
-mkdir -p test/browser/reports
 npx cucumber-js --config test/browser/cucumber.js --profile stub_tests --tags "${JOURNEY_TAG}"
-
-# Copy test reports to output directory
-if [ -d "test/browser/reports" ]; then
-  mkdir -p "$REPORT_DIR/test-results"
-  cp -r test/browser/reports/* "$REPORT_DIR/test-results/" || true
-  echo "Test reports copied to $REPORT_DIR/test-results"
-fi
 
 echo "Tests completed successfully!"
