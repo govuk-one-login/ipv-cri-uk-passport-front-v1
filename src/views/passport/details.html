@@ -94,10 +94,10 @@ html: translate("passport.passportTryAnotherWay")
     {%- set middleNameError = hmpoGetError(ctx, {id: 'middleNames'}) %}
 
     {% if firstNameError and middleNameError %}
-        <div class="govuk-form-group govuk-form-group--error">
-        {% else %}
-            <div class="govuk-form-group ">
-            {% endif %}
+        <div class="govuk-form-group govuk-form-group--error-visual">
+    {% else %}
+        <div class="govuk-form-group">
+    {% endif %}
 
             {% call govukFieldset({
         legend: {

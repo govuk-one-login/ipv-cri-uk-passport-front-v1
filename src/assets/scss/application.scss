@@ -6,6 +6,16 @@ $govuk-assets-path: "/public/";
 
 @import "../components/button-spinner";
 
+.govuk-form-group--error-visual {
+  border-left: $govuk-border-width-form-group-error solid $govuk-error-colour;
+  padding-left: govuk-spacing(3);
+
+  .govuk-form-group--error {
+    border-left: 0;
+    padding-left: 0;
+  }
+}
+
 // repainting the notification banner red for a warning state on the passport CRI [PYIC-1563]
 
 .govuk-notification-banner.passport-message {
