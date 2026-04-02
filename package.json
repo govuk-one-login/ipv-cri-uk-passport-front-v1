@@ -44,14 +44,14 @@
   "packageManager": "yarn@2.4.3",
   "devDependencies": {
     "@axe-core/playwright": "4.11.1",
-    "@cucumber/cucumber": "12.6.0",
-    "@eslint/eslintrc": "3.3.4",
+    "@cucumber/cucumber": "12.7.0",
+    "@eslint/eslintrc": "3.3.5",
     "@eslint/js": "10.0.1",
     "@playwright/test": "1.58.1",
     "chai": "4.5.0",
     "chai-as-promised": "8.0.2",
     "dotenv-cli": "7.0.0",
-    "eslint": "10.0.2",
+    "eslint": "10.1.0",
     "eslint-config-prettier": "10.1.8",
     "eslint-plugin-prettier": "5.5.5",
     "globals": "17.3.0",
@@ -71,7 +71,7 @@
     "wiremock": "3.13.2"
   },
   "dependencies": {
-    "@aws-sdk/client-dynamodb": "3.997.0",
+    "@aws-sdk/client-dynamodb": "3.1019.0",
     "@govuk-one-login/di-ipv-cri-common-express": "13.1.0",
     "@govuk-one-login/frontend-analytics": "4.0.7",
     "@govuk-one-login/frontend-device-intelligence": "1.1.0",
@@ -94,6 +94,9 @@
   "resolutions": {
     "nyc/@istanbuljs/load-nyc-config/js-yaml": "4.1.1",
     "nyc/yargs/cliui/wrap-ansi": "7.0.0",
-    "mocha/serialize-javascript": "7.0.3"
+    "mocha/serialize-javascript": "7.0.5",
+    "wait-on/axios": "1.13.5",
+    "hmpo-form-wizard/hmpo-model/http-proxy-agent/@tootallnate/once": "3.0.1",
+    "mocha/diff": "8.0.3"
   }
 }
