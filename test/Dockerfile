@@ -14,12 +14,19 @@ RUN apt-get update && apt-get install -y \
     libxss1 \
     lsb-release \
     xdg-utils \
+    gnupg \
     jq \
-    && rm -rf /var/lib/apt/lists/* \
-    && curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY test/public-keys/aws-cli.gpg aws-cli.gpg
+
+RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" \
+    && curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip.sig" -o "awscliv2.zip.sig" \
+    && gpg --import aws-cli.gpg \
+    && gpg --verify awscliv2.zip.sig awscliv2.zip \
     && unzip awscliv2.zip \
     && ./aws/install \
-    && rm -rf awscliv2.zip aws/
+    && rm -rf awscliv2.zip awscliv2.zip.sig aws-cli.gpg aws/
 
 # Set working directory
 WORKDIR /home/node
