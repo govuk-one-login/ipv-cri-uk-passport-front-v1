@@ -3,8 +3,6 @@ const RESOURCE_TYPES = {
   S3_BUCKET: "AWS::S3::Bucket",
   S3_BUCKET_POLICY: "AWS::S3::BucketPolicy",
   KMS_KEY: "AWS::KMS::Key",
-  SNS_TOPIC: "AWS::SNS::Topic",
-  SNS_TOPIC_POLICY: "AWS::SNS::TopicPolicy",
   DYNAMODB_TABLE: "AWS::DynamoDB::Table",
   CLOUDWATCH_ALARM: "AWS::CloudWatch::Alarm",
   LOGS_METRIC_FILTER: "AWS::Logs::MetricFilter",
