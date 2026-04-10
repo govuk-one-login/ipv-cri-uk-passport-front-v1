@@ -5,4 +5,4 @@ ignore:
   - 'node_modules/**'
   - 'test/cloudformation/**'
 file:
-  - './test/utils/mocha-helpers'
+  - './test/utils/mocha-helpers.js'
