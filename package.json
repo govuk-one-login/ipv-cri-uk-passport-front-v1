@@ -67,7 +67,7 @@
     "sinon": "21.1.0",
     "sinon-chai": "4.0.1",
     "uglify-js": "3.19.3",
-    "wait-on": "9.0.4",
+    "wait-on": "9.0.5",
     "wiremock": "3.13.2"
   },
   "dependencies": {
