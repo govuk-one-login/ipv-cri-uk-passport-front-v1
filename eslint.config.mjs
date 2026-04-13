@@ -15,6 +15,7 @@ const compat = new FlatCompat({
 export default [
   {
     ignores: [
+      "scripts/**/*.js",
       "src/app.test.js",
       "src/app-setup.test.js",
       "**/dist",

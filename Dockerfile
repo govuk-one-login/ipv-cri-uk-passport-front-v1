@@ -3,7 +3,7 @@ WORKDIR /app
 RUN [ "yarn", "set", "version", "1.22.17" ]
 COPY .yarn ./.yarn
 COPY /src ./src
-COPY package.json yarn.lock .yarnrc.yml ./
+COPY package.json yarn.lock .yarnrc ./
 
 RUN yarn install --frozen-lockfile
 RUN yarn build
