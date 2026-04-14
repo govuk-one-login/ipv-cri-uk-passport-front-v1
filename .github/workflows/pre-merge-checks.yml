@@ -64,10 +64,6 @@ jobs:
         if: steps.playwright-cache.outputs.cache-hit != 'true'
         run: yarn playwright install chromium --with-deps
 
-      - name: Setup Playwright dependencies
-        run: yarn playwright install-deps chromium
-        if: steps.playwright-cache.outputs.cache-hit == 'true'
-
       - name: Build assets
         run: yarn build
 

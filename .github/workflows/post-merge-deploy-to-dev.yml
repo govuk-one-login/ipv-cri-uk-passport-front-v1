@@ -64,3 +64,4 @@ jobs:
           template-file: deploy/template.yaml
           role-to-assume-arn: ${{ secrets.AWS_DEV_DEPLOY_PASSPORTA_FRONT_GITHUB_ACTIONS_ROLE_ARN }}
           ecr-repo-name: ${{ secrets.AWS_DEV_DEPLOY_PASSPORTA_FRONT_DEV_ECR_REPOSITORY }}
+          docker-platform: linux/amd64

@@ -66,3 +66,4 @@ jobs:
           template-file: deploy/template.yaml
           role-to-assume-arn: ${{ secrets.GH_ACTIONS_ROLE_ARN }}
           ecr-repo-name: ${{ secrets.ECR_REPOSITORY }}
+          docker-platform: linux/amd64
