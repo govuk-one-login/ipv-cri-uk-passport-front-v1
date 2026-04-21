@@ -63,7 +63,7 @@
     "playwright-core": "1.59.1",
     "prettier": "3.8.2",
     "sass": "1.99.0",
-    "sinon": "21.1.0",
+    "sinon": "21.1.2",
     "sinon-chai": "4.0.1",
     "uglify-js": "3.19.3",
     "wiremock": "3.13.2"
