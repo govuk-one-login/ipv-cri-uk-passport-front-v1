@@ -2,7 +2,6 @@ import { expect, should, use } from "chai";
 import sinon from "sinon";
 import sinonChai from "sinon-chai";
 import chaiAsPromised from "chai-as-promised";
-import reqres from "reqres";
 import JourneyModel from "hmpo-form-wizard/lib/journey-model.js";
 import WizardModel from "hmpo-form-wizard/lib/wizard-model.js";
 
@@ -14,7 +13,7 @@ global.sinon = sinon;
 global.expect = expect;
 
 global.setupDefaultMocks = () => {
-  const req = reqres.req({
+  const req = {
     form: { values: {} },
     axios: {
       get: sinon.fake(),
@@ -22,8 +21,11 @@ global.setupDefaultMocks = () => {
     },
     ordnanceAxios: {
       get: sinon.fake()
+    },
+    session: {
+      "hmpo-wizard-previous": {}
     }
-  });
+  };
 
   req.journeyModel = new JourneyModel(null, {
     req,
@@ -37,7 +39,10 @@ global.setupDefaultMocks = () => {
     fields: {}
   });
 
-  const res = reqres.res({});
+  const res = {
+    redirect: sinon.fake()
+  };
+
   const next = sinon.fake();
   return {
     req,
