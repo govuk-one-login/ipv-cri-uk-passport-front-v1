@@ -846,10 +846,10 @@
     "@eslint/core" "^1.2.1"
     levn "^0.4.1"
 
-"@govuk-one-login/di-ipv-cri-common-express@13.1.1":
-  version "13.1.1"
-  resolved "https://registry.yarnpkg.com/@govuk-one-login/di-ipv-cri-common-express/-/di-ipv-cri-common-express-13.1.1.tgz#f5e750097ad5bd7c396124c7869cdeda1cce20db"
-  integrity sha512-tBZj5FsCOIrJuLK0oCvIhEW8jPEyBvn8ALixldQwnpV+AFuxk0A93hUDNjQfQeZT2OOZcB+6/XSYnP1NnVro+A==
+"@govuk-one-login/di-ipv-cri-common-express@14.0.1":
+  version "14.0.1"
+  resolved "https://registry.yarnpkg.com/@govuk-one-login/di-ipv-cri-common-express/-/di-ipv-cri-common-express-14.0.1.tgz#a6d429564c218ba8e3e82b9dc5a744f3bc66812d"
+  integrity sha512-vbhlEzOUst4raywF3CGGWLpj28uUK3FtcyEWcaSyRkvLnWFR2pDQiTr6YG/jbtXt7rz6EOna4etakq685fBnIg==
   dependencies:
     "@govuk-one-login/frontend-ui" "5.0.0"
     async "3.2.6"
@@ -867,17 +867,15 @@
     hmpo-i18n "7.0.1"
     hmpo-logger "7.0.1"
     i18next "23.8.1"
-    i18next-fs-backend "2.3.1"
-    i18next-http-middleware "3.5.0"
+    i18next-fs-backend "2.6.5"
+    i18next-http-middleware "3.9.6"
     lodash.differencewith "4.5.0"
-    lodash.frompairs "4.0.1"
     nocache "3.0.4"
     on-finished "2.4.1"
     overload-protection "1.2.3"
     pino "10.1.0"
     pino-http "11.0.0"
     redis "4.7.1"
-    uuid "10.0.0"
 
 "@govuk-one-login/frontend-analytics@4.0.7", "@govuk-one-login/frontend-analytics@^4.0.7":
   version "4.0.7"
@@ -3730,15 +3728,15 @@ https-proxy-agent@^5.0.1:
     agent-base "6"
     debug "4"
 
-i18next-fs-backend@2.3.1:
-  version "2.3.1"
-  resolved "https://registry.yarnpkg.com/i18next-fs-backend/-/i18next-fs-backend-2.3.1.tgz#0c7d2459ff4a039e2b3228131809fbc0e74ff1a8"
-  integrity sha512-tvfXskmG/9o+TJ5Fxu54sSO5OkY6d+uMn+K6JiUGLJrwxAVfer+8V3nU8jq3ts9Pe5lXJv4b1N7foIjJ8Iy2Gg==
+i18next-fs-backend@2.6.5:
+  version "2.6.5"
+  resolved "https://registry.yarnpkg.com/i18next-fs-backend/-/i18next-fs-backend-2.6.5.tgz#3bedb795fb289c1463adca6254fee2b05f90312d"
+  integrity sha512-+7HBrlaj3UFnNC9HqiXaIlNkwNINYkgQ2PS4h7qW/WGHC9/+OU9Xi0/tdvjjXATw3YCcpmNV7S3zDD9e10pTWg==
 
-i18next-http-middleware@3.5.0:
-  version "3.5.0"
-  resolved "https://registry.yarnpkg.com/i18next-http-middleware/-/i18next-http-middleware-3.5.0.tgz#5919dfee4ba8c28782fb8cd5adf9c90d1c9307d4"
-  integrity sha512-BqATaFCMVHJYZX4cBmhvpBqZNvnvjjmcSzxJvLWTwgJ4gn5kwYoyVikn7AB5kxiQrFjSuZsjDFv76CdsAHwpZw==
+i18next-http-middleware@3.9.6:
+  version "3.9.6"
+  resolved "https://registry.yarnpkg.com/i18next-http-middleware/-/i18next-http-middleware-3.9.6.tgz#23144e0f039dabf934fd3760542298840d745815"
+  integrity sha512-zKOft9iNCbOM4cWxThpq9gikpCuftCFh9s7V+vXPoB0+AJw13mXZe/O2VCfZO0AKNHplFTDYkJASoK+J3iWFeQ==
 
 i18next@23.8.1:
   version "23.8.1"
@@ -4267,11 +4265,6 @@ lodash.flattendeep@^4.4.0:
   version "4.4.0"
   resolved "https://registry.yarnpkg.com/lodash.flattendeep/-/lodash.flattendeep-4.4.0.tgz#fb030917f86a3134e5bc9bec0d69e0013ddfedb2"
   integrity sha512-uHaJFihxmJcEX3kT4I23ABqKKalJ/zDrDg0lsFtc1h+3uw49SIJ5beyhx5ExVRti3AvKoOJngIj7xz3oylPdWQ==
-
-lodash.frompairs@4.0.1:
-  version "4.0.1"
-  resolved "https://registry.yarnpkg.com/lodash.frompairs/-/lodash.frompairs-4.0.1.tgz#bc4e5207fa2757c136e573614e9664506b2b1bd2"
-  integrity sha512-dvqe2I+cO5MzXCMhUnfYFa9MD+/760yx2aTAN1lqEcEkf896TxgrX373igVdqSJj6tQd0jnSLE1UMuKufqqxFw==
 
 lodash.kebabcase@^4.1.1:
   version "4.1.1"
@@ -6199,11 +6192,6 @@ utils-merge@1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/utils-merge/-/utils-merge-1.0.1.tgz#9f95710f50a267947b2ccc124741c1028427e713"
   integrity sha512-pMZTvIkT1d+TFGvDOqodOclx0QWkkgi6Tdoa8gC8ffGAAqz9pzPTZWAybbsHHoED/ztMtkv/VoYTYyShUn81hA==
-
-uuid@10.0.0:
-  version "10.0.0"
-  resolved "https://registry.yarnpkg.com/uuid/-/uuid-10.0.0.tgz#5a95aa454e6e002725c79055fd42aaba30ca6294"
-  integrity sha512-8XkAphELsDnEGrDxUOHB3RGvXz6TeuYSGEZBOjtTtPm2lwhGBjLgOzLHB63IUWfBpNucQjND6d3AOudO+H3RWQ==
 
 uuid@^8.3.2:
   version "8.3.2"
