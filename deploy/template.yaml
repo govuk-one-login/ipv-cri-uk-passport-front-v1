@@ -930,6 +930,7 @@ Resources:
         # multiple alarm breaches occurring in rapid succession.
         StepAdjustments:
           - MetricIntervalUpperBound: -10
+            MetricIntervalLowerBound: -20
             ScalingAdjustment: -10
           - MetricIntervalLowerBound: -20
             MetricIntervalUpperBound: -20
