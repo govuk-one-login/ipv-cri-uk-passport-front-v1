@@ -901,7 +901,7 @@ Resources:
           - MetricIntervalLowerBound: 10
             MetricIntervalUpperBound: 15
             ScalingAdjustment: 200 # Scale by 200% of containers
-          - MetricIntervalLowerBound: 15 
+          - MetricIntervalLowerBound: 15
             ScalingAdjustment:
               500 # Scale by 500% of containers
             # Note: CPU can scale greater than 100% in a burst mode
