@@ -900,14 +900,10 @@ Resources:
             ScalingAdjustment: 100 # Scale by 100% of containers
           - MetricIntervalLowerBound: 10
             MetricIntervalUpperBound: 15
-            ScalingAdjustment: 200 # Scale by 200% of containers 
-          - MetricIntervalLowerBound: 30 
-            MetricIntervalUpperBound: 35 
-            ScalingAdjustment: 300 # Scale by 300% of containers i
-          - MetricIntervalLowerBound: 35 
+            ScalingAdjustment: 200 # Scale by 200% of containers
+          - MetricIntervalLowerBound: 15 
             ScalingAdjustment:
-              500 # Scale by 500% of containers if the metric is breached
-            # with >95% utilisation
+              500 # Scale by 500% of containers
             # Note: CPU can scale greater than 100% in a burst mode
             # on Fargate, so leave the upper bound open
 
