@@ -111,8 +111,7 @@ describe("app", () => {
         ga4FormErrorEnabled: APP.GTM.GA4_FORM_ERROR_ENABLED,
         ga4FormChangeEnabled: APP.GTM.GA4_FORM_CHANGE_ENABLED,
         ga4NavigationEnabled: APP.GTM.GA4_NAVIGATION_ENABLED,
-        ga4SelectContentEnabled: APP.GTM.GA4_SELECT_CONTENT_ENABLED,
-        analyticsDataSensitive: APP.GTM.ANALYTICS_DATA_SENSITIVE
+        ga4SelectContentEnabled: APP.GTM.GA4_SELECT_CONTENT_ENABLED
       };
 
       setGTM(options);
