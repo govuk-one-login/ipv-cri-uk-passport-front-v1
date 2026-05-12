@@ -14,11 +14,18 @@ This repo has a `CODEOWNERS` file in the root and is configured to require PRs t
 ## Environment Variables
 
 - `API_BASE_URL` - URL to the cri-passport-back api.
-- `PORT` - Default port to run webserver on.
+- `PORT` - Default port to run webserver on. (Default to `3000`)
+- `SESSION_SECRET` - Secret used when configuring the HMPO session.
 - `GOOGLE_ANALYTICS_4_GTM_CONTAINER_ID` - Container ID for GA4 tracking.
 - `UNIVERSAL_ANALYTICS_GTM_CONTAINER_ID` - Container ID for UA tracking.
-- `GA4_ENABLED` - BOOLEAN
-- `UA_ENABLED` - BOOLEAN
+- `GA4_ENABLED` - Feature flag to enable GA4, defaulted to `"true"`
+- `UA_ENABLED` - Feature flag to enable UA, defaulted to `"false"`
+- `GA4_PAGE_VIEW_ENABLED`- Feature flag to enable GA4 page view tracking, defaulted to `"true"`
+- `GA4_FORM_RESPONSE_ENABLED`- Feature flag to enable GA4 form response tracking, defaulted to `"true"`
+- `GA4_FORM_ERROR_ENABLED`- Feature flag to enable GA4 form error tracking, defaulted to `"true"`
+- `GA4_FORM_CHANGE_ENABLED`- Feature flag to enable GA4 form change tracking, defaulted to `"true"`
+- `GA4_NAVIGATION_ENABLED`- Feature flag to enable GA4 navigation tracking, defaulted to `"true"`
+- `GA4_SELECT_CONTENT_ENABLED`- Feature flag to enable GA4 select content tracking, defaulted to `"true"`
 - `LANGUAGE_TOGGLE_DISABLED` - Feature flag to disable Language Toggle, defaulted to `true`
 - `MAY_2025_REBRAND_ENABLED` - Feature flag to enable the May 2025 GOV.UK branding change, defaults to `false`
 
