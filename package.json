@@ -43,7 +43,7 @@
   "homepage": "https://github.com/alphagov/di-ipv-cri-uk-passport-front-v1#readme",
   "packageManager": "yarn@1.22.22",
   "devDependencies": {
-    "@axe-core/playwright": "4.11.1",
+    "@axe-core/playwright": "4.11.3",
     "@cucumber/cucumber": "12.7.0",
     "@eslint/eslintrc": "3.3.5",
     "@eslint/js": "10.0.1",
