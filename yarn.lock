@@ -1241,10 +1241,10 @@
     pino-http "11.0.0"
     redis "4.7.1"
 
-"@govuk-one-login/frontend-analytics@4.0.7", "@govuk-one-login/frontend-analytics@^4.0.7":
-  version "4.0.7"
-  resolved "https://registry.yarnpkg.com/@govuk-one-login/frontend-analytics/-/frontend-analytics-4.0.7.tgz#f598f27ee5fe53dbb48a9dddd7d49185d34d1fa8"
-  integrity sha512-G78BF00pluhlxATx8Gc3/wejDPg2yf2wMQPCIV6l0uotuh0wb81Qw+j7IN+rsDNMzwvtKxFpAmjKcfxJZPXh7w==
+"@govuk-one-login/frontend-analytics@4.0.8", "@govuk-one-login/frontend-analytics@^4.0.7":
+  version "4.0.8"
+  resolved "https://registry.yarnpkg.com/@govuk-one-login/frontend-analytics/-/frontend-analytics-4.0.8.tgz#6e699be2bfd8b64cbf9cd35364cb4147206d937e"
+  integrity sha512-ZyEDONMbUStEOJzHnPiejGqbYqrc/KQ6fZjnyCvTtjdATjDACNRwBGkl/i8UXmhROkzvG9yaQjaOGXe0Mg0Etg==
   dependencies:
     loglevel "^1.9.2"
 
