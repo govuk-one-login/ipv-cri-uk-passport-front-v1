@@ -1210,10 +1210,10 @@
     "@eslint/core" "^1.2.1"
     levn "^0.4.1"
 
-"@govuk-one-login/di-ipv-cri-common-express@14.0.2":
-  version "14.0.2"
-  resolved "https://registry.yarnpkg.com/@govuk-one-login/di-ipv-cri-common-express/-/di-ipv-cri-common-express-14.0.2.tgz#44b978b4145cbdc08a748c3869ed7e343e69d4a0"
-  integrity sha512-97wnsdwVuMknAvoFJKyWUTnLcxw2CmGBBh/QSStJ7pPa+6Buor7p/G5xG0ylkcBgpSivlgqON6ZxzNeRlijIUQ==
+"@govuk-one-login/di-ipv-cri-common-express@14.0.3":
+  version "14.0.3"
+  resolved "https://registry.yarnpkg.com/@govuk-one-login/di-ipv-cri-common-express/-/di-ipv-cri-common-express-14.0.3.tgz#f284ec19167dfd1f4f8b6ccc7f7307c06accc886"
+  integrity sha512-izV2t6iBMESkGpnw4OAxna2OnHS/uypzNSTTxEERwvl2wSUbyfgbxme9N9bFEpRt4HU/uWAktthVwDi7336Eag==
   dependencies:
     "@govuk-one-login/frontend-ui" "5.0.0"
     async "3.2.6"
