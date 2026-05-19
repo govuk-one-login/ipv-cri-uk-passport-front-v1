@@ -1,35 +1,93 @@
 version: 2
 updates:
-  - package-ecosystem: 'npm'
-    directory: '/'
-    schedule:
-      interval: daily
-      time: "03:00"
-    target-branch: main
-    labels:
-    - dependabot
-    open-pull-requests-limit: 20
-    ignore:
-      - dependency-name: "node"
-        versions: ["20.x"]
-    commit-message:
-      prefix: BAU
-  - package-ecosystem: docker
+  - package-ecosystem: "npm"
     directory: "/"
     schedule:
-      interval: daily
+      interval: weekly
+      day: "monday"
       time: "03:00"
     target-branch: main
     labels:
-    - dependabot
+      - dependabot
+    open-pull-requests-limit: 10
     commit-message:
       prefix: BAU
-  - package-ecosystem: "github-actions"
+    groups:
+      testing:
+        patterns:
+          - "mocha"
+          - "chai*"
+          - "sinon*"
+          - "nyc"
+          - "@cucumber/*"
+          - "@playwright/*"
+          - "playwright-core"
+          - "@axe-core/*"
+          - "wiremock"
+          - "js-yaml"
+          - "dotenv-cli"
+          - "npm-run-all"
+      linting-and-formatting:
+        patterns:
+          - "eslint*"
+          - "@eslint/*"
+          - "prettier*"
+          - "globals"
+      build-tools:
+        patterns:
+          - "sass"
+          - "uglify-js"
+          - "nodemon"
+          - "dotenv"
+      express:
+        patterns:
+          - "express"
+          - "express-*"
+
+  - package-ecosystem: "docker"
     directory: "/"
     schedule:
       interval: "weekly"
+      day: "monday"
+      time: "03:00"
     target-branch: main
     labels:
       - dependabot
     commit-message:
-      prefix: BAU
+      prefix: "BAU"
+    groups:
+      docker-all:
+        patterns:
+          - "*"
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "03:00"
+    target-branch: main
+    labels:
+      - dependabot
+    commit-message:
+      prefix: "BAU"
+    groups:
+      actions:
+        patterns:
+          - "*"
+
+  - package-ecosystem: "pre-commit"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "03:00"
+    target-branch: main
+    labels:
+      - dependabot
+    commit-message:
+      prefix: "BAU"
+    groups:
+      pre-commit-hooks:
+        patterns:
+          - "*"
