@@ -4,27 +4,26 @@
   "description": "DCS Credential Issuer user interface for the Identity Proofing and Verification (IPV) system within the GDS digital identity platform, GOV.UK Sign In.",
   "main": "src/app.js",
   "engines": {
-    "node": "22.x",
-    "yarn": "1.22.x"
+    "node": "22.x"
   },
   "scripts": {
     "start": "node src/app.js",
-    "start:ci": "MAY_2025_REBRAND_ENABLED=true DEVICE_INTELLIGENCE_ENABLED=true NODE_ENV=development API_BASE_URL=http://127.0.0.1:8050/ yarn start",
+    "start:ci": "MAY_2025_REBRAND_ENABLED=true DEVICE_INTELLIGENCE_ENABLED=true NODE_ENV=development API_BASE_URL=http://127.0.0.1:8050/ npm run start",
     "dev": "LOG_LEVEL=debug nodemon --inspect=0.0.0.0:9229 src/app.js",
-    "build": "yarn build-sass && yarn build-js && yarn copy-assets",
+    "build": "npm run build-sass && npm run build-js && npm run copy-assets",
     "build-sass": "rm -rf dist/public/stylesheets/application.css && sass --no-source-map src/assets/scss/application.scss dist/public/stylesheets/application.css --style compressed",
     "copy-assets": "mkdir -p dist/public/scripts && mkdir -p dist/public/images && mkdir -p dist/locales && cp -R src/locales/* dist/locales && cp -R src/assets/javascripts/*.js dist/public/scripts && cp -R src/assets/images/* dist/public/images",
-    "build-js": "yarn build-js:analytics && yarn build-js:all && yarn build-js:device-intelligence",
+    "build-js": "npm run build-js:analytics && npm run build-js:all && npm run build-js:device-intelligence",
     "build-js:analytics": "mkdir -p dist/public/javascripts; uglifyjs node_modules/@govuk-one-login/frontend-analytics/lib/analytics.js -o dist/public/javascripts/analytics.js",
     "build-js:device-intelligence": "mkdir -p dist/public/javascripts; uglifyjs node_modules/@govuk-one-login/frontend-device-intelligence/build/esm/index.js -o dist/public/javascripts/deviceIntelligence.js",
     "build-js:all": "mkdir -p dist/public/javascripts; uglifyjs node_modules/govuk-frontend/dist/govuk/all.bundle.js node_modules/hmpo-components/all.js --beautify -o dist/public/javascripts/all.js",
     "test": "SESSION_SECRET=1234 SESSION_TABLE_NAME=table-name mocha",
     "test:cloudformation": "mocha --config .mocharc-cloudformation.yml",
-    "test:coverage": "nyc --reporter=lcov --reporter=text-summary yarn test",
+    "test:coverage": "nyc --reporter=lcov --reporter=text-summary npm run test",
     "test:watch": "mocha --watch",
     "lint": "prettier --check --no-editorconfig src test && eslint .",
     "lint-apply": "prettier --write src test && eslint .",
-    "mocks": "yarn run wiremock --port 8050 --root-dir test/mocks",
+    "mocks": "wiremock --port 8050 --root-dir test/mocks",
     "test:browser": "mkdir -p reports && node scripts/wait-for-ports.js 127.0.0.1:8050 127.0.0.1:5050 && API_BASE_URL=http://127.0.0.1:8050/ MOCK_API=true cucumber-js --config test/browser/cucumber.js --profile wiremock_tests",
     "test:browser:ci": "npm-run-all -p -r start:ci mocks test:browser",
     "test:browser:stub": "mkdir -p reports && dotenv -e .env -- cucumber-js --config test/browser/cucumber.js --profile stub_tests",
@@ -41,7 +40,6 @@
     "url": "https://github.com/alphagov/di-ipv-cri-uk-passport-front-v1/issues"
   },
   "homepage": "https://github.com/alphagov/di-ipv-cri-uk-passport-front-v1#readme",
-  "packageManager": "yarn@1.22.22",
   "devDependencies": {
     "@axe-core/playwright": "4.11.1",
     "@cucumber/cucumber": "12.7.0",
@@ -88,11 +86,11 @@
     "hmpo-logger": "7.0.1",
     "nunjucks": "3.2.4"
   },
-  "resolutions": {
-    "nyc/@istanbuljs/load-nyc-config/js-yaml": "4.1.1",
-    "nyc/yargs/cliui/wrap-ansi": "7.0.0",
-    "mocha/serialize-javascript": "7.0.5",
-    "hmpo-form-wizard/hmpo-model/http-proxy-agent/@tootallnate/once": "3.0.1",
-    "mocha/diff": "8.0.3"
+  "overrides": {
+    "js-yaml": "4.1.1",
+    "wrap-ansi": "7.0.0",
+    "serialize-javascript": "7.0.5",
+    "@tootallnate/once": "3.0.1",
+    "diff": "8.0.3"
   }
 }

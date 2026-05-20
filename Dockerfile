@@ -1,16 +1,15 @@
 FROM node:22.16.0-alpine3.21@sha256:9f3ae04faa4d2188825803bf890792f33cc39033c9241fc6bb201149470436ca AS builder
 WORKDIR /app
-COPY .yarn ./.yarn
 COPY /src ./src
-COPY package.json yarn.lock .yarnrc ./
+COPY package.json package-lock.json .npmrc ./
 
-RUN yarn install --frozen-lockfile
-RUN yarn build
+RUN npm ci
+RUN npm run build
 
-# 'yarn install --production' prunes dev dependencies which are necessary
-# to build the app. So delete node_modules and reinstall only production packages.
+# npm ci --omit=dev after a full install doesn't properly prune dev dependencies.
+# so delete node_modules and reinstall only production packages.
 RUN [ "rm", "-rf", "node_modules" ]
-RUN yarn install --production --frozen-lockfile
+RUN npm ci --omit=dev
 
 FROM node:22.16.0-alpine3.21@sha256:9f3ae04faa4d2188825803bf890792f33cc39033c9241fc6bb201149470436ca AS final
 RUN addgroup -S appgroup && adduser -S appuser -G appgroup
@@ -25,7 +24,6 @@ COPY --chown=appuser:appgroup  --from=builder /app/node_modules ./node_modules
 COPY --chown=appuser:appgroup  --from=builder /app/dist ./dist
 COPY --chown=appuser:appgroup  --from=builder /app/src ./src
 COPY --chown=appuser:appgroup  --from=builder /app/package.json ./
-COPY --chown=appuser:appgroup  --from=builder /app/yarn.lock ./
 
 # Add in dynatrace layer
 COPY --from=khw46367.live.dynatrace.com/linux/oneagent-codemodules-musl:nodejs / /
