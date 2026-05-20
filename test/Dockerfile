@@ -33,7 +33,7 @@ WORKDIR /home/node
 
 COPY . .
 
-RUN yarn install --frozen-lockfile && \
+RUN npm ci && \
     npx playwright install --with-deps chromium
 
 COPY test/run-tests.sh /run-tests.sh

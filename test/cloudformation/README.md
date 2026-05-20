@@ -32,7 +32,7 @@ test/cloudformation/
 ## Running Tests
 
 ```bash
-yarn run test:cloudformation
+npm run test:cloudformation
 ```
 
 ## Helper Functions
