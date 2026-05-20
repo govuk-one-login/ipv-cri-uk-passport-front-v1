@@ -704,7 +704,10 @@ Resources:
     Properties:
       TemplateURL: https://template-storage-templatebucket-1upzyw6v9cs42.s3.eu-west-2.amazonaws.com/ecs-canary-deployment/template.yaml?versionId=5RRU1nfKQD_d08FKttr8W7pzrAsqQiUM # v2.1.1
       Parameters:
-        CloudWatchAlarms: !Ref FrontTargetGroup5xxPercentErrors
+        CloudWatchAlarms: !Join
+          - ","
+          - - !Ref FrontTargetGroup5xxPercentErrors
+            - !Ref FrontCanaryELB5xxPercentErrors
         CodeSigningConfigArn: !If
           - UseCodeSigning
           - !Ref CodeSigningConfigArn
@@ -1146,6 +1149,49 @@ Resources:
             Metric:
               Namespace: AWS/ApplicationELB
               MetricName: HTTPCode_Target_5XX_Count
+              Dimensions:
+                - Name: LoadBalancer
+                  Value: !GetAtt LoadBalancer.LoadBalancerFullName
+            Period: 60
+            Stat: Sum
+        - Id: m2
+          ReturnData: false
+          MetricStat:
+            Metric:
+              Namespace: AWS/ApplicationELB
+              MetricName: RequestCount
+              Dimensions:
+                - Name: LoadBalancer
+                  Value: !GetAtt LoadBalancer.LoadBalancerFullName
+            Period: 60
+            Stat: Sum
+
+  # This alarm needs to be extremely sensitive, so it
+  # fires within the canary window as fast as possible.
+  FrontCanaryELB5xxPercentErrors:
+    Type: AWS::CloudWatch::Alarm
+    Condition: UseCanaryDeployment
+    Properties:
+      AlarmName: FrontCanaryELB5xxPercentErrors
+      AlarmDescription: >
+        The number of ELB HTTP 5XX server error codes that originate from the
+        load balancer is greater than 2% of all traffic.
+      EvaluationPeriods: 1
+      DatapointsToAlarm: 1
+      Threshold: 2
+      ComparisonOperator: GreaterThanThreshold
+      TreatMissingData: notBreaching
+      Metrics:
+        - Id: e1
+          Label: ErrorPercent
+          ReturnData: true
+          Expression: (m1/m2)*100
+        - Id: m1
+          ReturnData: false
+          MetricStat:
+            Metric:
+              Namespace: AWS/ApplicationELB
+              MetricName: HTTPCode_ELB_5XX_Count
               Dimensions:
                 - Name: LoadBalancer
                   Value: !GetAtt LoadBalancer.LoadBalancerFullName
