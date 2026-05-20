@@ -3,6 +3,6 @@ applications:
   - name: ((environment))-di-ipv-cri-uk-passport-front
     memory: 256M
     buildpack: nodejs_buildpack
-    command: yarn start
+    command: npm start
     env:
       API_BASE_URL: ((api-base-url))
