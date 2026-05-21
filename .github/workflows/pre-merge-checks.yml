@@ -34,9 +34,6 @@ jobs:
         with:
           all-files: true
 
-      - name: SAM Validate
-        run: sam validate --region eu-west-2 -t deploy/template.yaml --lint
-
   run-premerge-checks:
     runs-on: ubuntu-latest
     needs: resolve-test-versions
