@@ -26,22 +26,22 @@ This repo has a `CODEOWNERS` file in the root and is configured to require PRs t
 
 ```bash
 export API_BASE_URL=<URL> PORT=5050
-yarn install && yarn build && yarn run dev
+npm install && npm run build && npm run dev
 ```
 
 ## Linting
 
-Check with `yarn lint`
+Check with `npm run lint`
 
-Apply with `yarn lint-apply`
+Apply with `npm run lint-apply`
 
 ## Unit Tests
 
-Run with `yarn run test`
+Run with `npm run test`
 
 ## Automation Tests
 
-Run with `yarn run test:browser:ci`
+Run with `npm run test:browser:ci`
 
 ## Core Stub Tests
 
@@ -49,7 +49,7 @@ There are E2E tests which run against the core stub, in the Dev, Build and Stagi
 
 To execute these tests run:
 
-`yarn run test:browser:stub:ci`
+`npm run test:browser:stub:ci`
 
 To build the Docker image run:
 

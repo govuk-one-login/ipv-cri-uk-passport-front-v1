@@ -19,7 +19,8 @@ export default [
       "src/app.test.js",
       "src/app-setup.test.js",
       "**/dist",
-      "**/*.cjs"
+      "**/*.cjs",
+      "reports/**/*"
     ]
   },
   {
