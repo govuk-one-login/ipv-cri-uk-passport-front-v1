@@ -56,7 +56,7 @@ updates:
     commit-message:
       prefix: BAU
     groups:
-      docker-all:
+      docker:
         patterns:
           - "*"
 
