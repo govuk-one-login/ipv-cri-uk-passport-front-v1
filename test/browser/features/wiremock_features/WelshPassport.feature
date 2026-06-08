@@ -24,6 +24,7 @@ Feature: Passport CRI - Welsh Language Tests
   Scenario: Passport CRI - Check error page following cookie deletion
     Given I delete the session cookie
     And User clicks on continue
+    Then they should see a Welsh error page
     Then I see the heading Mae’n ddrwg gennym, mae problem
     And I see Contact the One Login team link reads Cysylltu â thîm GOV.UK One Login (agor mewn tab newydd)
     And I assert the link on the error page is correct and live
@@ -146,3 +147,80 @@ Feature: Passport CRI - Welsh Language Tests
     Examples:
       | PassportSubject             | InvalidPassportNumber |
       | PassportSubjectHappyKenneth | 5566778               |
+
+  ########### Axe Accessibility ##########
+  @QualityGateAccessibilityTest
+  @mock-api:passport-success @passport-accessibility @language-regression
+  Scenario: Passport CRI - Axe Accessibility Scan - Welsh Passport Details Page
+    Given I run the Axe Accessibility check against the Passport details entry page
+    And User enters passport data as a PassportSubjectHappyKenneth
+    When User clicks on continue
+
+  @QualityGateAccessibilityTest
+  @mock-api:passport-success @passport-accessibility @language-regression
+  Scenario: Passport CRI - Axe Accessibility Scan - Welsh Error Page
+    Given I delete the session cookie
+    And User clicks on continue
+    Then they should see a Welsh error page
+    And I see the heading Mae’n ddrwg gennym, mae problem
+    Then I run the Axe Accessibility check against the Error entry page
+
+  ########### Axe Accessibility - Error States ##########
+  @QualityGateAccessibilityTest
+  @mock-api:passport-success @passport-accessibility @language-regression
+  Scenario Outline: Passport CRI - Axe Accessibility Scan - Welsh Last Name Validation Error
+    And User enters passport data as a <PassportSubject>
+    And User re-enters last name as <InvalidLastName>
+    When User clicks on continue
+    Then I run the Axe Accessibility check against the Passport details entry page
+    Examples:
+      | PassportSubject             | InvalidLastName |
+      | PassportSubjectHappyKenneth |                 |
+
+  @QualityGateAccessibilityTest
+  @mock-api:passport-success @passport-accessibility @language-regression
+  Scenario Outline: Passport CRI - Axe Accessibility Scan - Welsh First Name Validation Error
+    And User enters passport data as a <PassportSubject>
+    And User re-enters first name as <InvalidFirstName>
+    When User clicks on continue
+    Then I run the Axe Accessibility check against the Passport details entry page
+    Examples:
+      | PassportSubject             | InvalidFirstName |
+      | PassportSubjectHappyKenneth |                  |
+
+  @QualityGateAccessibilityTest
+  @mock-api:passport-success @passport-accessibility @language-regression
+  Scenario Outline: Passport CRI - Axe Accessibility Scan - Welsh Date of Birth Validation Error
+    And User enters passport data as a <PassportSubject>
+    And User re-enters day of birth as <InvalidDayOfBirth>
+    And User re-enters month of birth as <InvalidMonthOfBirth>
+    And User re-enters year of birth as <InvalidYearOfBirth>
+    When User clicks on continue
+    Then I run the Axe Accessibility check against the Passport details entry page
+    Examples:
+      | PassportSubject             | InvalidDayOfBirth | InvalidMonthOfBirth | InvalidYearOfBirth |
+      | PassportSubjectHappyKenneth |                   |                     |                    |
+
+  @QualityGateAccessibilityTest
+  @mock-api:passport-success @passport-accessibility @language-regression
+  Scenario Outline: Passport CRI - Axe Accessibility Scan - Welsh Expiry Date Validation Error
+    And User enters passport data as a <PassportSubject>
+    And User re-enters expiry day as <InvalidExpiryDay>
+    And User re-enters expiry month as <InvalidExpiryMonth>
+    And User re-enters expiry year as <InvalidExpiryYear>
+    When User clicks on continue
+    Then I run the Axe Accessibility check against the Passport details entry page
+    Examples:
+      | PassportSubject             | InvalidExpiryDay | InvalidExpiryMonth | InvalidExpiryYear |
+      | PassportSubjectHappyKenneth |                  |                    |                   |
+
+  @QualityGateAccessibilityTest
+  @mock-api:passport-success @passport-accessibility @language-regression
+  Scenario Outline: Passport CRI - Axe Accessibility Scan - Welsh Passport Number Validation Error
+    And User enters passport data as a <PassportSubject>
+    Then User re-enters passportNumber as <InvalidPassportNumber>
+    When User clicks on continue
+    Then I run the Axe Accessibility check against the Passport details entry page
+    Examples:
+      | PassportSubject             | InvalidPassportNumber |
+      | PassportSubjectHappyKenneth |                       |

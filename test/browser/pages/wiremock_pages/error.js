@@ -10,6 +10,10 @@ module.exports = class PlaywrightDevPage {
     return "    Sorry, there is a problem";
   }
 
+  getSomethingWentWrongMessagWelsh() {
+    return "    Mae’n ddrwg gennym, mae problem";
+  }
+
   getErrorTitle() {
     return this.page.textContent('[data-page="error"]');
   }

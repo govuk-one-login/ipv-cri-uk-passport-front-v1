@@ -14,6 +14,14 @@ Then("they should see an error page", async function () {
   );
 });
 
+Then("they should see a Welsh error page", async function () {
+  const errorPage = new ErrorPage(this.page);
+  const errorTitle = await errorPage.getErrorTitle();
+  expect(errorTitle.trim()).to.equal(
+    errorPage.getSomethingWentWrongMessagWelsh().trim()
+  );
+});
+
 Then(
   "I run the Axe Accessibility check against the Error entry page",
   async function () {
