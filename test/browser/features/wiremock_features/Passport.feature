@@ -225,8 +225,73 @@ Feature: Passport CRI - Happy Path and Field Valisation Tests
 
   @QualityGateAccessibilityTest
   @mock-api:passport-success @passport-accessibility
-  Scenario: Passport CRI - Passport Error Page
+  Scenario: Passport CRI - Axe Accessibility Scan - Passport Error Page
     Given I delete the session cookie
     And User clicks on continue
     Then they should see an error page
     Then I run the Axe Accessibility check against the Error entry page
+
+  ########### Axe Accessibility - Error States ##########
+  @QualityGateAccessibilityTest
+  @mock-api:passport-success @passport-accessibility
+  Scenario Outline: Passport CRI - Axe Accessibility Scan - Last Name Validation Error
+    Given I should be on the Passport details entry page Enter your details exactly as they appear on your UK passport – GOV.UK One Login
+    And User enters passport data as a <PassportSubject>
+    And User re-enters last name as <InvalidLastName>
+    When User clicks on continue
+    Then I run the Axe Accessibility check against the Passport details entry page
+    Examples:
+      | PassportSubject             | InvalidLastName |
+      | PassportSubjectHappyKenneth |                 |
+
+  @QualityGateAccessibilityTest
+  @mock-api:passport-success @passport-accessibility
+  Scenario Outline: Passport CRI - Axe Accessibility Scan - First Name Validation Error
+    Given I should be on the Passport details entry page Enter your details exactly as they appear on your UK passport – GOV.UK One Login
+    And User enters passport data as a <PassportSubject>
+    And User re-enters first name as <InvalidFirstName>
+    When User clicks on continue
+    Then I run the Axe Accessibility check against the Passport details entry page
+    Examples:
+      | PassportSubject             | InvalidFirstName |
+      | PassportSubjectHappyKenneth |                  |
+
+  @QualityGateAccessibilityTest
+  @mock-api:passport-success @passport-accessibility
+  Scenario Outline: Passport CRI - Axe Accessibility Scan - Date of Birth Validation Error
+    Given I should be on the Passport details entry page Enter your details exactly as they appear on your UK passport – GOV.UK One Login
+    And User enters passport data as a <PassportSubject>
+    And User re-enters day of birth as <InvalidDayOfBirth>
+    And User re-enters month of birth as <InvalidMonthOfBirth>
+    And User re-enters year of birth as <InvalidYearOfBirth>
+    When User clicks on continue
+    Then I run the Axe Accessibility check against the Passport details entry page
+    Examples:
+      | PassportSubject             | InvalidDayOfBirth | InvalidMonthOfBirth | InvalidYearOfBirth |
+      | PassportSubjectHappyKenneth |                   |                     |                    |
+
+  @QualityGateAccessibilityTest
+  @mock-api:passport-success @passport-accessibility
+  Scenario Outline: Passport CRI - Axe Accessibility Scan - Expiry Date Validation Error
+    Given I should be on the Passport details entry page Enter your details exactly as they appear on your UK passport – GOV.UK One Login
+    And User enters passport data as a <PassportSubject>
+    And User re-enters expiry day as <InvalidExpiryDay>
+    And User re-enters expiry month as <InvalidExpiryMonth>
+    And User re-enters expiry year as <InvalidExpiryYear>
+    When User clicks on continue
+    Then I run the Axe Accessibility check against the Passport details entry page
+    Examples:
+      | PassportSubject             | InvalidExpiryDay | InvalidExpiryMonth | InvalidExpiryYear |
+      | PassportSubjectHappyKenneth |                  |                    |                   |
+
+  @QualityGateAccessibilityTest
+  @mock-api:passport-success @passport-accessibility
+  Scenario Outline: Passport CRI - Axe Accessibility Scan - Passport Number Validation Error
+    Given I should be on the Passport details entry page Enter your details exactly as they appear on your UK passport – GOV.UK One Login
+    And User enters passport data as a <PassportSubject>
+    Then User re-enters passportNumber as <InvalidPassportNumber>
+    When User clicks on continue
+    Then I run the Axe Accessibility check against the Passport details entry page
+    Examples:
+      | PassportSubject             | InvalidPassportNumber |
+      | PassportSubjectHappyKenneth |                       |
