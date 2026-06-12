@@ -1,4 +1,3 @@
-const axios = require("axios");
 const BaseController = require("hmpo-form-wizard").Controller;
 
 const {
@@ -31,20 +30,16 @@ class ValidateController extends BaseController {
     };
 
     try {
-      const headers = {
+      const headers = /** @type {import("axios").RawAxiosRequestHeaders} */ {
         session_id: req.session.tokenId,
         ...createPersonalDataHeaders(`${BASE_URL}${CHECK}`, req)
       };
 
-      if (req.session.featureSet === "hmpoDVAD") {
-        headers["document-checking-route"] = "dvad";
-      }
-
       logger.info("validate: calling check-passport lambda", { req, res });
-      const checkPassportResponse = await axios.post(
-        `${BASE_URL}${CHECK}`,
+      const checkPassportResponse = await req.axios.post(
+        `${CHECK}`,
         attributes,
-        { headers: headers }
+        { headers }
       );
 
       if (checkPassportResponse.data?.result === "retry") {
