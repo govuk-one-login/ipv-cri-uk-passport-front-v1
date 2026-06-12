@@ -1,6 +1,13 @@
-const axios = require("axios");
 const BaseController = require("hmpo-form-wizard").Controller;
 const ValidateController = require("./validate");
+
+const buildSessionModel = (req) => {
+  req.sessionModel.set("passportNumber", "123456789");
+  req.sessionModel.set("surname", "Jones Smith");
+  req.sessionModel.set("firstName", "Dan");
+  req.sessionModel.set("dateOfBirth", "10/02/1975");
+  req.sessionModel.set("expiryDate", "15/01/2035");
+};
 
 describe("validate controller", () => {
   const validate = new ValidateController({ route: "/test" });
@@ -29,13 +36,9 @@ describe("validate controller", () => {
   it("should retrieve redirect url from cri-passport-back and store in session", async () => {
     const sessionId = "passport123";
 
-    req.sessionModel.set("passportNumber", "123456789");
-    req.session.tokenId = sessionId;
-    req.sessionModel.set("surname", "Jones Smith");
-    req.sessionModel.set("firstName", "Dan");
+    buildSessionModel(req);
     req.sessionModel.set("middleNames", "");
-    req.sessionModel.set("dateOfBirth", "10/02/1975");
-    req.sessionModel.set("expiryDate", "15/01/2035");
+    req.session.tokenId = sessionId;
     req.session.authParams = {
       redirect_uri: "A VALUE",
       state: "A VALUE"
@@ -47,13 +50,13 @@ describe("validate controller", () => {
     };
 
     const resolvedPromise = new Promise((resolve) => resolve({ data }));
-    sandbox.stub(axios, "post").returns(resolvedPromise);
+    req.axios.post = sandbox.stub().returns(resolvedPromise);
 
     await validate.saveValues(req, res, next);
 
     sandbox.assert.calledWith(
-      axios.post,
-      sinon.match("/check-passport"),
+      req.axios.post,
+      sinon.match("check-passport"),
       {
         passportNumber: "123456789",
         surname: "Jones Smith",
@@ -73,21 +76,16 @@ describe("validate controller", () => {
     );
   });
 
-  it("should add a document check routing header if a feature set has been set", async () => {
+  it("should concat firstName and middleNames into forenames", async () => {
     const sessionId = "passport123";
 
-    req.sessionModel.set("passportNumber", "123456789");
-    req.session.tokenId = sessionId;
-    req.sessionModel.set("surname", "Jones Smith");
-    req.sessionModel.set("firstName", "Dan");
+    buildSessionModel(req);
     req.sessionModel.set("middleNames", "Joe");
-    req.sessionModel.set("dateOfBirth", "10/02/1975");
-    req.sessionModel.set("expiryDate", "15/01/2035");
+    req.session.tokenId = sessionId;
     req.session.authParams = {
       redirect_uri: "A VALUE",
       state: "A VALUE"
     };
-    req.session.featureSet = "hmpoDVAD";
 
     const data = {
       redirect_uri: "https://client.example.com",
@@ -95,13 +93,13 @@ describe("validate controller", () => {
     };
 
     const resolvedPromise = new Promise((resolve) => resolve({ data }));
-    sandbox.stub(axios, "post").returns(resolvedPromise);
+    req.axios.post = sandbox.stub().returns(resolvedPromise);
 
     await validate.saveValues(req, res, next);
 
     sandbox.assert.calledWith(
-      axios.post,
-      sinon.match("/check-passport"),
+      req.axios.post,
+      sinon.match("check-passport"),
       {
         passportNumber: "123456789",
         surname: "Jones Smith",
@@ -111,7 +109,6 @@ describe("validate controller", () => {
       },
       {
         headers: {
-          "document-checking-route": "dvad",
           session_id: sessionId
         }
       }
@@ -123,19 +120,15 @@ describe("validate controller", () => {
   });
 
   it("should set an error object in the session if redirect uri is missing", async () => {
-    req.sessionModel.set("passportNumber", "123456789");
-    req.sessionModel.set("surname", "Jones Smith");
-    req.sessionModel.set("firstName", "Dan");
+    buildSessionModel(req);
     req.sessionModel.set("middleNames", "Joe");
-    req.sessionModel.set("dateOfBirth", "10/02/1975");
-    req.sessionModel.set("expiryDate", "15/01/2035");
 
     const data = {
       redirect_uri: undefined,
       state: "TEST"
     };
     const resolvedPromise = new Promise((resolve) => resolve({ data }));
-    sandbox.stub(axios, "post").returns(resolvedPromise);
+    req.axios.post = sandbox.stub().returns(resolvedPromise);
 
     await validate.saveValues(req, res, next);
 
@@ -147,19 +140,15 @@ describe("validate controller", () => {
   });
 
   it("should set an error object in the session if state is missing", async () => {
-    req.sessionModel.set("passportNumber", "123456789");
-    req.sessionModel.set("surname", "Jones Smith");
-    req.sessionModel.set("firstName", "Dan");
+    buildSessionModel(req);
     req.sessionModel.set("middleNames", "Joe");
-    req.sessionModel.set("dateOfBirth", "10/02/1975");
-    req.sessionModel.set("expiryDate", "15/01/2035");
 
     const data = {
       redirect_uri: "http://example.com",
       state: undefined
     };
     const resolvedPromise = new Promise((resolve) => resolve({ data }));
-    sandbox.stub(axios, "post").returns(resolvedPromise);
+    req.axios.post = sandbox.stub().returns(resolvedPromise);
 
     await validate.saveValues(req, res, next);
 
@@ -171,19 +160,15 @@ describe("validate controller", () => {
   });
 
   it("should set showRetryMessage to true to show retry message", async () => {
-    req.sessionModel.set("passportNumber", "123456789");
-    req.sessionModel.set("surname", "Jones Smith");
-    req.sessionModel.set("firstName", "Dan");
+    buildSessionModel(req);
     req.sessionModel.set("middleNames", "Joe");
-    req.sessionModel.set("dateOfBirth", "10/02/1975");
-    req.sessionModel.set("expiryDate", "15/01/2035");
 
     const data = {
       result: "retry"
     };
 
     const resolvedPromise = new Promise((resolve) => resolve({ data }));
-    sandbox.stub(axios, "post").returns(resolvedPromise);
+    req.axios.post = sandbox.stub().returns(resolvedPromise);
 
     await validate.saveValues(req, res, next);
 
@@ -193,31 +178,23 @@ describe("validate controller", () => {
   });
 
   it("should go to details on retry", async () => {
-    req.sessionModel.set("passportNumber", "123456789");
-    req.sessionModel.set("surname", "Jones Smith");
-    req.sessionModel.set("firstName", "Dan");
+    buildSessionModel(req);
     req.sessionModel.set("middleNames", "Joe");
-    req.sessionModel.set("dateOfBirth", "10/02/1975");
-    req.sessionModel.set("expiryDate", "15/01/2035");
 
     const data = {
       result: "retry"
     };
 
     const resolvedPromise = new Promise((resolve) => resolve({ data }));
-    sandbox.stub(axios, "post").returns(resolvedPromise);
+    req.axios.post = sandbox.stub().returns(resolvedPromise);
     await validate.saveValues(req, res, next);
 
     expect(next).to.have.been.calledOnce;
   });
 
   it("should call callback if retry not set", async () => {
-    req.sessionModel.set("passportNumber", "123456789");
-    req.sessionModel.set("surname", "Jones Smith");
-    req.sessionModel.set("firstName", "Dan");
+    buildSessionModel(req);
     req.sessionModel.set("middleNames", "Joe");
-    req.sessionModel.set("dateOfBirth", "10/02/1975");
-    req.sessionModel.set("expiryDate", "15/01/2035");
 
     const data = {
       redirect_uri: "http://example.com",
@@ -225,7 +202,7 @@ describe("validate controller", () => {
     };
 
     const resolvedPromise = new Promise((resolve) => resolve({ data }));
-    sandbox.stub(axios, "post").returns(resolvedPromise);
+    req.axios.post = sandbox.stub().returns(resolvedPromise);
     await validate.saveValues(req, res, next);
 
     const showRetryMessage = req.sessionModel.get("showRetryMessage");
