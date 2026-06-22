@@ -1,6 +1,6 @@
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v5.0.0
+    rev: v6.0.0
     hooks:
       - id: check-json
       - id: end-of-file-fixer
@@ -10,13 +10,13 @@ repos:
       - id: detect-private-key
 
   - repo: https://github.com/aws-cloudformation/cfn-lint
-    rev: v1.46.0
+    rev: v1.51.5
     hooks:
       - id: cfn-lint
         files: template\.ya?ml$
 
   - repo: https://github.com/bridgecrewio/checkov.git
-    rev: 3.2.457
+    rev: 3.3.1
     hooks:
       - id: checkov
         verbose: true
