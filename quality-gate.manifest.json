@@ -10,7 +10,7 @@
           "phase": "pre-merge",
           "provider": "GitHub",
           "config": {
-            "file": ".github/workflows/pre-merge-checks.yml",
+            "file": ".github/workflows/checks.yml",
             "path": "$.jobs.pre-commit"
           }
         },
@@ -28,7 +28,7 @@
           "phase": "pre-merge",
           "provider": "GitHub",
           "config": {
-            "file": ".github/workflows/pre-merge-checks.yml",
+            "file": ".github/workflows/checks.yml",
             "path": "$.jobs.run-premerge-checks"
           }
         },
