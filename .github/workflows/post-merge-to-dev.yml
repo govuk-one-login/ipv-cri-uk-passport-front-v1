@@ -15,18 +15,18 @@ jobs:
       id-token: write
       contents: read
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         with:
           fetch-depth: "0"
 
       - name: Set up AWS creds
-        uses: aws-actions/configure-aws-credentials@8df5847569e6427dd6c4fb1cf565c83acfa8afa7 # v6.0.0
+        uses: aws-actions/configure-aws-credentials@254c19bd240aabef8777f48595e9d2d7b972184b # v6.2.1
         with:
           role-to-assume: ${{ secrets.AWS_DEV_DEPLOY_PASSPORTA_FRONT_GITHUB_ACTIONS_ROLE_ARN}}
           aws-region: eu-west-2
 
       - name: Setup SAM
-        uses: aws-actions/setup-sam@d78e1a4a9656d3b223e59b80676a797f20093133 # v2
+        uses: aws-actions/setup-sam@89ddb14d60e682855e3fea4be85b3c56485de310 # v2
         with:
           use-installer: true
           version: "1.157.1"
@@ -36,10 +36,10 @@ jobs:
 
       - name: Login to Amazon ECR
         id: login-ecr
-        uses: aws-actions/amazon-ecr-login@f2e9fc6c2b355c1890b65e6f6f0e2ac3e6e22f78 # v2.1.2
+        uses: aws-actions/amazon-ecr-login@d539f0932e70871a027e9d5a9d8fc38589180a64 # v2.1.6
 
       - name: Install Cosign
-        uses: sigstore/cosign-installer@7e8b541eb2e61bf99390e1afd4be13a184e9ebc5 # v3.10.1
+        uses: sigstore/cosign-installer@6f9f17788090df1f26f669e9d70d6ae9567deba6 # v4.1.2
         with:
           cosign-release: "v2.5.1"
 
@@ -56,7 +56,7 @@ jobs:
           docker tag $ECR_REGISTRY/$ECR_REPOSITORY_DEV:$IMAGE_TAG $ECR_REGISTRY/$ECR_REPOSITORY_DEV:$IMAGE_TAG
 
       - name: Login to GDS Dev Dynatrace Container Registry
-        uses: docker/login-action@4907a6ddec9925e35a0a9e82d7399ccc52663121 # v4.1.0
+        uses: docker/login-action@af1e73f918a031802d376d3c8bbc3fe56130a9b0 # v4.4.0
         with:
           registry: khw46367.live.dynatrace.com
           username: khw46367
