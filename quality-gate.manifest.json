@@ -3,7 +3,7 @@
   "services": [
     {
       "product": "Passport-CRI",
-      "component": "Passport-CRI Front",
+      "component": "ipv-cri-uk-passport-front-v1",
       "promotionType": "securePipelines",
       "checks": [
         {
