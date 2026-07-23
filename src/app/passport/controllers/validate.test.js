@@ -135,7 +135,7 @@ describe("validate controller", () => {
     const sessionError = req.sessionModel.get("error");
     expect(sessionError.error).to.eq("server_error");
     expect(sessionError.error_description).to.eq(
-      "Failed to retrieve authorization redirect_uri or state"
+      "failed to retrieve authorization redirect_uri or state"
     );
   });
 
@@ -155,7 +155,7 @@ describe("validate controller", () => {
     const sessionError = req.sessionModel.get("error");
     expect(sessionError.error).to.eq("server_error");
     expect(sessionError.error_description).to.eq(
-      "Failed to retrieve authorization redirect_uri or state"
+      "failed to retrieve authorization redirect_uri or state"
     );
   });
 
