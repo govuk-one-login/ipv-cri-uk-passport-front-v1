@@ -1,5 +1,5 @@
 {
-  "$schema": "https://raw.githubusercontent.com/govuk-one-login/quality-gates/refs/tags/v0.14.0/schemas/schema.json",
+  "$schema": "https://raw.githubusercontent.com/govuk-one-login/quality-gates/refs/tags/v0.15.0/schemas/schema.json",
   "services": [
     {
       "product": "Passport-CRI",
@@ -7,49 +7,83 @@
       "promotionType": "securePipelines",
       "automated": [
         {
-          "checkTypes": ["code style and linting", "secret scanning"],
           "phase": "pre-merge",
           "provider": "GitHub",
           "config": {
             "file": ".github/workflows/checks.yml",
             "path": "$.jobs.pre-commit"
-          }
+          },
+          "checks": [
+            {
+              "name": "code style and linting"
+            },
+            {
+              "name": "secret scanning"
+            }
+          ]
         },
         {
-          "checkTypes": [
-            "accessibility",
-            "code quality",
-            "code style and linting",
-            "integration",
-            "regression",
-            "unit",
-            "unit test coverage",
-            "vulnerability detection"
-          ],
           "phase": "pre-merge",
           "provider": "GitHub",
           "config": {
             "file": ".github/workflows/checks.yml",
             "path": "$.jobs.run-premerge-checks"
-          }
+          },
+          "checks": [
+            {
+              "name": "accessibility"
+            },
+            {
+              "name": "code quality"
+            },
+            {
+              "name": "code style and linting"
+            },
+            {
+              "name": "integration"
+            },
+            {
+              "name": "regression"
+            },
+            {
+              "name": "unit"
+            },
+            {
+              "name": "unit test coverage"
+            },
+            {
+              "name": "vulnerability detection"
+            }
+          ]
         },
         {
-          "checkTypes": ["code quality", "vulnerability detection"],
           "phase": "pre-merge",
           "provider": "GitHub",
           "config": {
             "file": ".github/workflows/codeql.yml",
             "path": "$.jobs.analyze"
-          }
+          },
+          "checks": [
+            {
+              "name": "code quality"
+            },
+            {
+              "name": "vulnerability detection"
+            }
+          ]
         },
         {
-          "checkTypes": ["code style and linting"],
           "phase": "pre-merge",
           "provider": "GitHub",
           "config": {
             "file": ".github/workflows/i18n.yml",
             "path": "$.jobs.check-i18n"
-          }
+          },
+          "checks": [
+            {
+              "name": "code style and linting"
+            }
+          ]
         }
       ]
     }
