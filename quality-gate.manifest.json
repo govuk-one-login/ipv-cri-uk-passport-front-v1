@@ -27,21 +27,22 @@
           "provider": "GitHub",
           "config": {
             "file": ".github/workflows/checks.yml",
-            "path": "$.jobs.run-premerge-checks"
+            "path": "$.jobs.run-premerge-checks.steps[@.name=='Run lint']"
           },
           "checks": [
             {
-              "name": "accessibility"
-            },
-            {
-              "name": "code quality"
-            },
-            {
               "name": "code style and linting"
-            },
-            {
-              "name": "integration"
-            },
+            }
+          ]
+        },
+        {
+          "phase": "pre-merge",
+          "provider": "GitHub",
+          "config": {
+            "file": ".github/workflows/checks.yml",
+            "path": "$.jobs.run-premerge-checks.steps[@.name='Run test and write coverage']"
+          },
+          "checks": [
             {
               "name": "regression"
             },
@@ -50,7 +51,52 @@
             },
             {
               "name": "unit test coverage"
+            }
+          ]
+        },
+        {
+          "phase": "pre-merge",
+          "provider": "GitHub",
+          "config": {
+            "file": ".github/workflows/checks.yml",
+            "path": "$.jobs.run-premerge-checks.steps[@.name=='Run CloudFormation tests']"
+          },
+          "checks": [
+            {
+              "name": "code style and linting"
+            }
+          ]
+        },
+        {
+          "phase": "pre-merge",
+          "provider": "GitHub",
+          "config": {
+            "file": ".github/workflows/checks.yml",
+            "path": "$.jobs.run-premerge-checks.steps[@.name=='Run browser tests']"
+          },
+          "checks": [
+            {
+              "name": "accessibility"
             },
+            {
+              "name": "integration"
+            },
+            {
+              "name": "regression"
+            }
+          ]
+        },
+        {
+          "phase": "pre-merge",
+          "provider": "GitHub",
+          "config": {
+            "file": ".github/workflows/checks.yml",
+            "path": "$.jobs.run-premerge-checks.steps[@.name='Run sonarcloud scan']"
+          },
+          "checks": [
+            {
+              "name": "code quality"
+            }
             {
               "name": "vulnerability detection"
             }
