@@ -1,5 +1,5 @@
 {
-  "$schema": "https://raw.githubusercontent.com/govuk-one-login/quality-gates/refs/tags/v0.16.0/schemas/schema.json",
+  "$schema": "https://raw.githubusercontent.com/govuk-one-login/quality-gates/refs/tags/v0.17.0/schemas/schema.json",
   "services": [
     {
       "product": "Passport-CRI",
@@ -9,10 +9,6 @@
         {
           "phase": "pre-merge",
           "provider": "GitHub",
-          "config": {
-            "file": ".github/workflows/checks.yml",
-            "path": "$.jobs.pre-commit"
-          },
           "checks": [
             {
               "name": "code style and linting"
@@ -20,28 +16,24 @@
             {
               "name": "secret scanning"
             }
-          ]
+          ],
+          "file": ".github/workflows/checks.yml",
+          "path": "$.jobs.pre-commit"
         },
         {
           "phase": "pre-merge",
           "provider": "GitHub",
-          "config": {
-            "file": ".github/workflows/checks.yml",
-            "path": "$.jobs.run-premerge-checks.steps[?@.name=='Run lint']"
-          },
           "checks": [
             {
               "name": "code style and linting"
             }
-          ]
+          ],
+          "file": ".github/workflows/checks.yml",
+          "path": "$.jobs.run-premerge-checks.steps[?@.name=='Run lint']"
         },
         {
           "phase": "pre-merge",
           "provider": "GitHub",
-          "config": {
-            "file": ".github/workflows/checks.yml",
-            "path": "$.jobs.run-premerge-checks.steps[?@.name=='Run test and write coverage']"
-          },
           "checks": [
             {
               "name": "unit",
@@ -50,28 +42,24 @@
             {
               "name": "unit test coverage"
             }
-          ]
+          ],
+          "file": ".github/workflows/checks.yml",
+          "path": "$.jobs.run-premerge-checks.steps[?@.name=='Run test and write coverage']"
         },
         {
           "phase": "pre-merge",
           "provider": "GitHub",
-          "config": {
-            "file": ".github/workflows/checks.yml",
-            "path": "$.jobs.run-premerge-checks.steps[?@.name=='Run CloudFormation tests']"
-          },
           "checks": [
             {
               "name": "code style and linting"
             }
-          ]
+          ],
+          "file": ".github/workflows/checks.yml",
+          "path": "$.jobs.run-premerge-checks.steps[?@.name=='Run CloudFormation tests']"
         },
         {
           "phase": "pre-merge",
           "provider": "GitHub",
-          "config": {
-            "file": ".github/workflows/checks.yml",
-            "path": "$.jobs.run-premerge-checks.steps[?@.name=='Run browser tests']"
-          },
           "checks": [
             {
               "name": "accessibility"
@@ -80,15 +68,13 @@
               "name": "integration",
               "purpose": ["regression"]
             }
-          ]
+          ],
+          "file": ".github/workflows/checks.yml",
+          "path": "$.jobs.run-premerge-checks.steps[?@.name=='Run browser tests']"
         },
         {
           "phase": "pre-merge",
           "provider": "GitHub",
-          "config": {
-            "file": ".github/workflows/checks.yml",
-            "path": "$.jobs.run-premerge-checks.steps[?@.name=='Run sonarcloud scan']"
-          },
           "checks": [
             {
               "name": "code quality"
@@ -96,15 +82,13 @@
             {
               "name": "vulnerability detection"
             }
-          ]
+          ],
+          "file": ".github/workflows/checks.yml",
+          "path": "$.jobs.run-premerge-checks.steps[?@.name=='Run sonarcloud scan']"
         },
         {
           "phase": "pre-merge",
           "provider": "GitHub",
-          "config": {
-            "file": ".github/workflows/codeql.yml",
-            "path": "$.jobs.analyze"
-          },
           "checks": [
             {
               "name": "code quality"
@@ -112,20 +96,20 @@
             {
               "name": "vulnerability detection"
             }
-          ]
+          ],
+          "file": ".github/workflows/codeql.yml",
+          "path": "$.jobs.analyze"
         },
         {
           "phase": "pre-merge",
           "provider": "GitHub",
-          "config": {
-            "file": ".github/workflows/i18n.yml",
-            "path": "$.jobs.check-i18n"
-          },
           "checks": [
             {
               "name": "code style and linting"
             }
-          ]
+          ],
+          "file": ".github/workflows/i18n.yml",
+          "path": "$.jobs.check-i18n"
         }
       ]
     }
