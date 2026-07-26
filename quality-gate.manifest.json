@@ -27,7 +27,7 @@
           "provider": "GitHub",
           "config": {
             "file": ".github/workflows/checks.yml",
-            "path": "$.jobs.run-premerge-checks.steps[@.name=='Run lint']"
+            "path": "$.jobs.run-premerge-checks.steps[?@.name=='Run lint']"
           },
           "checks": [
             {
@@ -40,7 +40,7 @@
           "provider": "GitHub",
           "config": {
             "file": ".github/workflows/checks.yml",
-            "path": "$.jobs.run-premerge-checks.steps[@.name='Run test and write coverage']"
+            "path": "$.jobs.run-premerge-checks.steps[?@.name=='Run test and write coverage']"
           },
           "checks": [
             {
@@ -59,7 +59,7 @@
           "provider": "GitHub",
           "config": {
             "file": ".github/workflows/checks.yml",
-            "path": "$.jobs.run-premerge-checks.steps[@.name=='Run CloudFormation tests']"
+            "path": "$.jobs.run-premerge-checks.steps[?@.name=='Run CloudFormation tests']"
           },
           "checks": [
             {
@@ -72,7 +72,7 @@
           "provider": "GitHub",
           "config": {
             "file": ".github/workflows/checks.yml",
-            "path": "$.jobs.run-premerge-checks.steps[@.name=='Run browser tests']"
+            "path": "$.jobs.run-premerge-checks.steps[?@.name=='Run browser tests']"
           },
           "checks": [
             {
@@ -91,12 +91,12 @@
           "provider": "GitHub",
           "config": {
             "file": ".github/workflows/checks.yml",
-            "path": "$.jobs.run-premerge-checks.steps[@.name='Run sonarcloud scan']"
+            "path": "$.jobs.run-premerge-checks.steps[?@.name=='Run sonarcloud scan']"
           },
           "checks": [
             {
               "name": "code quality"
-            }
+            },
             {
               "name": "vulnerability detection"
             }
