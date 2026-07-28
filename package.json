@@ -1,5 +1,5 @@
 {
-  "name": "ipv-cri-uk-passport-front",
+  "name": "di-ipv-cri-uk-passport-front-v1",
   "version": "0.0.1",
   "description": "DCS Credential Issuer user interface for the Identity Proofing and Verification (IPV) system within the GDS digital identity platform, GOV.UK Sign In.",
   "main": "src/app.js",

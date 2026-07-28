@@ -42,37 +42,19 @@ class ValidateController extends BaseController {
       );
 
       if (checkPassportResponse.data?.result === "retry") {
-        LOGGER.info("validate: passport retry");
         req.sessionModel.set("showRetryMessage", true);
+        LOGGER.info("validate: passport retry");
       } else {
         req.session.authParams.redirect_uri =
           checkPassportResponse.data.redirect_uri;
         req.session.authParams.state = checkPassportResponse.data.state;
-
-        LOGGER.info("validate: redirecting user to callBack with url");
+        LOGGER.info("validate: redirecting user to callback");
       }
 
       callback();
     } catch (err) {
-      let prefix = "error thrown in validate controller";
-
-      if (
-        !req.session.authParams?.state ||
-        !req.session.authParams?.redirect_uri
-      ) {
-        prefix = "failed to retrieve authorization redirect_uri or state";
-      }
-
-      super.saveValues(req, res, () => {
-        LOGGER.logError(req, err, { messagePrefix: prefix });
-
-        const error = {
-          error: "server_error",
-          error_description: prefix
-        };
-        req.sessionModel.set("error", error);
-        callback(err);
-      });
+      LOGGER.logError(req, err, { messagePrefix: "validate" });
+      callback(err);
     }
   }
 }
