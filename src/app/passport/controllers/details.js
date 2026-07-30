@@ -3,12 +3,11 @@ const DateControllerMixin = require("hmpo-components").mixins.Date;
 
 const DateController = DateControllerMixin(BaseController);
 
-const { PACKAGE_NAME } = require("../../../lib/config");
-const logger = require("hmpo-logger").get(PACKAGE_NAME);
+const LOGGER = require("../../../utils/logger");
 
 class PassportDetailsController extends DateController {
   _padYear(value, offset) {
-    logger.info("offset value of {} ignored as no padding is applied", offset);
+    LOGGER.info(`offset value of ${offset} ignored as no padding is applied`);
     return value;
   }
   async saveValues(req, res, callback) {

@@ -7,11 +7,10 @@ const {
   }
 } = require("../../../lib/config");
 
-const { PACKAGE_NAME } = require("../../../lib/config");
-const logger = require("hmpo-logger").get(PACKAGE_NAME);
 const {
   createPersonalDataHeaders
 } = require("@govuk-one-login/frontend-passthrough-headers");
+const LOGGER = require("../../../utils/logger");
 
 class ValidateController extends BaseController {
   async saveValues(req, res, callback) {
@@ -35,7 +34,7 @@ class ValidateController extends BaseController {
         ...createPersonalDataHeaders(`${BASE_URL}${CHECK}`, req)
       };
 
-      logger.info("validate: calling check-passport lambda", { req, res });
+      LOGGER.info("validate: calling check-passport lambda");
       const checkPassportResponse = await req.axios.post(
         `${CHECK}`,
         attributes,
@@ -43,40 +42,19 @@ class ValidateController extends BaseController {
       );
 
       if (checkPassportResponse.data?.result === "retry") {
-        logger.info("validate: passport retry", { req, res });
         req.sessionModel.set("showRetryMessage", true);
+        LOGGER.info("validate: passport retry");
       } else {
         req.session.authParams.redirect_uri =
           checkPassportResponse.data.redirect_uri;
         req.session.authParams.state = checkPassportResponse.data.state;
-
-        logger.info("Validate: redirecting user to callBack with url ", {
-          req,
-          res
-        });
+        LOGGER.info("validate: redirecting user to callback");
       }
 
       callback();
     } catch (err) {
-      let message = "error thrown in validate controller";
-
-      if (
-        !req.session.authParams?.state ||
-        !req.session.authParams?.redirect_uri
-      ) {
-        message = "Failed to retrieve authorization redirect_uri or state";
-      }
-
-      super.saveValues(req, res, () => {
-        logger.error(message, { req, res, err });
-
-        const error = {
-          error: "server_error",
-          error_description: message
-        };
-        req.sessionModel.set("error", error);
-        callback(err);
-      });
+      LOGGER.logError(req, err, { messagePrefix: "validate" });
+      callback(err);
     }
   }
 }

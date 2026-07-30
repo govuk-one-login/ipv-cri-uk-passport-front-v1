@@ -1,9 +1,12 @@
 const BaseController = require("hmpo-form-wizard").Controller;
 const ValidateController = require("./validate");
 
+const SESSION_ID = "passport123";
+
 const buildSessionModel = (req) => {
   req.sessionModel.set("passportNumber", "123456789");
   req.sessionModel.set("surname", "Jones Smith");
+  req.sessionModel.set("middleNames", "");
   req.sessionModel.set("firstName", "Dan");
   req.sessionModel.set("dateOfBirth", "10/02/1975");
   req.sessionModel.set("expiryDate", "15/01/2035");
@@ -24,8 +27,8 @@ describe("validate controller", () => {
     res = setup.res;
     next = setup.next;
 
-    req.session.JWTData = { authParams: {}, user_id: "a-users-id" };
-    req.session.id = "some-session-id";
+    req.session.tokenId = SESSION_ID;
+    req.session.authParams = { redirect_uri: "https://foo.bar.dev" };
   });
   afterEach(() => sandbox.restore());
 
@@ -33,16 +36,8 @@ describe("validate controller", () => {
     expect(validate).to.be.an.instanceof(BaseController);
   });
 
-  it("should retrieve redirect url from cri-passport-back and store in session", async () => {
-    const sessionId = "passport123";
-
+  it("should set redirect_uri from API on session authParams", async () => {
     buildSessionModel(req);
-    req.sessionModel.set("middleNames", "");
-    req.session.tokenId = sessionId;
-    req.session.authParams = {
-      redirect_uri: "A VALUE",
-      state: "A VALUE"
-    };
 
     const data = {
       redirect_uri: "https://client.example.com",
@@ -66,7 +61,7 @@ describe("validate controller", () => {
       },
       {
         headers: {
-          session_id: sessionId
+          session_id: SESSION_ID
         }
       }
     );
@@ -77,15 +72,8 @@ describe("validate controller", () => {
   });
 
   it("should concat firstName and middleNames into forenames", async () => {
-    const sessionId = "passport123";
-
     buildSessionModel(req);
     req.sessionModel.set("middleNames", "Joe");
-    req.session.tokenId = sessionId;
-    req.session.authParams = {
-      redirect_uri: "A VALUE",
-      state: "A VALUE"
-    };
 
     const data = {
       redirect_uri: "https://client.example.com",
@@ -109,7 +97,7 @@ describe("validate controller", () => {
       },
       {
         headers: {
-          session_id: sessionId
+          session_id: SESSION_ID
         }
       }
     );
@@ -119,49 +107,21 @@ describe("validate controller", () => {
     );
   });
 
-  it("should set an error object in the session if redirect uri is missing", async () => {
+  it("should forward errors to the callback", async () => {
     buildSessionModel(req);
-    req.sessionModel.set("middleNames", "Joe");
 
-    const data = {
-      redirect_uri: undefined,
-      state: "TEST"
-    };
-    const resolvedPromise = new Promise((resolve) => resolve({ data }));
-    req.axios.post = sandbox.stub().returns(resolvedPromise);
+    const axiosError = new Error("self-destruct sequence initiated");
+    axiosError.stack =
+      "Error: self-destruct sequence initiated\n    at validate (test)"; // reduce noisy test output
+    req.axios.post = sandbox.stub().rejects(axiosError);
 
     await validate.saveValues(req, res, next);
 
-    const sessionError = req.sessionModel.get("error");
-    expect(sessionError.error).to.eq("server_error");
-    expect(sessionError.error_description).to.eq(
-      "Failed to retrieve authorization redirect_uri or state"
-    );
+    expect(next).to.have.been.calledOnceWithExactly(axiosError);
   });
 
-  it("should set an error object in the session if state is missing", async () => {
+  it("should set showRetryMessage to true when api returns retry result", async () => {
     buildSessionModel(req);
-    req.sessionModel.set("middleNames", "Joe");
-
-    const data = {
-      redirect_uri: "http://example.com",
-      state: undefined
-    };
-    const resolvedPromise = new Promise((resolve) => resolve({ data }));
-    req.axios.post = sandbox.stub().returns(resolvedPromise);
-
-    await validate.saveValues(req, res, next);
-
-    const sessionError = req.sessionModel.get("error");
-    expect(sessionError.error).to.eq("server_error");
-    expect(sessionError.error_description).to.eq(
-      "Failed to retrieve authorization redirect_uri or state"
-    );
-  });
-
-  it("should set showRetryMessage to true to show retry message", async () => {
-    buildSessionModel(req);
-    req.sessionModel.set("middleNames", "Joe");
 
     const data = {
       result: "retry"
@@ -174,21 +134,6 @@ describe("validate controller", () => {
 
     const showRetryMessage = req.sessionModel.get("showRetryMessage");
     expect(showRetryMessage).to.equal(true);
-    expect(next).to.have.been.calledOnce;
-  });
-
-  it("should go to details on retry", async () => {
-    buildSessionModel(req);
-    req.sessionModel.set("middleNames", "Joe");
-
-    const data = {
-      result: "retry"
-    };
-
-    const resolvedPromise = new Promise((resolve) => resolve({ data }));
-    req.axios.post = sandbox.stub().returns(resolvedPromise);
-    await validate.saveValues(req, res, next);
-
     expect(next).to.have.been.calledOnce;
   });
 
