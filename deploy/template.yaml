@@ -120,7 +120,7 @@ Mappings:
       may2025RebrandEnabled: "true"
       analyticsDataSensitive: "false"
     staging:
-      pinoEnabled: "false"
+      pinoEnabled: "true"
       ga4Enabled: "true"
       uaEnabled: "false"
       languageToggleDisabled: "false"
@@ -128,7 +128,7 @@ Mappings:
       may2025RebrandEnabled: "true"
       analyticsDataSensitive: "false"
     integration:
-      pinoEnabled: "false"
+      pinoEnabled: "true"
       ga4Enabled: "true"
       uaEnabled: "false"
       languageToggleDisabled: "false"
@@ -136,7 +136,7 @@ Mappings:
       may2025RebrandEnabled: "true"
       analyticsDataSensitive: "false"
     production:
-      pinoEnabled: "false"
+      pinoEnabled: "true"
       ga4Enabled: "true"
       uaEnabled: "false"
       languageToggleDisabled: "false"
