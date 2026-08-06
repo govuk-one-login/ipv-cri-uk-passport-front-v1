@@ -29,25 +29,26 @@ class ValidateController extends BaseController {
     };
 
     try {
-      const headers = /** @type {import("axios").RawAxiosRequestHeaders} */ {
+      const headers = {
         session_id: req.session.tokenId,
         ...createPersonalDataHeaders(`${BASE_URL}${CHECK}`, req)
       };
 
       LOGGER.info("validate: calling check-passport lambda");
-      const checkPassportResponse = await req.axios.post(
-        `${CHECK}`,
-        attributes,
-        { headers }
-      );
 
-      if (checkPassportResponse.data?.result === "retry") {
+      const checkPassportResponse = await req.customFetch(`${CHECK}`, {
+        method: "POST",
+        jsonBody: attributes,
+        headers
+      });
+      const body = await checkPassportResponse.json();
+
+      if (body?.result === "retry") {
         req.sessionModel.set("showRetryMessage", true);
         LOGGER.info("validate: passport retry");
       } else {
-        req.session.authParams.redirect_uri =
-          checkPassportResponse.data.redirect_uri;
-        req.session.authParams.state = checkPassportResponse.data.state;
+        req.session.authParams.redirect_uri = body.redirect_uri;
+        req.session.authParams.state = body.state;
         LOGGER.info("validate: redirecting user to callback");
       }
 

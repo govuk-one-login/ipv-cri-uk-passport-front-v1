@@ -57,11 +57,14 @@ Before(async function ({ pickle } = {}) {
   if (mockApiTag) {
     this.SCENARIO_ID_HEADER = mockApiTag.name.substring(10);
     if (this.SCENARIO_ID_HEADER && ConfigurationReader.get("API_BASE_URL")) {
-      const url =
-        ConfigurationReader.get("API_BASE_URL") +
-        `__reset/${this.SCENARIO_ID_HEADER}`;
+      const url = new URL(
+        `/__reset/${this.SCENARIO_ID_HEADER}`,
+        ConfigurationReader.get("API_BASE_URL")
+      );
       try {
-        await fetch(url);
+        const response = await fetch(url);
+        if (!response.ok)
+          throw new Error(`Fetch failed with status ${response.status}`);
       } catch (error) {
         // eslint-disable-next-line no-console
         console.log(`Warning: Failed to reset mock API: ${error.message}`);

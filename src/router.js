@@ -2,7 +2,7 @@ const commonExpress = require("@govuk-one-login/di-ipv-cri-common-express");
 const { getGTM, getLanguageToggle, getDeviceIntelligence } =
   commonExpress.lib.locals;
 const setScenarioHeaders = commonExpress.lib.scenarioHeaders;
-const setAxiosDefaults = commonExpress.lib.axios;
+const { customFetchMiddleware } = commonExpress.lib.customFetch;
 
 const steps = require("./app/passport/steps");
 const fields = require("./app/passport/fields");
@@ -15,7 +15,7 @@ const init = (router) => {
   router.use(frontendUi.frontendUiMiddlewareIdentityBypass);
   router.use(getDeviceIntelligence);
   router.use(setScenarioHeaders);
-  router.use(setAxiosDefaults);
+  router.use(customFetchMiddleware);
 
   router.use("/oauth2", commonExpress.routes.oauth2);
 

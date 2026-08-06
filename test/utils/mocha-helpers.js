@@ -19,13 +19,7 @@ global.expect = expect;
 global.setupDefaultMocks = () => {
   const req = {
     form: { values: {} },
-    axios: {
-      get: sinon.fake(),
-      post: sinon.fake()
-    },
-    ordnanceAxios: {
-      get: sinon.fake()
-    },
+    customFetch: sinon.fake(),
     session: {
       "hmpo-wizard-previous": {}
     }

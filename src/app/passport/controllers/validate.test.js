@@ -28,7 +28,7 @@ describe("validate controller", () => {
     next = setup.next;
 
     req.session.tokenId = SESSION_ID;
-    req.session.authParams = { redirect_uri: "https://foo.bar.dev" };
+    req.session.authParams = { client_id: "some-client" };
   });
   afterEach(() => sandbox.restore());
 
@@ -44,27 +44,25 @@ describe("validate controller", () => {
       state: "TEST"
     };
 
-    const resolvedPromise = new Promise((resolve) => resolve({ data }));
-    req.axios.post = sandbox.stub().returns(resolvedPromise);
+    req.customFetch = sandbox
+      .stub()
+      .resolves({ json: () => Promise.resolve(data) });
 
     await validate.saveValues(req, res, next);
 
-    sandbox.assert.calledWith(
-      req.axios.post,
-      sinon.match("check-passport"),
-      {
+    sandbox.assert.calledWith(req.customFetch, sinon.match("/check-passport"), {
+      method: "POST",
+      jsonBody: {
         passportNumber: "123456789",
         surname: "Jones Smith",
         forenames: ["Dan"],
         dateOfBirth: "10/02/1975",
         expiryDate: "15/01/2035"
       },
-      {
-        headers: {
-          session_id: SESSION_ID
-        }
+      headers: {
+        session_id: SESSION_ID
       }
-    );
+    });
 
     expect(req.session.authParams.redirect_uri).to.eq(
       "https://client.example.com"
@@ -80,27 +78,25 @@ describe("validate controller", () => {
       state: "TEST"
     };
 
-    const resolvedPromise = new Promise((resolve) => resolve({ data }));
-    req.axios.post = sandbox.stub().returns(resolvedPromise);
+    req.customFetch = sandbox
+      .stub()
+      .resolves({ json: () => Promise.resolve(data) });
 
     await validate.saveValues(req, res, next);
 
-    sandbox.assert.calledWith(
-      req.axios.post,
-      sinon.match("check-passport"),
-      {
+    sandbox.assert.calledWith(req.customFetch, sinon.match("check-passport"), {
+      method: "POST",
+      jsonBody: {
         passportNumber: "123456789",
         surname: "Jones Smith",
         forenames: ["Dan", "Joe"],
         dateOfBirth: "10/02/1975",
         expiryDate: "15/01/2035"
       },
-      {
-        headers: {
-          session_id: SESSION_ID
-        }
+      headers: {
+        session_id: SESSION_ID
       }
-    );
+    });
 
     expect(req.session.authParams.redirect_uri).to.eq(
       "https://client.example.com"
@@ -110,14 +106,14 @@ describe("validate controller", () => {
   it("should forward errors to the callback", async () => {
     buildSessionModel(req);
 
-    const axiosError = new Error("self-destruct sequence initiated");
-    axiosError.stack =
-      "Error: self-destruct sequence initiated\n    at validate (test)"; // reduce noisy test output
-    req.axios.post = sandbox.stub().rejects(axiosError);
+    const someError = new Error("self-destruct sequence initiated");
+    someError.stack =
+      "Error: self-destruct sequence initiated\n at validate (test)"; // reduce noisy test output
+    req.customFetch = sandbox.stub().rejects(someError);
 
     await validate.saveValues(req, res, next);
 
-    expect(next).to.have.been.calledOnceWithExactly(axiosError);
+    expect(next).to.have.been.calledOnceWithExactly(someError);
   });
 
   it("should set showRetryMessage to true when api returns retry result", async () => {
@@ -127,8 +123,9 @@ describe("validate controller", () => {
       result: "retry"
     };
 
-    const resolvedPromise = new Promise((resolve) => resolve({ data }));
-    req.axios.post = sandbox.stub().returns(resolvedPromise);
+    req.customFetch = sandbox
+      .stub()
+      .resolves({ json: () => Promise.resolve(data) });
 
     await validate.saveValues(req, res, next);
 
@@ -146,8 +143,9 @@ describe("validate controller", () => {
       state: "test-state"
     };
 
-    const resolvedPromise = new Promise((resolve) => resolve({ data }));
-    req.axios.post = sandbox.stub().returns(resolvedPromise);
+    req.customFetch = sandbox
+      .stub()
+      .resolves({ json: () => Promise.resolve(data) });
     await validate.saveValues(req, res, next);
 
     const showRetryMessage = req.sessionModel.get("showRetryMessage");
