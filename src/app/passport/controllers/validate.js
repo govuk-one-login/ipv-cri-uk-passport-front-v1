@@ -36,7 +36,7 @@ class ValidateController extends BaseController {
 
       LOGGER.info("validate: calling check-passport lambda");
 
-      const checkPassportResponse = await req.customFetch(`${CHECK}`, {
+      const checkPassportResponse = await req.customFetch(CHECK, {
         method: "POST",
         jsonBody: attributes,
         headers
