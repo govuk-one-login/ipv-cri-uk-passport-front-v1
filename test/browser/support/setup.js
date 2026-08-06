@@ -1,7 +1,6 @@
 const { Before, BeforeAll, AfterAll, After } = require("@cucumber/cucumber");
 const { setDefaultTimeout } = require("@cucumber/cucumber");
 const { chromium } = require("@playwright/test");
-const axios = require("axios");
 const ConfigurationReader = require("./configuration-reader");
 
 setDefaultTimeout(31 * 1000); // 60 seconds for all steps
@@ -62,7 +61,7 @@ Before(async function ({ pickle } = {}) {
         ConfigurationReader.get("API_BASE_URL") +
         `__reset/${this.SCENARIO_ID_HEADER}`;
       try {
-        await axios.get(url);
+        await fetch(url);
       } catch (error) {
         // eslint-disable-next-line no-console
         console.log(`Warning: Failed to reset mock API: ${error.message}`);
