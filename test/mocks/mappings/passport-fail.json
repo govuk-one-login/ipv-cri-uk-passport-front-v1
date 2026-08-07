@@ -52,7 +52,7 @@
       "response": {
         "status": 200,
         "jsonBody": {
-          "retry": true
+          "result": "retry"
         }
       }
     },
