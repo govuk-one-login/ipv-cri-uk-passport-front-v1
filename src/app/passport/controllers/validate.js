@@ -39,7 +39,8 @@ class ValidateController extends BaseController {
       const checkPassportResponse = await req.customFetch(CHECK, {
         method: "POST",
         jsonBody: attributes,
-        headers
+        headers,
+        timeoutMs: 30_000
       });
       const body = await checkPassportResponse.json();
 

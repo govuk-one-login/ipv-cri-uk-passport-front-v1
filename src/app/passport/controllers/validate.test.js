@@ -64,7 +64,8 @@ describe("validate controller", () => {
       {
         method: "POST",
         jsonBody: checkPassportRequestBody,
-        headers: { session_id: SESSION_ID }
+        headers: { session_id: SESSION_ID },
+        timeoutMs: 30_000
       }
     );
   });
@@ -93,7 +94,8 @@ describe("validate controller", () => {
           ...checkPassportRequestBody,
           forenames: ["Dan", "Joe"]
         },
-        headers: { session_id: SESSION_ID }
+        headers: { session_id: SESSION_ID },
+        timeoutMs: 30_000
       }
     );
   });
