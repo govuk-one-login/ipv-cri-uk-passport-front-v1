@@ -2,6 +2,9 @@ process.env.SESSION_SECRET = "1234";
 process.env.SESSION_TABLE_NAME = "table-name";
 process.env.USE_PINO_LOGGER = "true";
 
+import dotenv from "dotenv";
+dotenv.config = () => ({ parsed: {} });
+
 import { expect, should, use } from "chai";
 import sinon from "sinon";
 import sinonChai from "sinon-chai";
