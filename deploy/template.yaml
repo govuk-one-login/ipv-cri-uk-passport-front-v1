@@ -487,8 +487,6 @@ Resources:
                 - ApiGatewayId:
                     Fn::ImportValue: !Sub ${ApiStackName}-PrivateUKPassportAPIGatewayID
                   Environment: !Ref Environment
-            - Name: EXTERNAL_WEBSITE_HOST
-              Value: !GetAtt ApiGwHttpEndpoint.ApiEndpoint
             - Name: SESSION_TABLE_NAME
               Value: !Sub
                 - "cri-passport-front-sessions-${Environment}"
