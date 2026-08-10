@@ -482,8 +482,11 @@ Resources:
             - Name: USE_PINO_LOGGER
               Value: !FindInMap [ FeatureFlagMapping, !Ref "Environment", pinoEnabled ]
             - Name: API_BASE_URL
-              Value:
-                Fn::ImportValue: !Sub ${ApiStackName}-PrivateUKPassportApiBaseUrl
+              Value: !Sub
+                - "https://${ApiGatewayId}.execute-api.eu-west-2.amazonaws.com/${Environment}"
+                - ApiGatewayId:
+                    Fn::ImportValue: !Sub ${ApiStackName}-PrivateUKPassportAPIGatewayID
+                  Environment: !Ref Environment
             - Name: EXTERNAL_WEBSITE_HOST
               Value: !GetAtt ApiGwHttpEndpoint.ApiEndpoint
             - Name: SESSION_TABLE_NAME
