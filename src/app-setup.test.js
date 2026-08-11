@@ -79,16 +79,12 @@ describe("app-setup", () => {
     it("should set API config variables", () => {
       AppSetup.init(app, router);
 
-      sinon.assert.calledWith(
-        app.set,
-        "API.BASE_URL",
-        "http://localhost:5007/"
-      );
-      sinon.assert.calledWith(app.set, "API.PATHS.SESSION", "session");
+      sinon.assert.calledWith(app.set, "API.BASE_URL", "http://localhost:5007");
+      sinon.assert.calledWith(app.set, "API.PATHS.SESSION", "/session");
       sinon.assert.calledWith(
         app.set,
         "API.PATHS.AUTHORIZATION",
-        "authorization"
+        "/authorization"
       );
     });
 
