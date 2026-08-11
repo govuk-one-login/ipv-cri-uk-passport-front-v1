@@ -46,9 +46,6 @@ AfterAll(async function () {
 Before(async function ({ pickle } = {}) {
   const tags = pickle.tags || [];
 
-  // Determine if this is a stub test based on the tag @stub-test
-  this.isStubTest = tags.find((tag) => tag.name === "@stub-test");
-
   // eslint-disable-next-line no-console
   console.log(`\nRunning: ${pickle.name}`);
 
@@ -76,13 +73,6 @@ Before(async function ({ pickle } = {}) {
 // Create a new test context and page per scenario
 Before(async function () {
   const contextOptions = {};
-
-  // If it's a stub test, set the baseURL from CORE_STUB_URL
-  if (this.isStubTest && ConfigurationReader.get("CORE_STUB_URL")) {
-    contextOptions.baseURL = ConfigurationReader.get("CORE_STUB_URL");
-  } else if (ConfigurationReader.get("API_BASE_URL")) {
-    contextOptions.baseURL = ConfigurationReader.get("API_BASE_URL");
-  }
 
   // Apply scenario ID header if present
   if (this.SCENARIO_ID_HEADER) {

@@ -10,7 +10,6 @@ module.exports = {
     }
   },
   APP: {
-    BASE_URL: process.env.API_BASE_URL || "http://localhost:5050/",
     PATHS: {
       PASSPORT: "/"
     },
