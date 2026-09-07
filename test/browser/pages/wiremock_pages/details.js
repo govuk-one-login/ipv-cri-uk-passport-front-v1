@@ -574,7 +574,8 @@ exports.PassportPage = class PlaywrightDevPage {
     }
 
     const urlAssertions = {
-      Accessibility: "https://signin.account.gov.uk/accessibility-statement",
+      Accessibility:
+        "https://www.gov.uk/guidance/govuk-one-login-accessibility-statement",
       Cookies: "https://signin.account.gov.uk/cookies",
       TsAndCs: "https://signin.account.gov.uk/terms-and-conditions",
       Privacy:
@@ -601,7 +602,7 @@ exports.PassportPage = class PlaywrightDevPage {
         linkLocator.click()
       ]);
 
-      await newPage.waitForLoadState("domcontentloaded");
+      await newPage.waitForLoadState("load");
       expect(newPage.url()).to.contain(expectedUrl);
       expect(await newPage.title()).to.not.equal(
         "Page not found - GOV.UK One Login"
@@ -624,14 +625,6 @@ exports.PassportPage = class PlaywrightDevPage {
 
     await this.errorLink.click();
     await this.assertNewPageIsCorrectAndLive(newPagePromise);
-  }
-
-  async assertFeedbackLinkIsCorrectAndLive() {
-    const timeout = 5000;
-    const newPagePromise = this.page.waitForEvent("popup", { timeout });
-
-    await this.betaBannerLink.click();
-    await this.assertFeedbackPageIsCorrectAndLive(newPagePromise);
   }
 
   async assertNotFoundLinkIsCorrectAndLive() {
