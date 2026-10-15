@@ -8,6 +8,10 @@ const {
 } = require("../../../lib/config");
 
 const {
+  checkPassportResponseSchema
+} = require("../schemas/check-passport.schema");
+
+const {
   createPersonalDataHeaders
 } = require("@govuk-one-login/frontend-passthrough-headers");
 const LOGGER = require("../../../utils/logger");
@@ -42,9 +46,18 @@ class ValidateController extends BaseController {
         headers,
         timeoutMs: 30_000
       });
-      const body = await checkPassportResponse.json();
 
-      if (body?.result === "retry") {
+      const parsedResponse = checkPassportResponseSchema.safeParse(
+        await checkPassportResponse.json()
+      );
+
+      if (!parsedResponse.success) {
+        throw new Error("Invalid response from check-passport");
+      }
+
+      const body = parsedResponse.data;
+
+      if (body.result === "retry") {
         req.sessionModel.set("showRetryMessage", true);
         LOGGER.info("validate: passport retry");
       } else {
