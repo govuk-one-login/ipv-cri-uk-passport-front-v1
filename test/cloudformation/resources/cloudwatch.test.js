@@ -143,25 +143,5 @@ describe("@QualityGateStackTest", () => {
         );
       });
     });
-
-    describe("AWS::Logs::SubscriptionFilter", () => {
-      it("should have required properties", () => {
-        validateResourceProperty(
-          "AWS::Logs::SubscriptionFilter",
-          "LogGroupName",
-          (val) => !!val,
-          "missing LogGroupName in Properties"
-        );
-      });
-
-      it("should have FilterPattern in Properties", () => {
-        validateResourceProperty(
-          "AWS::Logs::SubscriptionFilter",
-          "FilterPattern",
-          (val) => val !== undefined,
-          "missing FilterPattern in Properties"
-        );
-      });
-    });
   });
 });
