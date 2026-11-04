@@ -25,8 +25,7 @@ test/cloudformation/
 │   ├── sns.test.js
 │   └── waf.test.js
 ├── coverage.test.js           # Test coverage validation
-├── general.test.js            # Cross-cutting validations
-└── test.config.js             # Test configuration
+└── general.test.js            # Cross-cutting validations
 ```
 
 ## Running Tests

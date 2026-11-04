@@ -142,6 +142,22 @@ describe("@QualityGateStackTest", () => {
           "missing LogGroupName in Properties"
         );
       });
+
+      it("should set RetentionInDays from the LogGroupRetentionInDays parameter", () => {
+        validateResourceProperty(
+          "AWS::Logs::LogGroup",
+          "RetentionInDays",
+          (val) => val?.Ref === "LogGroupRetentionInDays",
+          "RetentionInDays is not !Ref LogGroupRetentionInDays"
+        );
+      });
+
+      it("should default LogGroupRetentionInDays to 365 days", () => {
+        const { template } = loadTemplate();
+        expect(
+          Number(template.Parameters.LogGroupRetentionInDays.Default)
+        ).to.equal(365);
+      });
     });
   });
 });
