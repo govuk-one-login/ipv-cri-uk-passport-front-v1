@@ -43,7 +43,7 @@ Parameters:
   LogGroupRetentionInDays:
     Description: "Retention for all log groups"
     Type: Number
-    Default: "30"
+    Default: "365"
 
 Conditions:
   IsNotDevelopment: !Or
