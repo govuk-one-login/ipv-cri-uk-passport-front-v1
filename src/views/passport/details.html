@@ -15,10 +15,10 @@
 {% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
 {% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
 
-{% from "frontend-ui/build/components/text/macro.njk" import text as hmpoText %}
-{% from "frontend-ui/build/components/form/macro.njk" import form as hmpoForm %}
-{% from "frontend-ui/build/components/date/macro.njk" import date as hmpoDate %}
-{% from "frontend-ui/build/components/submit/macro.njk" import submit as hmpoSubmit %}
+{% from "frontend-ui/build/components/text/macro.njk" import text %}
+{% from "frontend-ui/build/components/form/macro.njk" import form %}
+{% from "frontend-ui/build/components/date/macro.njk" import date %}
+{% from "frontend-ui/build/components/submit/macro.njk" import submit %}
 
 {% block mainContent %}
 {% if values.showRetryMessage and not(ctx("errors") | length) %}
@@ -72,9 +72,9 @@ classes:'passport-message'
 html: translate("passport.passportTryAnotherWay")
 }) }}
 
-    {% call hmpoForm(ctx, {autocomplete:'on'}) %}
+    {% call form(ctx, {autocomplete:'on'}) %}
 
-    {{ hmpoText(ctx, {
+    {{ text(ctx, {
         id: "passportNumber",
         label: {
             classes: "govuk-label"
@@ -82,7 +82,7 @@ html: translate("passport.passportTryAnotherWay")
         autocomplete: "passportNumber"
     }) }}
 
-    {{ hmpoText(ctx, {
+    {{ text(ctx, {
         id: "surname",
         label: {
             classes: "govuk-label"
@@ -107,7 +107,7 @@ html: translate("passport.passportTryAnotherWay")
         }
         }) %}
             <div class="govuk-inset-text govuk-!-margin-top-2 govuk-!-padding-top-1">
-                {{ hmpoText(ctx, {
+                {{ text(ctx, {
             id: "firstName",
             label: {
             classes: "govuk-label"
@@ -116,7 +116,7 @@ html: translate("passport.passportTryAnotherWay")
             autocomplete: "given-name"
             }) }}
 
-                {{ hmpoText(ctx, {
+                {{ text(ctx, {
             id: "middleNames",
             label: {
             classes: "govuk-label"
@@ -128,14 +128,14 @@ html: translate("passport.passportTryAnotherWay")
             {% endcall %}
         </div>
 
-        {{ hmpoDate(ctx, {
+        {{ date(ctx, {
         id: "dateOfBirth",
         legend: {
             classes: "govuk-label"
         }
     }) }}
 
-        {{ hmpoDate(ctx, {
+        {{ date(ctx, {
         id: "expiryDate",
         legend: {
             classes: "govuk-label"
@@ -150,7 +150,7 @@ html: translate("passport.passportTryAnotherWay")
                 }) }}
         {% endif %}
 
-        {{ hmpoSubmit(ctx, {id: 'submitButton'}) }}
+        {{ submit(ctx, {id: 'submitButton'}) }}
 
         {% endcall %}
 

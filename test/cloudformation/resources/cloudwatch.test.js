@@ -143,20 +143,39 @@ describe("@QualityGateStackTest", () => {
         );
       });
 
-      it("should set RetentionInDays from the LogGroupRetentionInDays parameter", () => {
+      it("should set RetentionInDays from the EnvironmentConfiguration mapping", () => {
         validateResourceProperty(
           "AWS::Logs::LogGroup",
           "RetentionInDays",
-          (val) => val?.Ref === "LogGroupRetentionInDays",
-          "RetentionInDays is not !Ref LogGroupRetentionInDays"
+          (val) => {
+            const [mapName, topKey, secondKey] = val?.["Fn::FindInMap"] ?? [];
+            return (
+              mapName === "EnvironmentConfiguration" &&
+              topKey?.Ref === "Environment" &&
+              secondKey === "logGroupRetentionInDays"
+            );
+          },
+          "RetentionInDays is not !FindInMap [EnvironmentConfiguration, !Ref Environment, logGroupRetentionInDays]"
         );
       });
 
-      it("should default LogGroupRetentionInDays to 365 days", () => {
+      it("should set logGroupRetentionInDays to 365 in production and 30 in all other environments", () => {
         const { template } = loadTemplate();
-        expect(
-          Number(template.Parameters.LogGroupRetentionInDays.Default)
-        ).to.equal(365);
+        const retentionByEnvironment = Object.fromEntries(
+          Object.entries(template.Mappings.EnvironmentConfiguration).map(
+            ([environment, config]) => [
+              environment,
+              config.logGroupRetentionInDays
+            ]
+          )
+        );
+        expect(retentionByEnvironment).to.deep.equal({
+          dev: 30,
+          build: 30,
+          staging: 30,
+          integration: 30,
+          production: 365
+        });
       });
     });
   });
