@@ -40,10 +40,6 @@ Parameters:
     Description: "Predefined deployment configuration for ECS application"
     Type: String
     Default: "None"
-  LogGroupRetentionInDays:
-    Description: "Retention for all log groups"
-    Type: Number
-    Default: "365"
 
 Conditions:
   IsNotDevelopment: !Or
@@ -69,6 +65,7 @@ Mappings:
       minECSCount: 1
       maxECSCount: 4
       nodeEnv: "development"
+      logGroupRetentionInDays: 30
     build:
       logLevel: "info"
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
@@ -77,6 +74,7 @@ Mappings:
       minECSCount: 4
       maxECSCount: 60
       nodeEnv: "production"
+      logGroupRetentionInDays: 30
     staging:
       logLevel: "warn"
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
@@ -85,6 +83,7 @@ Mappings:
       minECSCount: 2
       maxECSCount: 4
       nodeEnv: "development"
+      logGroupRetentionInDays: 30
     integration:
       logLevel: "warn"
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
@@ -93,6 +92,7 @@ Mappings:
       minECSCount: 2
       maxECSCount: 4
       nodeEnv: "development"
+      logGroupRetentionInDays: 30
     production:
       logLevel: "warn"
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceProductionVariables
@@ -101,6 +101,7 @@ Mappings:
       minECSCount: 4
       maxECSCount: 60
       nodeEnv: "production"
+      logGroupRetentionInDays: 365
 
   FeatureFlagMapping:
     dev:
@@ -460,7 +461,7 @@ Resources:
     Type: AWS::Logs::LogGroup
     Properties:
       LogGroupName: !Sub /aws/ecs/${AWS::StackName}-PassportFront-ECS
-      RetentionInDays: !Ref LogGroupRetentionInDays
+      RetentionInDays: !FindInMap [ EnvironmentConfiguration, !Ref "Environment", logGroupRetentionInDays ]
       KmsKeyId: !GetAtt LoggingKmsKey.Arn
 
   ECSServiceTaskDefinition:
@@ -791,7 +792,7 @@ Resources:
     Properties:
       LogGroupName: !Sub /aws/apigateway/${AWS::StackName}-PassportFront-API-GW-AccessLogs
       KmsKeyId: !GetAtt LoggingKmsKey.Arn
-      RetentionInDays: !Ref LogGroupRetentionInDays
+      RetentionInDays: !FindInMap [ EnvironmentConfiguration, !Ref "Environment", logGroupRetentionInDays ]
 
   LoggingKmsKey:
     Type: AWS::KMS::Key
