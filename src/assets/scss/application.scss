@@ -1,10 +1,45 @@
 $govuk-assets-path: "/public/";
 
 @import "../../../node_modules/govuk-frontend/dist/govuk/all";
-@import "../../../node_modules/hmpo-components/all";
 @import "../../../node_modules/@govuk-one-login/frontend-language-toggle/stylesheet/styles";
 
 @import "../components/button-spinner";
+
+// Typography rules previously provided by hmpo-components.
+// Applies GOV.UK font styling to bare HTML elements rendered by content macros.
+h1 {
+  @extend .govuk-heading-l;
+}
+h2 {
+  @extend .govuk-heading-m;
+}
+h3 {
+  @extend .govuk-heading-s;
+}
+h4 {
+  @extend .govuk-heading-s;
+}
+
+main p {
+  @extend .govuk-body;
+}
+
+main a {
+  @extend .govuk-link;
+}
+
+main ol,
+main ul {
+  @extend .govuk-list;
+}
+
+main p,
+.word-wrap {
+  white-space: normal;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
+}
 
 .govuk-form-group--error-visual {
   border-left: $govuk-border-width-form-group-error solid $govuk-error-colour;

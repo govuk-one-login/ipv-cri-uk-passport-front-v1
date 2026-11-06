@@ -14,7 +14,7 @@
         {{ translate(hmpoPageKey+'.title', { default: [] }) | safe }}
     </h1>
 
-    {% from "hmpo-html/macro.njk" import hmpoHtml %}
+    {% from "frontend-ui/build/components/html/macro.njk" import html as hmpoHtml %}
     {{ hmpoHtml(translate(hmpoPageKey + ".content", { default: [] })) }}
 {% endblock %}
 
