@@ -1,67 +1,117 @@
 {
-  "$schema": "https://raw.githubusercontent.com/govuk-one-login/quality-gates/refs/tags/v0.1.0/schemas/schema.json",
+  "$schema": "https://raw.githubusercontent.com/govuk-one-login/quality-gates/refs/tags/v0.19.0/schemas/schema.json",
   "services": [
     {
-      "quality-gates": [
+      "product": "Passport-CRI",
+      "component": "ipv-cri-uk-passport-front-v1",
+      "promotionType": "securePipelines",
+      "automated": [
         {
-          "check-types": [
-            "code style and linting",
-            "secret scanning"
-          ],
-          "config": {
-            "file": ".github/workflows/pre-merge-checks.yml",
-            "name": "pre-commit",
-            "path": "jobs.pre-commit"
-          },
           "phase": "pre-merge",
-          "provider": "GitHub"
+          "provider": "GitHub",
+          "checks": [
+            {
+              "name": "code style and linting"
+            },
+            {
+              "name": "secret scanning"
+            }
+          ],
+          "file": ".github/workflows/checks.yml",
+          "path": "$.jobs.pre-commit"
         },
         {
-          "check-types": [
-            "accessibility",
-            "code quality",
-            "code style and linting",
-            "integration",
-            "regression",
-            "unit",
-            "unit test coverage",
-            "vulnerability detection"
-          ],
-          "config": {
-            "file": ".github/workflows/pre-merge-checks.yml",
-            "name": "run-premerge-checks",
-            "path": "jobs.run-premerge-checks"
-          },
           "phase": "pre-merge",
-          "provider": "GitHub"
+          "provider": "GitHub",
+          "checks": [
+            {
+              "name": "code style and linting"
+            }
+          ],
+          "file": ".github/workflows/checks.yml",
+          "path": "$.jobs.run-premerge-checks.steps[?@.name=='Run lint']"
         },
         {
-          "check-types": [
-            "code quality",
-            "vulnerability detection"
-          ],
-          "config": {
-            "file": ".github/workflows/codeql.yml",
-            "name": "Analyze",
-            "path": "jobs.analyze"
-          },
           "phase": "pre-merge",
-          "provider": "GitHub"
+          "provider": "GitHub",
+          "checks": [
+            {
+              "name": "unit",
+              "purpose": ["regression"]
+            },
+            {
+              "name": "unit test coverage"
+            }
+          ],
+          "file": ".github/workflows/checks.yml",
+          "path": "$.jobs.run-premerge-checks.steps[?@.name=='Run test and write coverage']"
         },
         {
-          "check-types": [
-            "code style and linting"
-          ],
-          "config": {
-            "file": ".github/workflows/i18n.yml",
-            "name": "check-i18n",
-            "path": "jobs.check-i18n"
-          },
           "phase": "pre-merge",
-          "provider": "GitHub"
+          "provider": "GitHub",
+          "checks": [
+            {
+              "name": "code style and linting"
+            }
+          ],
+          "file": ".github/workflows/checks.yml",
+          "path": "$.jobs.run-premerge-checks.steps[?@.name=='Run CloudFormation tests']"
+        },
+        {
+          "phase": "pre-merge",
+          "provider": "GitHub",
+          "checks": [
+            {
+              "name": "accessibility"
+            },
+            {
+              "name": "integration",
+              "purpose": ["regression"]
+            }
+          ],
+          "file": ".github/workflows/checks.yml",
+          "path": "$.jobs.run-premerge-checks.steps[?@.name=='Run browser tests']"
+        },
+        {
+          "phase": "pre-merge",
+          "provider": "GitHub",
+          "checks": [
+            {
+              "name": "code quality"
+            },
+            {
+              "name": "vulnerability detection"
+            }
+          ],
+          "file": ".github/workflows/checks.yml",
+          "path": "$.jobs.run-premerge-checks.steps[?@.name=='Run sonarcloud scan']"
+        },
+        {
+          "phase": "pre-merge",
+          "provider": "GitHub",
+          "checks": [
+            {
+              "name": "code quality"
+            },
+            {
+              "name": "vulnerability detection"
+            }
+          ],
+          "file": ".github/workflows/codeql.yml",
+          "path": "$.jobs.analyze"
+        },
+        {
+          "phase": "pre-merge",
+          "provider": "GitHub",
+          "checks": [
+            {
+              "name": "code style and linting"
+            }
+          ],
+          "file": ".github/workflows/i18n.yml",
+          "path": "$.jobs.check-i18n"
         }
-      ],
-      "service-tag": "ipv-cri-passport"
+      ]
     }
   ]
 }
