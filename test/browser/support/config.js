@@ -1,9 +1,8 @@
 /**
  * Configuration file for test environment variables
- * Loads defaults from .env file
+ * .env is loaded by test/browser/cucumber.js via process.loadEnvFile()
  * Environment variables (process.env) take precedence over .env values
  */
-require("dotenv/config");
 
 module.exports = {
   ENVIRONMENT: process.env.ENVIRONMENT,
