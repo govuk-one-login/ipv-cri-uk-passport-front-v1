@@ -32,9 +32,9 @@ npm install && npm run build && npm run dev
 
 ## Linting
 
-Check with `npm run lint`
+Check with `npm run lint` and `npm run format`
 
-Apply with `npm run lint-apply`
+Apply with `npm run lint:fix` and `npm run format:fix`
 
 ## Unit Tests
 
@@ -42,7 +42,7 @@ Run with `npm run test`
 
 ## Automation Tests
 
-Run with `npm run test:browser:ci`
+Run with `npm run test:browser:wiremock`
 
 ## Core Stub Tests
 
@@ -50,7 +50,7 @@ There are E2E tests which run against the core stub, in the Dev, Build and Stagi
 
 To execute these tests run:
 
-`npm run test:browser:stub:ci`
+`npm run test:browser:corestub`
 
 To build the Docker image run:
 

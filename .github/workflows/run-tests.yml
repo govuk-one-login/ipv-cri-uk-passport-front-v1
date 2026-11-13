@@ -1,0 +1,46 @@
+name: Tests
+
+on:
+  workflow_call:
+    inputs:
+      suites:
+        description: 'Test suites to run, e.g. ["unit", "infra"] (each runs `npm run test:<suite>`)'
+        type: string
+        required: true
+      coverage-suite:
+        description: 'Suite whose coverage/ directory is uploaded as the "coverage" artifact (omit to skip)'
+        type: string
+        default: ""
+
+concurrency:
+  group: tests-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions: {}
+
+jobs:
+  run-tests:
+    name: Run ${{ matrix.suite }} tests
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    strategy:
+      fail-fast: false
+      matrix:
+        suite: ${{ fromJSON(inputs.suites) }}
+    steps:
+      - name: Setup Node
+        uses: govuk-one-login/github-actions/node/install-dependencies@3a8d0b3fdd010f27ed9cbb2b6c426cd56a23b3e4
+        with:
+          node-version-file: ".nvmrc"
+
+      - name: Run ${{ matrix.suite }} tests
+        run: npm run test:${{ matrix.suite }}
+
+      - name: Upload coverage report
+        if: ${{ matrix.suite == inputs.coverage-suite }}
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: coverage
+          path: coverage/
+          retention-days: 1

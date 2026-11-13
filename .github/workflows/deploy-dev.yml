@@ -1,0 +1,22 @@
+name: Deploy branch to dev
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy-dev:
+    name: Deploy to dev
+    permissions:
+      id-token: write
+      contents: read
+    concurrency:
+      group: deploy-to-dev
+    uses: ./.github/workflows/_secure-pipeline-deploy.yml
+    secrets:
+      role_arn: ${{ secrets.AWS_DEV_DEPLOY_PASSPORTA_FRONT_GITHUB_ACTIONS_ROLE_ARN }}
+      artifact_bucket: ${{ secrets.AWS_DEV_DEPLOY_PASSPORTA_FRONT_DEV_ARTIFACT_BUCKET_NAME }}
+      container_sign_kms_key: ${{ secrets.DEV_CONTAINER_SIGN_KMS_KEY }}
+      ecr_repository: ${{ secrets.AWS_DEV_DEPLOY_PASSPORTA_FRONT_DEV_ECR_REPOSITORY }}
+      ecr_repository_tests: ${{ secrets.ECR_REPOSITORY_DEV_TEST }}
+      dynatrace_paas_token: ${{ secrets.DYNATRACE_PAAS_TOKEN }}
+    with:
+      environment: development

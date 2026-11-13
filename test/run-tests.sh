@@ -59,6 +59,6 @@ echo "TEST_TAG: ${JOURNEY_TAG}"
 # Run tests
 cd /home/node
 echo "Running Cucumber tests with tag: ${JOURNEY_TAG}"
-npx cucumber-js --config test/browser/cucumber.js --profile stub_tests --tags "${JOURNEY_TAG}"
+npx cucumber-js --config test/browser/cucumber.js --profile core_stub --tags "${JOURNEY_TAG}"
 
 echo "Tests completed successfully!"

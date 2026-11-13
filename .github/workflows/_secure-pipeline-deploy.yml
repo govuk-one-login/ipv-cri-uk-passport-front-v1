@@ -1,0 +1,80 @@
+name: Build and deploy
+
+on:
+  workflow_call:
+    secrets:
+      role_arn:
+        required: true
+      artifact_bucket:
+        required: true
+      container_sign_kms_key:
+        required: true
+      ecr_repository:
+        required: true
+      ecr_repository_tests:
+        required: true
+      ecr_repository_tests_staging:
+        description: "Test image repo used by the staging pipeline, only pushed to when set"
+        required: false
+      dynatrace_paas_token:
+        required: true
+    inputs:
+      environment:
+        type: string
+        required: true
+
+permissions:
+  id-token: write
+  contents: read
+
+concurrency:
+  group: secure-deploy-${{ inputs.environment }}
+
+jobs:
+  test-images-build-and-push:
+    name: Test images build and push
+    runs-on: ubuntu-latest
+    env:
+      PUSH_STAGING_TEST_IMAGE: ${{ secrets.ecr_repository_tests_staging != '' }}
+    steps:
+      - name: Test image build and push
+        uses: govuk-one-login/devplatform-upload-action-ecr@256c057b61bb6795fccf00a439a895c678525863 # v1.7.1
+        with:
+          artifact-bucket-name: ""
+          role-to-assume-arn: ${{ secrets.role_arn }}
+          build-and-push-image-only: true
+          ecr-repo-name: ${{ secrets.ecr_repository_tests }}
+          dockerfile: test/Dockerfile
+          push-latest-tag: true
+          container-sign-kms-key-arn: ${{ secrets.container_sign_kms_key }}
+
+      - name: Staging test image build and push
+        if: ${{ env.PUSH_STAGING_TEST_IMAGE == 'true' }}
+        uses: govuk-one-login/devplatform-upload-action-ecr@256c057b61bb6795fccf00a439a895c678525863 # v1.7.1
+        with:
+          artifact-bucket-name: ""
+          role-to-assume-arn: ${{ secrets.role_arn }}
+          build-and-push-image-only: true
+          ecr-repo-name: ${{ secrets.ecr_repository_tests_staging }}
+          dockerfile: test/Dockerfile
+          push-latest-tag: true
+          container-sign-kms-key-arn: ${{ secrets.container_sign_kms_key }}
+
+  deploy:
+    name: Deploy stack
+    runs-on: ubuntu-latest
+    needs: test-images-build-and-push
+    environment: ${{ inputs.environment }}
+    steps:
+      - name: App image build and push, upload SAM template to S3
+        uses: govuk-one-login/devplatform-upload-action-ecr@256c057b61bb6795fccf00a439a895c678525863 # v1.7.1
+        with:
+          private-docker-registry: khw46367.live.dynatrace.com
+          private-docker-login-username: khw46367
+          private-docker-login-password: ${{ secrets.dynatrace_paas_token }}
+          artifact-bucket-name: ${{ secrets.artifact_bucket }}
+          container-sign-kms-key-arn: ${{ secrets.container_sign_kms_key }}
+          template-file: deploy/template.yaml
+          role-to-assume-arn: ${{ secrets.role_arn }}
+          ecr-repo-name: ${{ secrets.ecr_repository }}
+          docker-platform: linux/amd64
