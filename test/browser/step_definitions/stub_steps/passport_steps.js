@@ -9,8 +9,6 @@ const {
 } = require("../../pages/stub_pages");
 const ConfigurationReader = require("../../support/configuration-reader");
 
-require("dotenv").config();
-
 Given("I navigate to the IPV Core Stub", async function () {
   await this.context.clearCookies();
 

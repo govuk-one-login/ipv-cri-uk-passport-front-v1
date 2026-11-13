@@ -136,9 +136,7 @@ describe("app-setup", () => {
           ),
           path.resolve("node_modules/@govuk-one-login/"),
           "views"
-        ],
-        //Ignoring middleware setup as arrow function cannot be asserted
-        dev: true
+        ]
       };
       sinon.assert.calledOnce(setup);
       sinon.assert.calledWithMatch(setup, options);

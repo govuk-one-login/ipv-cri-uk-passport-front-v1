@@ -40,7 +40,6 @@ updates:
           - "sass"
           - "uglify-js"
           - "nodemon"
-          - "dotenv"
       express:
         patterns:
           - "express"
