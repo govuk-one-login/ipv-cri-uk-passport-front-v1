@@ -21,12 +21,14 @@
     "test:unit": "nyc --reporter=lcov --reporter=text-summary mocha",
     "test:infra": "mocha --config test/infra/.mocharc.yml",
     "test:watch": "mocha --watch",
-    "lint": "prettier --check --no-editorconfig src test && eslint .",
-    "lint-apply": "prettier --write src test && eslint .",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix",
+    "format": "prettier --check --no-editorconfig src test",
+    "format:fix": "prettier --write --no-editorconfig src test",
     "mocks": "wiremock --port 8050 --root-dir test/mocks",
     "test:browser:wiremock": "cucumber-js --config test/browser/cucumber.js --profile wiremock_tests",
     "test:browser:corestub": "cucumber-js --config test/browser/cucumber.js --profile core_stub",
-    "check-translation": "node node_modules/@govuk-one-login/di-ipv-cri-common-express/scripts/checkTranslations.js '../../../../src/locales'"
+    "translation-check": "node node_modules/@govuk-one-login/di-ipv-cri-common-express/scripts/checkTranslations.js '../../../../src/locales'"
   },
   "repository": {
     "type": "git",

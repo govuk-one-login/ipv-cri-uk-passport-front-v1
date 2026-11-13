@@ -32,9 +32,9 @@ npm install && npm run build && npm run dev
 
 ## Linting
 
-Check with `npm run lint`
+Check with `npm run lint` and `npm run format`
 
-Apply with `npm run lint-apply`
+Apply with `npm run lint:fix` and `npm run format:fix`
 
 ## Unit Tests
 

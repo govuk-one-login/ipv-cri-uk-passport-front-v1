@@ -52,16 +52,6 @@
           },
           "phase": "pre-merge",
           "provider": "GitHub"
-        },
-        {
-          "check-types": ["code style and linting"],
-          "config": {
-            "file": ".github/workflows/i18n.yml",
-            "name": "check-i18n",
-            "path": "jobs.check-i18n"
-          },
-          "phase": "pre-merge",
-          "provider": "GitHub"
         }
       ],
       "service-tag": "ipv-cri-passport"
