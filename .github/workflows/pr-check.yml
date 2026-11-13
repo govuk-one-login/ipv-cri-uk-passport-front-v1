@@ -1,0 +1,119 @@
+name: PR check
+
+on: pull_request
+permissions: {}
+
+jobs:
+  pre-commit:
+    name: Run pre-commit
+    runs-on: ubuntu-latest
+    concurrency:
+      group: pre-commit-${{ github.event.pull_request.number }}
+      cancel-in-progress: true
+    steps:
+      - name: Run pre-commit
+        uses: govuk-one-login/github-actions/code-quality/run-pre-commit@3a8d0b3fdd010f27ed9cbb2b6c426cd56a23b3e4
+        with:
+          all-files: true
+          install-dependencies: "true"
+          node-version-file: ".nvmrc"
+
+  tests:
+    name: Run tests
+    permissions:
+      contents: read
+    uses: ./.github/workflows/run-tests.yml
+    with:
+      suites: '["unit", "infra"]'
+      coverage-suite: unit
+
+  scan-repo:
+    name: CodeQL and Sonar scans
+    permissions:
+      contents: read
+      security-events: write
+    if: ${{ github.actor != 'dependabot[bot]' }}
+    needs: tests
+    uses: ./.github/workflows/scan-repo.yml
+    secrets:
+      sonar_token: ${{ secrets.SONAR_TOKEN }}
+
+  resolve-test-versions:
+    name: Resolve test versions
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    outputs:
+      playwright-version: ${{ steps.resolve-playwright-version.outputs.version }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Resolve Playwright version
+        id: resolve-playwright-version
+        run: |
+          version="$(yq -r '.devDependencies["@playwright/test"] // .dependencies["@playwright/test"] // ""' package.json)"
+          test -n "$version" || { echo "No @playwright/test version found in package.json"; exit 1; }
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+
+  browser-tests:
+    name: Run browser tests
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    needs: resolve-test-versions
+    concurrency:
+      group: browser-tests-${{ github.event.pull_request.number }}
+      cancel-in-progress: true
+    steps:
+      - name: Setup Node
+        uses: govuk-one-login/github-actions/node/install-dependencies@3a8d0b3fdd010f27ed9cbb2b6c426cd56a23b3e4
+        with:
+          node-version-file: ".nvmrc"
+
+      - name: Cache Playwright
+        id: playwright-cache
+        uses: actions/cache@caa296126883cff596d87d8935842f9db880ef25 # v5.1.0
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-browsers-${{ needs.resolve-test-versions.outputs.playwright-version }}
+
+      - name: Setup Playwright
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: npx playwright install chromium --with-deps
+
+      - name: Build
+        run: npm run build
+
+      - name: Browser tests
+        run: npm run test:browser:wiremock
+
+      - name: Upload Cucumber report
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: cucumber-report
+          path: reports/
+          retention-days: 3
+
+  merge-status:
+    name: Merge status
+    runs-on: ubuntu-latest
+    concurrency:
+      group: merge-status-${{ github.event.pull_request.number }}
+      cancel-in-progress: true
+    needs:
+      - pre-commit
+      - tests
+      - browser-tests
+    if: always()
+    steps:
+      - run: |
+          failed=()
+          [[ "${{ needs.pre-commit.result }}" != "success" ]] && failed+=("pre-commit")
+          [[ "${{ needs.tests.result }}" != "success" ]] && failed+=("tests")
+          [[ "${{ needs.browser-tests.result }}" != "success" ]] && failed+=("browser-tests")
+          if [[ ${#failed[@]} -gt 0 ]]; then
+            echo "The following jobs failed: ${failed[*]}"
+            exit 1
+          fi

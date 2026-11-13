@@ -5,7 +5,7 @@ Modular test suite for validating CloudFormation template resources and configur
 ## Structure
 
 ```
-test/cloudformation/
+test/infra/
 ├── helpers/
 │   ├── helpers.js             # Core validation functions
 │   └── constants.js           # Reusable test constants
@@ -31,7 +31,7 @@ test/cloudformation/
 ## Running Tests
 
 ```bash
-npm run test:cloudformation
+npm run test:infra
 ```
 
 ## Helper Functions

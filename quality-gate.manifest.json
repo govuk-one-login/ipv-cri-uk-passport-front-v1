@@ -4,54 +4,57 @@
     {
       "quality-gates": [
         {
-          "check-types": [
-            "code style and linting",
-            "secret scanning"
-          ],
+          "check-types": ["code style and linting", "secret scanning"],
           "config": {
-            "file": ".github/workflows/pre-merge-checks.yml",
-            "name": "pre-commit",
+            "file": ".github/workflows/pr-check.yml",
+            "name": "Run pre-commit",
             "path": "jobs.pre-commit"
           },
           "phase": "pre-merge",
           "provider": "GitHub"
         },
         {
-          "check-types": [
-            "accessibility",
-            "code quality",
-            "code style and linting",
-            "integration",
-            "regression",
-            "unit",
-            "unit test coverage",
-            "vulnerability detection"
-          ],
+          "check-types": ["unit", "unit test coverage"],
           "config": {
-            "file": ".github/workflows/pre-merge-checks.yml",
-            "name": "run-premerge-checks",
-            "path": "jobs.run-premerge-checks"
+            "file": ".github/workflows/pr-check.yml",
+            "name": "Run tests",
+            "path": "jobs.tests"
           },
           "phase": "pre-merge",
           "provider": "GitHub"
         },
         {
-          "check-types": [
-            "code quality",
-            "vulnerability detection"
-          ],
+          "check-types": ["accessibility", "integration", "regression"],
           "config": {
-            "file": ".github/workflows/codeql.yml",
-            "name": "Analyze",
-            "path": "jobs.analyze"
+            "file": ".github/workflows/pr-check.yml",
+            "name": "Run browser tests",
+            "path": "jobs.browser-tests"
           },
           "phase": "pre-merge",
           "provider": "GitHub"
         },
         {
-          "check-types": [
-            "code style and linting"
-          ],
+          "check-types": ["code quality", "vulnerability detection"],
+          "config": {
+            "file": ".github/workflows/scan-repo.yml",
+            "name": "Sonar scan",
+            "path": "jobs.sonar"
+          },
+          "phase": "pre-merge",
+          "provider": "GitHub"
+        },
+        {
+          "check-types": ["code quality", "vulnerability detection"],
+          "config": {
+            "file": ".github/workflows/scan-repo.yml",
+            "name": "CodeQL scan",
+            "path": "jobs.codeql"
+          },
+          "phase": "pre-merge",
+          "provider": "GitHub"
+        },
+        {
+          "check-types": ["code style and linting"],
           "config": {
             "file": ".github/workflows/i18n.yml",
             "name": "check-i18n",

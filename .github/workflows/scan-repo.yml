@@ -1,0 +1,52 @@
+name: Scan repository
+
+on:
+  workflow_dispatch:
+  workflow_call:
+    secrets:
+      sonar_token:
+        required: true
+  schedule:
+    - cron: "0 4 * * 1" # Every Monday at 4am
+
+permissions: {}
+
+concurrency:
+  group: scan-repo-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  coverage:
+    name: Collect test coverage
+    if: ${{ github.event_name != 'pull_request' }}
+    permissions:
+      contents: read
+    uses: ./.github/workflows/run-tests.yml
+    with:
+      suites: '["unit"]'
+      coverage-suite: unit
+
+  sonar:
+    name: Sonar scan
+    runs-on: ubuntu-latest
+    needs: coverage
+    if: ${{ success() || needs.coverage.result == 'skipped' }}
+    steps:
+      - name: Run Sonar scan
+        uses: govuk-one-login/github-actions/code-quality/sonarcloud@3a8d0b3fdd010f27ed9cbb2b6c426cd56a23b3e4
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          sonar-token: ${{ secrets.sonar_token || secrets.SONAR_TOKEN }}
+          coverage-artifact: coverage
+          coverage-run-id: ${{ github.run_id }}
+
+  codeql:
+    name: CodeQL scan
+    runs-on: ubuntu-latest
+    permissions:
+      security-events: write
+    steps:
+      - name: Run CodeQL scan
+        uses: govuk-one-login/github-actions/code-quality/codeql@3a8d0b3fdd010f27ed9cbb2b6c426cd56a23b3e4
+        with:
+          category: codeql

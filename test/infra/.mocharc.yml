@@ -1,0 +1,3 @@
+fail-zero: false
+spec:
+  - "test/infra/**/*.test.js"
