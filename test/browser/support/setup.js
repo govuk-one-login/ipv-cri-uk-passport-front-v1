@@ -13,10 +13,8 @@ BeforeAll(async function () {
   ) {
     try {
       const testEnvironment = ConfigurationReader.get("ENVIRONMENT");
-      // eslint-disable-next-line no-console
       console.log(`Running tests for environment: ${testEnvironment}`);
     } catch {
-      // eslint-disable-next-line no-console
       console.log("ENVIRONMENT not configured");
     }
   }
@@ -46,7 +44,6 @@ AfterAll(async function () {
 Before(async function ({ pickle } = {}) {
   const tags = pickle.tags || [];
 
-  // eslint-disable-next-line no-console
   console.log(`\nRunning: ${pickle.name}`);
 
   // Existing logic for WireMock scenario header and reset
@@ -63,7 +60,6 @@ Before(async function ({ pickle } = {}) {
         if (!response.ok)
           throw new Error(`Fetch failed with status ${response.status}`);
       } catch (error) {
-        // eslint-disable-next-line no-console
         console.log(`Warning: Failed to reset mock API: ${error.message}`);
       }
     }

@@ -88,8 +88,7 @@ describe("app", () => {
         ],
         middlewareSetupFn: (app) => {
           app.use(setHeaders);
-        },
-        dev: true
+        }
       };
 
       setup(options);
