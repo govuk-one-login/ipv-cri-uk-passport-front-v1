@@ -4,6 +4,7 @@ buttons:
   cancel: Cancel
 govuk:
   serviceName: " "
+  backLink: Back
   errorSummaryTitle: There’s a problem
   error: Error
   warning: Warning

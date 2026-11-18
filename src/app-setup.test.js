@@ -1,6 +1,7 @@
 const AppSetup = require("./app-setup");
 const path = require("path");
 const sessionConfig = require("./session-config");
+const commonExpress = require("@govuk-one-login/di-ipv-cri-common-express");
 const helmetConfig = require("@govuk-one-login/di-ipv-cri-common-express/src/lib/helmet");
 
 describe("app-setup", () => {
@@ -34,7 +35,7 @@ describe("app-setup", () => {
 
   describe("setup app", () => {
     it("should set GTM variables", () => {
-      AppSetup.init(app, router);
+      AppSetup.init(app);
 
       sinon.assert.calledWith(
         app.set,
@@ -52,7 +53,7 @@ describe("app-setup", () => {
     });
 
     it("should set Device Intelligence  variables", () => {
-      AppSetup.init(app, router);
+      AppSetup.init(app);
 
       sinon.assert.calledWith(
         app.set,
@@ -77,7 +78,7 @@ describe("app-setup", () => {
     });
 
     it("should set API config variables", () => {
-      AppSetup.init(app, router);
+      AppSetup.init(app);
 
       sinon.assert.calledWith(app.set, "API.BASE_URL", "http://localhost:5007");
       sinon.assert.calledWith(app.set, "API.PATHS.SESSION", "/session");
@@ -89,7 +90,7 @@ describe("app-setup", () => {
     });
 
     it("should set Oauth paths", () => {
-      AppSetup.init(app, router);
+      AppSetup.init(app);
 
       sinon.assert.calledWith(app.set, "APP.PATHS.ENTRYPOINT", "/");
     });
@@ -122,11 +123,6 @@ describe("app-setup", () => {
         },
         publicDirs: ["../dist/public"],
         publicImagesDirs: ["../dist/public/images"],
-        translation: {
-          allowedLangs: ["en", "cy"],
-          fallbackLang: ["en"],
-          cookie: { name: "lng" }
-        },
         views: [
           path.resolve(
             path.dirname(
@@ -140,6 +136,36 @@ describe("app-setup", () => {
       };
       sinon.assert.calledOnce(setup);
       sinon.assert.calledWithMatch(setup, options);
+    });
+
+    it("should set up i18next at app level in middlewareSetupFn", () => {
+      const setI18n = sandbox.stub(commonExpress.lib.i18n, "setI18n");
+
+      AppSetup.create(setup);
+      const { middlewareSetupFn } = setup.firstCall.args[0];
+      middlewareSetupFn(app);
+
+      sinon.assert.calledOnceWithMatch(setI18n, {
+        router: app,
+        config: { secure: true, cookieDomain: "localhost" }
+      });
+    });
+
+    it("should set language toggle locals after i18next in middlewareSetupFn", () => {
+      const setI18n = sandbox.stub(commonExpress.lib.i18n, "setI18n");
+
+      AppSetup.create(setup);
+      const { middlewareSetupFn } = setup.firstCall.args[0];
+      middlewareSetupFn(app);
+
+      sinon.assert.calledWith(
+        app.use,
+        commonExpress.lib.locals.getLanguageToggle
+      );
+      sinon.assert.callOrder(
+        setI18n,
+        app.use.withArgs(commonExpress.lib.locals.getLanguageToggle)
+      );
     });
   });
 });
