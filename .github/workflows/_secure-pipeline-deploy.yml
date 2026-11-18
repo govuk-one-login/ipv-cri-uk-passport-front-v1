@@ -38,7 +38,7 @@ jobs:
       PUSH_STAGING_TEST_IMAGE: ${{ secrets.ecr_repository_tests_staging != '' }}
     steps:
       - name: Test image build and push
-        uses: govuk-one-login/devplatform-upload-action-ecr@256c057b61bb6795fccf00a439a895c678525863 # v1.7.1
+        uses: govuk-one-login/devplatform-upload-action-ecr@ff8f2582dca8f03810142612ac7734c66c1b3345 # v1.7.2
         with:
           artifact-bucket-name: ""
           role-to-assume-arn: ${{ secrets.role_arn }}
@@ -50,7 +50,7 @@ jobs:
 
       - name: Staging test image build and push
         if: ${{ env.PUSH_STAGING_TEST_IMAGE == 'true' }}
-        uses: govuk-one-login/devplatform-upload-action-ecr@256c057b61bb6795fccf00a439a895c678525863 # v1.7.1
+        uses: govuk-one-login/devplatform-upload-action-ecr@ff8f2582dca8f03810142612ac7734c66c1b3345 # v1.7.2
         with:
           artifact-bucket-name: ""
           role-to-assume-arn: ${{ secrets.role_arn }}
@@ -67,7 +67,7 @@ jobs:
     environment: ${{ inputs.environment }}
     steps:
       - name: App image build and push, upload SAM template to S3
-        uses: govuk-one-login/devplatform-upload-action-ecr@256c057b61bb6795fccf00a439a895c678525863 # v1.7.1
+        uses: govuk-one-login/devplatform-upload-action-ecr@ff8f2582dca8f03810142612ac7734c66c1b3345 # v1.7.2
         with:
           private-docker-registry: khw46367.live.dynatrace.com
           private-docker-login-username: khw46367
