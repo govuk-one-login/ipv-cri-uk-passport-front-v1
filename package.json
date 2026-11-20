@@ -76,7 +76,7 @@
     "express-async-errors": "3.1.1",
     "express-session": "1.18.2",
     "govuk-frontend": "5.14.0",
-    "hmpo-components": "8.0.6",
+    "hmpo-components": "11.5.0",
     "hmpo-form-wizard": "12.0.6",
     "nunjucks": "3.2.4"
   },
