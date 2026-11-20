@@ -72,11 +72,6 @@ describe("app", () => {
         },
         publicDirs: ["../dist/public"],
         publicImagesDirs: ["../dist/public/images"],
-        translation: {
-          allowedLangs: ["en", "cy"],
-          fallbackLang: ["en"],
-          cookie: { name: "lng" }
-        },
         views: [
           path.resolve(
             path.dirname(

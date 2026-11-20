@@ -4,6 +4,7 @@ buttons:
   cancel: "Canslo"
 govuk:
   serviceName: " "
+  backLink: "Yn ôl"
   errorSummaryTitle: "Mae problem"
   error: "Gwall"
   warning: "Rhybudd"

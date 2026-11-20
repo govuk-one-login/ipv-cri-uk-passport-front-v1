@@ -11,16 +11,13 @@ const overloadProtectionConfigService = require("./overload-protection-config");
 const path = require("path");
 const helmetConfig = require("@govuk-one-login/di-ipv-cri-common-express/src/lib/helmet");
 const setHeaders = commonExpress.lib.headers;
-const {
-  setI18n
-} = require("@govuk-one-login/di-ipv-cri-common-express/src/lib/i18next");
 // Common express relies on 0/1 strings
 const showLanguageToggle = APP.LANGUAGE_TOGGLE_DISABLED === "true" ? "0" : "1";
 const {
   frontendVitalSignsInitFromApp
 } = require("@govuk-one-login/frontend-vital-signs");
 
-const init = (app, router) => {
+const init = (app) => {
   setAPIConfig({
     app,
     baseUrl: API.BASE_URL,
@@ -53,13 +50,6 @@ const init = (app, router) => {
   });
 
   setLanguageToggle({ app, showLanguageToggle: showLanguageToggle });
-  setI18n({
-    router,
-    config: {
-      secure: true,
-      cookieDomain: APP.GTM.ANALYTICS_COOKIE_DOMAIN
-    }
-  });
 };
 
 const create = (setup) => {
@@ -92,11 +82,6 @@ const create = (setup) => {
     },
     publicDirs: ["../dist/public"],
     publicImagesDirs: ["../dist/public/images"],
-    translation: {
-      allowedLangs: ["en", "cy"],
-      fallbackLang: ["en"],
-      cookie: { name: "lng" }
-    },
     views: [
       path.resolve(
         path.dirname(
@@ -128,6 +113,14 @@ const create = (setup) => {
         ]
       });
       app.use(setHeaders);
+      commonExpress.lib.i18n.setI18n({
+        router: app,
+        config: {
+          secure: true,
+          cookieDomain: APP.GTM.ANALYTICS_COOKIE_DOMAIN
+        }
+      });
+      app.use(commonExpress.lib.locals.getLanguageToggle);
     },
     overloadProtection: overloadProtectionConfig
   });
