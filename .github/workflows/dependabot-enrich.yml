@@ -1,0 +1,20 @@
+name: Dependabot EPSS/KEV enrichment
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+permissions: {}
+
+jobs:
+  enrich:
+#    if: github.actor == 'dependabot[bot]'
+    permissions:
+      pull-requests: write
+    uses: govuk-one-login/firebreak-64-vm-poc/.github/workflows/dependabot-enrich.yml@FIRE-64/dependabot-enrich-reusable-workflow
+    with:
+      pr-number: ${{ github.event.pull_request.number }}
+      pr-body: ${{ github.event.pull_request.body }}
+    secrets:
+      token: ${{ secrets.GITHUB_TOKEN }}
+
