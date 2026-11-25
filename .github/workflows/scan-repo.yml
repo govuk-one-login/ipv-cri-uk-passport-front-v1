@@ -33,10 +33,10 @@ jobs:
     if: ${{ success() || needs.coverage.result == 'skipped' }}
     steps:
       - name: Run Sonar scan
-        uses: govuk-one-login/github-actions/code-quality/sonarcloud@3a8d0b3fdd010f27ed9cbb2b6c426cd56a23b3e4
+        uses: govuk-one-login/github-actions/code-quality/sonarcloud@83369df94da3528916e74c5cf6992c8b41435d89
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          sonar-token: ${{ secrets.sonar_token || secrets.SONAR_TOKEN }}
+          sonar-token: ${{ secrets.SONAR_PROJECT_SCANNING_KEY }}
           coverage-artifact: coverage
           coverage-run-id: ${{ github.run_id }}
 
